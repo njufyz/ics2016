@@ -38,6 +38,20 @@ static int cmd_q(char *args) {
 
 static int cmd_help(char *args);
 
+static int cmd_si(char *args);
+
+static int cmd_info(char *args);
+
+static int cmd_p(char *args);
+
+static int cmd_x(char *args);
+
+static int cmd_w(char *args);
+
+static int cmd_d(char *args);
+
+static int cmd_bt(char *args);
+
 static struct {
 	char *name;
 	char *description;
@@ -46,13 +60,13 @@ static struct {
 	{ "help", "Display informations about all supported commands", cmd_help },
 	{ "c", "Continue the execution of the program", cmd_c },
 	{ "q", "Exit NEMU", cmd_q },
-    { "si [N]","Execute the program by N step",NULL},
-    { "info SUBCMD","Display the registers or watchpoints",NULL},
-    { "p EXPR","Display the value of EXPR",NULL},
-    { "x N EXPR","....",NULL},
-    { "w EXPR","When the value of EXPR change, the program will be suspended",NULL},
-    { "d N","Delete the No.N watchpoint",NULL},
-    { "bt","Display....",NULL}
+    { "si","Execute the program by N step",cmd_si},
+    { "info","Display the registers or watchpoints",cmd_info},
+    { "p","Display the value of EXPR",cmd_p},
+    { "x","....",cmd_x},
+    { "w","When the value of EXPR change, the program will be suspended",cmd_w},
+    { "d","Delete the No.N watchpoint",cmd_d},
+    { "bt","Display....",cmd_bt}
     /* TODO: Add more commands */
 
 };
@@ -80,6 +94,48 @@ static int cmd_help(char *args) {
 		printf("Unknown command '%s'\n", arg);
 	}
 	return 0;
+}
+
+static int cmd_si(char *args)
+{
+    char *arg = strtok(NULL," ");
+    int i;
+
+    if(arg == NULL){
+        puts("Invalid argument!");
+        return -1;}
+    else{
+        i = atoi(arg);
+        cpu_exec(i);
+        return 0;}
+}
+
+static int cmd_info(char *args){
+    return -1;
+}
+
+static int cmd_p(char *args){
+    return -1;
+}
+
+static int cmd_x(char *args)
+{
+    return -1;
+}
+
+static int cmd_w(char *args)
+{
+    return -1;
+}
+
+static int cmd_d(char *args)
+{
+    return -1;
+}
+
+static int cmd_bt(char *args)
+{
+    return -1;
 }
 
 void ui_mainloop() {
