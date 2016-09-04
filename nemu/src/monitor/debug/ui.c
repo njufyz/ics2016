@@ -46,7 +46,13 @@ static struct {
 	{ "help", "Display informations about all supported commands", cmd_help },
 	{ "c", "Continue the execution of the program", cmd_c },
 	{ "q", "Exit NEMU", cmd_q },
-    { "si [N]","Execute the program by N step",NULL}
+    { "si [N]","Execute the program by N step",NULL},
+    { "info SUBCMD","Display the registers or watchpoints",NULL},
+    { "p EXPR","Display the value of EXPR",NULL},
+    { "x N EXPR","....",NULL},
+    { "w EXPR","When the value of EXPR change, the program will be suspended",NULL},
+    { "d N","Delete the No.N watchpoint",NULL},
+    { "bt","Display....",NULL}
     /* TODO: Add more commands */
 
 };
