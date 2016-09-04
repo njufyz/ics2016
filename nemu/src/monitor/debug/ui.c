@@ -111,7 +111,20 @@ static int cmd_si(char *args)
 }
 
 static int cmd_info(char *args){
-    return -1;
+ /*   char *arg = strtok(NULL," ");
+    int i;
+
+    if(strcmp(arg,"r")==0){
+        for(i=0;i<8;i++)
+            printf("%s       %I32u\n ",regsl[i],cpu.gpr[i]._32);
+        for(i=0;i<8;i++)
+            printf("%s       %I16u\n ",regsw[i],cpu.gpr[i]._16);
+        for(i=0;i<4;i++)
+            printf("%s       %I8u\n ",regsb[i],cpu.gpr[i]._8[0]);
+        for(;i<8;i++)
+            printf("%s       %I8u\n ",regsb[i],cpu.gpr[i]._8[1]);
+    }*/
+    return 0;
 }
 
 static int cmd_p(char *args){
