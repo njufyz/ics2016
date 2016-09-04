@@ -111,7 +111,7 @@ static int cmd_si(char *args)
 }
 
 static int cmd_info(char *args){
- /*   char *arg = strtok(NULL," ");
+    char *arg = strtok(NULL," ");
     int i;
 
     if(strcmp(arg,"r")==0){
@@ -123,7 +123,7 @@ static int cmd_info(char *args){
             printf("%s       %I8u\n ",regsb[i],cpu.gpr[i]._8[0]);
         for(;i<8;i++)
             printf("%s       %I8u\n ",regsb[i],cpu.gpr[i]._8[1]);
-    }*/
+    }
     return 0;
 }
 
