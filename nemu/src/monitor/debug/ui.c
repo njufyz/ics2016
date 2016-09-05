@@ -138,6 +138,7 @@ static int cmd_x(char *args)
     char *arg2 = strtok(NULL," ");
     char *stop;
     unsigned* address =(unsigned *) strtol(arg2,&stop,16);
+    printf("%s\n %s\n %ld",arg1,arg2,strtol(arg2,&stop,16));
     int i = 0;
     if(1)
     {
