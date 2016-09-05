@@ -139,7 +139,7 @@ static int cmd_x(char *args)
     char *stop;
     int32_t* address =(int32_t *) strtol(arg2,&stop,16);
     int i = 0;
-    if(strcmp(stop,"/0")==0)
+    if(1)
     {
         for(;i!=step;i++)
             printf("%x ",*(address+4*i));
