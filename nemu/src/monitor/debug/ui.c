@@ -145,6 +145,7 @@ static int cmd_x(char *args)
             printf("%x ",*(address+i));
     }
     else{
+        puts("error");
         /*TODO*/
     }
     return 0;
