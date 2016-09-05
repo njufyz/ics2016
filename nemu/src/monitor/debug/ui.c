@@ -136,11 +136,10 @@ static int cmd_x(char *args)
     char *arg1 = strtok(NULL," ");
     int step = atoi(arg1);
     char *arg2 = strtok(NULL," ");
-    printf("%s",arg2);
     char *stop;
     int address = strtol(arg2,&stop,16);
-    printf("%x",address);
     int i = 0;
+    printf("%s",stop);
     if(stop==NULL)
     {
         for(;i!=step;i++)
