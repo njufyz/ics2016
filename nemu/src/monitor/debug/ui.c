@@ -137,7 +137,7 @@ static int cmd_x(char *args)
     int step = atoi(arg1);
     char *arg2 = strtok(NULL," ");
     char *stop;
-    int *address =(int *) strtol(arg2,&stop,16);
+    int32_t* address =(int32_t *) strtol(arg2,&stop,16);
     int i = 0;
     if(1)
     {
