@@ -142,13 +142,14 @@ static int cmd_x(char *args)
     if(1)
     {
         for(;i!=step;i++)
-            printf("%x ",*(address+i));
+            printf("%x ",*(address+4*i));
             
     }
     else{
         puts("error");
         /*TODO*/
     }
+    puts(" ");
     return 0;
 }
 
