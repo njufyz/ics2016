@@ -133,7 +133,21 @@ static int cmd_p(char *args){
 
 static int cmd_x(char *args)
 {
-    return -1;
+    char *arg1 = strtok(NULL," ");
+    int step = atoi(arg1);
+    char *arg2 = strtok(NULL," ");
+    char *stop;
+    int *address =(int *) strtol(arg2,&stop,16);
+    int i = 0;
+    if(stop==NULL)
+    {
+        for(;i!=step;i++)
+            printf("%x ",*(address+i));
+    }
+    else{
+        /*TODO*/
+    }
+    return 0;
 }
 
 static int cmd_w(char *args)
