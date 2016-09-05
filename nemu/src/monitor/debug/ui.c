@@ -140,7 +140,7 @@ static int cmd_x(char *args)
     int address = strtol(arg2,&stop,16);
     int i = 0;
     printf("%s",stop);
-    if(stop==NULL)
+    if(1)
     {
         for(;i!=step;i++)
             printf("%x ",(address+i));
