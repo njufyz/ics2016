@@ -138,12 +138,14 @@ static int cmd_x(char *args)
     char *arg2 = strtok(NULL," ");
     printf("%s",arg2);
     char *stop;
-    int *address =(int *) strtol(arg2,&stop,16);
+    int address = strtol(arg2,&stop,16);
+    printf("%x",address);
     int i = 0;
     if(stop==NULL)
     {
         for(;i!=step;i++)
-            printf("%x ",*(address+i));
+            printf("%x ",(address+i));
+            
     }
     else{
         puts("error");
