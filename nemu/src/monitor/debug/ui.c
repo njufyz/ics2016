@@ -133,6 +133,7 @@ static int cmd_p(char *args){
 
 static int cmd_x(char *args)
 {
+    printf("%x",*(unsigned*)0x100000);
     char *arg1 = strtok(NULL," ");
     int step = atoi(arg1);
     char *arg2 = strtok(NULL," ");
