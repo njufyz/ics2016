@@ -133,18 +133,18 @@ static int cmd_p(char *args){
 
 static int cmd_x(char *args)
 {
-    printf("%x",*(unsigned*)0x100000);
     char *arg1 = strtok(NULL," ");
     int step = atoi(arg1);
     char *arg2 = strtok(NULL," ");
     char *stop;
     unsigned  address = strtol(arg2,&stop,16);
-    printf("%s\n %s\n %x",arg1,arg2,address);
     int i = 0;
     if(1)
     {
         for(;i!=step;i++)
-            printf("%x ",*(unsigned*)(address+4*i));
+        {
+            printf("%x ",swaddr_read(address,4));
+        }
             
     }
     else{
