@@ -143,7 +143,7 @@ static int cmd_x(char *args)
     {
         for(;i!=step;i++)
         {
-            printf("%x\n ",swaddr_read(address,2));
+            printf("%x\n ",swaddr_read(address,1));
             address+=0x4;
         }
             
