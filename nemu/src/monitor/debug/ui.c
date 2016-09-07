@@ -102,8 +102,9 @@ static int cmd_si(char *args)
     int i;
 
     if(arg == NULL){
-        puts("Invalid argument!");
-        return -1;}
+        cpu_exec(1);
+        return 0;
+    }
     else{
         i = atoi(arg);
         cpu_exec(i);
