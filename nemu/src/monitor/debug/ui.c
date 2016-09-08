@@ -122,13 +122,13 @@ static int cmd_info(char *args){
 
     if(strcmp(arg,"r")==0){
         for(i=0;i<8;i++)
-            printf("%s   %I32u\n ",regsl[i],cpu.gpr[i]._32);
+            printf("%s\t%I32u\n ",regsl[i],cpu.gpr[i]._32);
         for(i=0;i<8;i++)
-            printf("%s   %I16u\n ",regsw[i],cpu.gpr[i]._16);
+            printf("%s\t%I16u\n ",regsw[i],cpu.gpr[i]._16);
         for(i=0;i<4;i++)
-            printf("%s   %I8u\n ",regsb[i],cpu.gpr[i]._8[0]);
+            printf("%s\t%I8u\n ",regsb[i],cpu.gpr[i]._8[0]);
         for(;i<8;i++)
-            printf("%s   %I8u\n ",regsb[i],cpu.gpr[i]._8[1]);
+            printf("%s\t%I8u\n ",regsb[i],cpu.gpr[i]._8[1]);
     }
     else if(strcmp(arg,"w")==0)
     {
