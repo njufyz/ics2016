@@ -116,7 +116,8 @@ static bool make_token(char *e) {
 			return false;
 		}
 	}
-
+    assert(nr_token==1);
+    printf("!!!!!!! %s\n",tokens[0].str);
 	return true; 
 }
 
