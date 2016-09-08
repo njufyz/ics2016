@@ -99,7 +99,7 @@ static bool make_token(char *e) {
                            if(substr_len>=32) assert(0);
                           // strncpy(tokens[nr_token].str,substr_start,substr_len);
                            break;
-					default: panic("aa please implement me");
+				//	default: panic("aa please implement me");
 				}
                 nr_token++;
                 printf("%d",nr_token);
