@@ -140,7 +140,7 @@ static int cmd_x(char *args)
     char *stop;
     unsigned  address = strtol(arg2,&stop,16);
     int i = 0;
-    if(1)
+    if(0)
     {
         for(;i!=step;i++)
         {
@@ -151,7 +151,8 @@ static int cmd_x(char *args)
     }
     else{
         puts("error");
-        /*TODO*/
+        bool success=1;
+        expr(arg2,&success);
     }
     puts(" ");
     return 0;

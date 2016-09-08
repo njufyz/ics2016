@@ -79,9 +79,22 @@ static bool make_token(char *e) {
 				 */
 
 				switch(rules[i].token_type) {
+                    case 0:break;
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
+                    case 5:
+                    case 6:
+                    case 7:tokens[nr_token].type=rules[i].token_type;
+                           break;
+                    case 8:tokens[nr_token].type=rules[i].token_type;
+                           if(substr_len>=32) assert(0);
+                          // strncpy(tokens[nr_token].str,substr_start,substr_len);
+                           break;
 					default: panic("please implement me");
 				}
-
+                nr_token++;
 				break;
 			}
 		}
