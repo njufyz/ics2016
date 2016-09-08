@@ -30,9 +30,9 @@ static struct rule {
     {"[/]",'/'},
     {"[(]",'('},
     {"[)]",')'},
+    {"((0x)|(0X))([0-9,A-F,a-f]){0,8}",ADDR},
     {"[0-9]+",NUM},
    // {"[\$eacdbspixlh]+",REG},
-    {"((0x)|(0X))([0-9,A-F,a-f]){0,8}",ADDR}
 };
 
 
@@ -97,12 +97,12 @@ static bool make_token(char *e) {
                     case 6:
                     case 7:tokens[nr_token].type=rules[i].token_type;
                            break;
-                    case 8:tokens[nr_token].type=rules[i].token_type;
+                    case 9:tokens[nr_token].type=rules[i].token_type;
                            if(substr_len>=32) assert(0);
                            strncpy(tokens[nr_token].str,e+position-substr_len,substr_len);
                            break;
-                    case 9:break;  /*TODO*/
-                    case 10:tokens[nr_token].type=rules[i].token_type;
+                    case 10:break;  /*TODO*/
+                    case 8:tokens[nr_token].type=rules[i].token_type;
                            if(substr_len>=32) assert(0);
                            strncpy(tokens[nr_token].str,e+position-substr_len,substr_len);
 				//	default: panic("aa please implement me");
