@@ -123,7 +123,7 @@ static bool make_token(char *e) {
 }
 
 uint32_t eval(Token *,Token *);
-bool check_parentheses(Token* ,Token*);
+int check_parentheses(Token* ,Token*);
 
 uint32_t expr(char *e, bool *success) {
 	if(!make_token(e)) {
@@ -141,7 +141,7 @@ uint32_t eval(Token *p,Token *q)
     if(p>q) assert(0);
     else if(p==q)
     {
-     char*num;
+     char *num;
      int k;
      k = strtol(p->str,&num,16);
      return k;
@@ -157,7 +157,7 @@ uint32_t eval(Token *p,Token *q)
 
 }
 
-bool check_parentheses(Token *p, Token *q)
+int check_parentheses(Token *p, Token *q)
 {
     if(p->type!='('||q->type!=')')
         return 0;
