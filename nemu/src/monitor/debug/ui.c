@@ -180,7 +180,8 @@ static int cmd_x(char *args)
     {
         for(;i!=step;i++)
         {
-            printf("0x%x\n\t\t",swaddr_read(address+4*i,4));
+            puts(" ");
+            printf("0x%x\n\t",swaddr_read(address+4*i,4));
         }
     }
     puts(" ");

@@ -102,7 +102,6 @@ static bool make_token(char *e) {
 				//	default: panic("aa please implement me");
 				}
                 nr_token++;
-                printf("%d",nr_token);
 				break;
 			}
 		}
