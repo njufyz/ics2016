@@ -178,9 +178,9 @@ static int cmd_x(char *args)
     bool success = 1;
     if((address = expr(arg2,&success)))
     {
+        puts(" ");
         for(;i!=step;i++)
         {
-            puts(" ");
             printf("0x%x\n\t",swaddr_read(address+4*i,4));
         }
     }
