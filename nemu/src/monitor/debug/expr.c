@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-	NOTYPE = 256, EQ, PLUS,MINUS,TIME,DIVIDE, NUM
+	NOTYPE = 256,OP ,EQ, NUM
 
 	/* TODO: Add more token types */
 
@@ -26,7 +26,7 @@ static struct rule {
 	{"\\+", '+'},					// plus
 	{"==", EQ},                    // equal
     {"\\-",'-'},
-    {"[*]",TIME},
+    {"[*]",'*'},
     {"[/]",'/'},
     {"[(]",'('},
     {"[)]",')'},
@@ -102,6 +102,7 @@ static bool make_token(char *e) {
 					default: panic("aa please implement me");
 				}
                 nr_token++;
+                printf("%d",nr_token);
 				break;
 			}
 		}
