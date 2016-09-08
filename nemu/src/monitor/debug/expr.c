@@ -1,5 +1,5 @@
 #include "nemu.h"
-
+#include<stdlib.h>
 /* We use the POSIX regex functions to process regular expressions.
  * Type 'man regex' for more information about POSIX regex functions.
  */
@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-	NOTYPE = 256,OP ,EQ, NUM
+	NOTYPE = 256,OP ,EQ, NUM, REG, ADDR
 
 	/* TODO: Add more token types */
 
@@ -30,7 +30,9 @@ static struct rule {
     {"[/]",'/'},
     {"[(]",'('},
     {"[)]",')'},
-    {"[0-9]+",NUM}
+    {"[0-9]+",NUM},
+   // {"[\$eacdbspixlh]+",REG},
+    {"((0x)|(0X))([0-9,A-F,a-f]){0,8}",ADDR}
 };
 
 
@@ -97,8 +99,12 @@ static bool make_token(char *e) {
                            break;
                     case 8:tokens[nr_token].type=rules[i].token_type;
                            if(substr_len>=32) assert(0);
-                          // strncpy(tokens[nr_token].str,substr_start,substr_len);
+                           strncpy(tokens[nr_token].str,e+position-substr_len,substr_len);
                            break;
+                    case 9:break;  /*TODO*/
+                    case 10:tokens[nr_token].type=rules[i].token_type;
+                           if(substr_len>=32) assert(0);
+                           strncpy(tokens[nr_token].str,e+position-substr_len,substr_len);
 				//	default: panic("aa please implement me");
 				}
                 nr_token++;
@@ -115,6 +121,9 @@ static bool make_token(char *e) {
 	return true; 
 }
 
+uint32_t eval(Token *,Token *);
+bool check_parentheses(Token* ,Token*);
+
 uint32_t expr(char *e, bool *success) {
 	if(!make_token(e)) {
 		*success = false;
@@ -124,6 +133,46 @@ uint32_t expr(char *e, bool *success) {
 	/* TODO: Insert codes to evaluate the expression. */
 
    // panic("please implement me");
-	return 0x100000;
+	return eval(tokens,tokens+nr_token-1);
+}
+uint32_t eval(Token *p,Token *q)
+{
+    if(p>q) assert(0);
+    else if(p==q)
+    {
+     char*num;
+     int k;
+     k = strtol(p->str,&num,16);
+     return k;
+    }
+    else if(check_parentheses(p,q)==true)
+    {
+        return eval(p+1,q-1);
+    }
+    else
+    {
+       return 0x100000;
+    }
+
 }
 
+bool check_parentheses(Token *p, Token *q)
+{
+    if(p->type!='('||q->type!=')')
+        return 0;
+    Token *head = p+1;
+    Token *tail = q-1;
+    int num=0;
+    for(;head!=tail;head++)
+    {
+        if(head->type=='(')
+            num++;
+        else if(head->type==')')
+            num--;
+        else;
+        if(num<0) return 0;
+    }
+    if(num==0)
+    return 1;
+    else return 0;
+}
