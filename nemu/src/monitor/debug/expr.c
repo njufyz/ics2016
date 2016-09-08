@@ -119,7 +119,6 @@ static bool make_token(char *e) {
 			return false;
 		}
 	}
-    printf("!!!!!!! %d\n",tokens[0].type);
 	return true; 
 }
 
@@ -135,7 +134,6 @@ uint32_t expr(char *e, bool *success) {
 	/* TODO: Insert codes to evaluate the expression. */
 
    // panic("please implement me");
-   printf("%s",tokens[0].str);
 	return eval(tokens,tokens+nr_token-1);
 }
 uint32_t eval(Token *p,Token *q)
