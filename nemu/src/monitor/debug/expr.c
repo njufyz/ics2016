@@ -100,13 +100,14 @@ static bool make_token(char *e) {
                     case 9:tokens[nr_token].type=rules[i].token_type;
                            if(substr_len>=32) assert(0);
                            strncpy(tokens[nr_token].str,e+position-substr_len,substr_len);
+                           tokens[nr_token].str[substr_len]=0;
                            break;
                     case 10:break;  /*TODO*/
                     case 8:tokens[nr_token].type=rules[i].token_type;
                            strncpy(tokens[nr_token].str,e+position-substr_len,substr_len);
+                           tokens[nr_token].str[substr_len]=0;
 				//	default: panic("aa please implement me");
 				}
-                assert(position==8);
                 nr_token++;
 				break;
 			}
@@ -117,7 +118,6 @@ static bool make_token(char *e) {
 			return false;
 		}
 	}
-    assert(nr_token==1);
     printf("!!!!!!! %s\n",tokens[0].str);
 	return true; 
 }
