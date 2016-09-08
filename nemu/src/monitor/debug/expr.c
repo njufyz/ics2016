@@ -124,6 +124,7 @@ static bool make_token(char *e) {
 
 uint32_t eval(Token *,Token *);
 int check_parentheses(Token* ,Token*);
+int position_dominant(Token*,Token*);
 
 uint32_t expr(char *e, bool *success) {
 	if(!make_token(e)) {
@@ -143,19 +144,33 @@ uint32_t eval(Token *p,Token *q)
     {
      char *num;
      int k;
-     k = strtol(p->str,&num,16);
+     k = strtol(p->str,&num,0);
      return k;
+     /*TODO*/
     }
-    else if(check_parentheses(p,q)==true)
+    else if(check_parentheses(p,q)==1)
     {
         return eval(p+1,q-1);
     }
+    else if(check_parentheses(p,q)==-1) assert(0);
     else
     {
-       return 0x100000;
-    }
+       int op=-1;; 
+        op = position_dominant(p,q);
+       int val1 =eval(p,tokens+op-1);
+       int val2 = eval(tokens+op+1,q);
+       switch(tokens[op].type){
+           case '+': return val1+val2;
+           case '-': return val1-val2;
+           case '*': return val1*val2;
+           case '/': return val1/val2;
+           default: assert(0);
 
+            }
+
+    }
 }
+
 
 int check_parentheses(Token *p, Token *q)
 {
@@ -171,9 +186,35 @@ int check_parentheses(Token *p, Token *q)
         else if(head->type==')')
             num--;
         else;
-        if(num<0) return 0;
+        if(num<0) return -1;
     }
     if(num==0)
     return 1;
-    else return 0;
+    else return -1;
+}
+
+int position_dominant(Token *p, Token*q)
+{
+    Token *head = p;
+    Token *tail = q;
+    int pos1 =-1;
+    int pos2 = -1;
+    
+    int level = 0;
+    for(;head!=tail;head++)
+    {
+        if(head->type=='(') level++;
+        else if(head->type==')') level--;
+
+        if(level==0)
+        {
+            if(head->type=='+'||head->type=='-')
+                pos1=head-p;
+            else if(head->type=='*'||head->type=='/')
+                pos2=head-p;
+        }
+    }
+    if(pos1!=-1) return pos1;
+    else if(pos2!=-1) return pos2;
+    else return -1;
 }
