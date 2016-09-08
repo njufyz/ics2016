@@ -60,13 +60,13 @@ static struct {
 	{ "help", "Display informations about all supported commands", cmd_help },
 	{ "c", "Continue the execution of the program", cmd_c },
 	{ "q", "Exit NEMU", cmd_q },
-    { "si","Execute the program by N step",cmd_si},
+    { "si","Step N instructions exactly.",cmd_si},
     { "info","Display the registers or watchpoints",cmd_info},
     { "p","Display the value of EXPR",cmd_p},
-    { "x","....",cmd_x},
+    { "x","Examine memory: x/FMT ADDRESS",cmd_x},
     { "w","When the value of EXPR change, the program will be suspended",cmd_w},
     { "d","Delete the No.N watchpoint",cmd_d},
-    { "bt","Display....",cmd_bt}
+    { "bt","Print backtrace of all stack frames",cmd_bt}
     /* TODO: Add more commands */
 
 };
@@ -107,6 +107,11 @@ static int cmd_si(char *args)
     }
     else{
         i = atoi(arg);
+        if(i<0) 
+        {
+            puts("Bad Agreement.\n");
+            return 0;
+        }
         cpu_exec(i);
         return 0;}
 }
@@ -125,6 +130,15 @@ static int cmd_info(char *args){
         for(;i<8;i++)
             printf("%s   %I8u\n ",regsb[i],cpu.gpr[i]._8[1]);
     }
+    else if(strcmp(arg,"w")==0)
+    {
+        /*TODO*/
+    }
+    else
+    {
+        puts("Bad Argeement.\n");
+        return 0;
+    }
     return 0;
 }
 
@@ -136,8 +150,14 @@ static int cmd_x(char *args)
 {
     char *arg1 = strtok(NULL," ");
     int step = atoi(arg1);
+    if(step<1)
+    {
+        printf("Bad Agreement: %s\n",arg1);
+        return 0;
+    }
+
     char *arg2 = strtok(NULL," ");
-    char *stop;
+    /*char *stop;
     unsigned  address = strtol(arg2,&stop,16);
     int i = 0;
     if(0)
@@ -150,9 +170,18 @@ static int cmd_x(char *args)
             
     }
     else{
-        puts("error");
         bool success=1;
         expr(arg2,&success);
+    }*/
+    int i = 0;
+    uint32_t address;
+    bool success = 1;
+    if((address = expr(arg2,&success)))
+    {
+        for(;i!=step;i++)
+        {
+            printf("0x%x\n\t\t",swaddr_read(address+4*i,4));
+        }
     }
     puts(" ");
     return 0;
