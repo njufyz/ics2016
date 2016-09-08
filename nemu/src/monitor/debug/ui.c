@@ -179,7 +179,6 @@ static int cmd_x(char *args)
     address = expr(arg2,&success);
     if(success==1)
     {
-        assert(address==0x100000);
         puts(" ");
         for(;i!=step;i++)
         {
