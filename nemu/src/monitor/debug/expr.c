@@ -122,9 +122,9 @@ static bool make_token(char *e) {
 	return true; 
 }
 
-uint32_t eval(Token *,Token *);
-int check_parentheses(Token* ,Token*);
-int position_dominant(Token*,Token*);
+uint32_t eval(int,int);
+int check_parentheses(int ,int);
+int position_dominant(int,int);
 
 uint32_t expr(char *e, bool *success) {
 	if(!make_token(e)) {
@@ -135,16 +135,16 @@ uint32_t expr(char *e, bool *success) {
 	/* TODO: Insert codes to evaluate the expression. */
 
    // panic("please implement me");
-	return eval(tokens,tokens+nr_token-1);
+	return eval(0,nr_token-1);
 }
-uint32_t eval(Token *p,Token *q)
+uint32_t eval(int p,int q)
 {
     if(p>q) assert(0);
     else if(p==q)
     {
      char *num;
      int k;
-     k = strtol(p->str,&num,0);
+     k = strtol(tokens[p].str,&num,0);
      return k;
      /*TODO*/
     }
@@ -158,8 +158,8 @@ uint32_t eval(Token *p,Token *q)
        int op=-1;; 
         op = position_dominant(p,q);
         printf("op= %d\n",op);
-       int val1 =eval(p,tokens+op-1);
-       int val2 = eval(tokens+op+1,q);
+       int val1 =eval(p,op-1);
+       int val2 = eval(op+1,q);
        switch(tokens[op].type){
            case '+': return val1+val2;
            case '-': return val1-val2;
@@ -173,18 +173,16 @@ uint32_t eval(Token *p,Token *q)
 }
 
 
-int check_parentheses(Token *p, Token *q)
+int check_parentheses(int p, int q)
 {
-    if(p->type!='('||q->type!=')')
+    if(tokens[p].type!='('||tokens[q].type!=')')
         return 0;
-    Token *head = p+1;
-    Token *tail = q-1;
     int num=0;
-    for(;head!=tail;head++)
+    for(;p!=q;p++)
     {
-        if(head->type=='(')
+        if(tokens[p].type=='(')
             num++;
-        else if(head->type==')')
+        else if(tokens[p].type==')')
             num--;
         else;
         if(num<0) return -1;
@@ -194,25 +192,24 @@ int check_parentheses(Token *p, Token *q)
     else return -1;
 }
 
-int position_dominant(Token *p, Token*q)
+int position_dominant(int p, int q)
 {
-    Token *head = p;
-    Token *tail = q;
+    int begin=p;
     int pos1 =-1;
     int pos2 = -1;
     
     int level = 0;
-    for(;head!=tail;head++)
+    for(;p!=q;p++)
     {
-        if(head->type=='(') level++;
-        else if(head->type==')') level--;
+        if(tokens[p].type=='(') level++;
+        else if(tokens[p].type==')') level--;
 
         if(level==0)
         {
-            if(head->type=='+'||head->type=='-')
-                pos1=head-p;
-            else if(head->type=='*'||head->type=='/')
-                pos2=head-p;
+            if(tokens[p].type=='+'||tokens[p].type=='-')
+                pos1=p-begin;
+            else if(tokens[p].type=='*'||tokens[p].type=='/')
+                pos2=p-begin;
         }
     }
     if(pos1!=-1) return pos1;
