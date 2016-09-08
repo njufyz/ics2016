@@ -176,7 +176,8 @@ static int cmd_x(char *args)
     int i = 0;
     uint32_t address;
     bool success = 1;
-    if((address = expr(arg2,&success)))
+    address = expr(arg2,&success);
+    if(success==1)
     {
         assert(address==0x100000);
         puts(" ");
