@@ -30,7 +30,7 @@ static struct rule {
     {"[/]",'/'},
     {"[(]",'('},
     {"[)]",')'},
-    {"((0x)|(0X))([0-9,A-F,a-f]){0,8}",ADDR},
+    {"((0x)|(0X))([0-9,A-F,a-f]){1,8}",ADDR},
     {"[0-9]+",NUM},
    // {"[\$eacdbspixlh]+",REG},
 };
@@ -118,7 +118,7 @@ static bool make_token(char *e) {
 			return false;
 		}
 	}
-    printf("!!!!!!! %s\n",tokens[0].str);
+    printf("!!!!!!! %d\n",tokens[0].type);
 	return true; 
 }
 
