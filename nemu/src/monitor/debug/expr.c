@@ -157,7 +157,7 @@ uint32_t eval(Token *p,Token *q)
     {
        int op=-1;; 
         op = position_dominant(p,q);
-        printf("%d",op);
+        printf("op= %d\n",op);
        int val1 =eval(p,tokens+op-1);
        int val2 = eval(tokens+op+1,q);
        switch(tokens[op].type){
