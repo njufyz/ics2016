@@ -178,6 +178,7 @@ static int cmd_x(char *args)
     bool success = 1;
     if((address = expr(arg2,&success)))
     {
+        assert(address==0x100000);
         puts(" ");
         for(;i!=step;i++)
         {
