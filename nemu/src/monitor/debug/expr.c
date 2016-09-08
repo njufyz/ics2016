@@ -152,7 +152,7 @@ uint32_t eval(int p,int q)
     {
         return eval(p+1,q-1);
     }
-    else if(check_parentheses(p,q)==-1) assert(0);
+   // else if(check_parentheses(p,q)==-1) assert(0);
     else
     {
        int op=-1;; 
