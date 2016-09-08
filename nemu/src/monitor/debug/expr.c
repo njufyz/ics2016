@@ -87,7 +87,7 @@ static bool make_token(char *e) {
 				 * of tokens, some extra actions should be performed.
 				 */
 
-				switch(rules[i].token_type) {
+				switch(i) {
                     case 0:break;
                     case 1:
                     case 2:
