@@ -178,13 +178,12 @@ int check_parentheses(int p, int q)
     if(tokens[p].type!='('||tokens[q].type!=')')
         return 0;
     int num=0;
-    for(;p!=q;p++)
+    for(;p<=q;p++)
     {
         if(tokens[p].type=='(')
             num++;
         else if(tokens[p].type==')')
             num--;
-        else;
         if(num<0) return -1;
     }
     if(num==0)
@@ -198,7 +197,7 @@ int position_dominant(int p, int q)
     int pos2 = -1;
     
     int level = 0;
-    for(;p!=q;p++)
+    for(;p<=q;p++)
     {
         if(tokens[p].type=='(') level++;
         else if(tokens[p].type==')') level--;
