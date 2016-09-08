@@ -103,7 +103,6 @@ static bool make_token(char *e) {
                            break;
                     case 10:break;  /*TODO*/
                     case 8:tokens[nr_token].type=rules[i].token_type;
-                           if(substr_len>=32) assert(0);
                            strncpy(tokens[nr_token].str,e+position-substr_len,substr_len);
 				//	default: panic("aa please implement me");
 				}
@@ -133,6 +132,7 @@ uint32_t expr(char *e, bool *success) {
 	/* TODO: Insert codes to evaluate the expression. */
 
    // panic("please implement me");
+   printf("%s",tokens[0].str);
 	return eval(tokens,tokens+nr_token-1);
 }
 uint32_t eval(Token *p,Token *q)
