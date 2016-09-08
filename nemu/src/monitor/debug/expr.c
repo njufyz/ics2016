@@ -194,7 +194,6 @@ int check_parentheses(int p, int q)
 
 int position_dominant(int p, int q)
 {
-    int begin=p;
     int pos1 =-1;
     int pos2 = -1;
     
@@ -207,9 +206,9 @@ int position_dominant(int p, int q)
         if(level==0)
         {
             if(tokens[p].type=='+'||tokens[p].type=='-')
-                pos1=p-begin;
+                pos1=p;
             else if(tokens[p].type=='*'||tokens[p].type=='/')
-                pos2=p-begin;
+                pos2=p;
         }
     }
     if(pos1!=-1) return pos1;
