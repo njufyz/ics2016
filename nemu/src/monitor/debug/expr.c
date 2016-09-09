@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-	NOTYPE = 256,OP ,EQ, NUM, REG, ADDR
+	NOTYPE = 256,OP ,EQ, NEQ, NUM, REG, ADDR, AND, NOT, OR
 
 	/* TODO: Add more token types */
 
@@ -25,6 +25,11 @@ static struct rule {
 	{" +",	NOTYPE},				// spaces
 	{"\\+", '+'},					// plus
 	{"==", EQ},                    // equal
+    {"[$eacdbspixlh]+",REG},
+    {"!=",NEQ},
+    {"&&",AND},
+    {"||",OR},
+    {"!",NOT},
     {"\\-",'-'},
     {"[*]",'*'},
     {"[/]",'/'},
@@ -32,7 +37,6 @@ static struct rule {
     {"[)]",')'},
     {"((0x)|(0X))([0-9,A-F,a-f]){1,8}",ADDR},
     {"[0-9]+",NUM},
-   // {"[\$eacdbspixlh]+",REG},
 };
 
 
