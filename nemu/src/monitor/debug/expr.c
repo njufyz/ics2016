@@ -144,12 +144,31 @@ uint32_t expr(char *e, bool *success) {
 uint32_t eval(int p,int q)
 {
     if(p>q) assert(0);
+   
     else if(p==q)
     {
+     if(tokens[p].type!=REG)
+     {
      char *num;
      int k;
      k = strtol(tokens[p].str,&num,0);
      return k;
+     }
+     else 
+     {
+        int index = 0;
+        char* name = tokens[p].str+1;
+        for(;index<8;index++)
+            if(strcmp(name,regsl[index])==0) return cpu.gpr[index]._32;
+        for(index=0;index<8;index++)
+            if(strcmp(name,regsw[index])==0) return cpu.gpr[index]._16;
+        for(index=0;index<4;index++)
+            if(strcmp(name,regsb[index])==0) return cpu.gpr[index]._8[0];
+        for(;index<8;index++)
+            if(strcmp(name,regsb[index])==0) return cpu.gpr[index]._8[1];
+
+        assert(0);
+     }
      /*TODO*/
     }
     else if(check_parentheses(p,q)==1)
@@ -175,7 +194,6 @@ uint32_t eval(int p,int q)
 
     }
 }
-
 
 int check_parentheses(int p, int q)
 {
