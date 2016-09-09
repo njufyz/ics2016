@@ -28,7 +28,7 @@ static struct rule {
     {"[$eacdbspixlh]+",REG},
     {"!=",NEQ},
     {"&&",AND},
-//    {"||",OR},
+    {"[||]{2}",OR},
     {"!",NOT},
     {"\\-",'-'},
     {"[*]",'*'},
