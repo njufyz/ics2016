@@ -91,23 +91,24 @@ static bool make_token(char *e) {
 				 * of tokens, some extra actions should be performed.
 				 */
 
-				switch(i) {
-                    case 0:break;
-                    case 1:
-                    case 2:
-                    case 3:
-                    case 4:
-                    case 5:
-                    case 6:
-                    case 7:tokens[nr_token].type=rules[i].token_type;
+				switch(rules[i].token_type) {
+                    case NOTYPE:break;
+                    case '+':
+                    case '-':
+                    case '*':
+                    case '/':
+                    case '(':
+                    case ')':
+                    case EQ:
+                    case NEQ:
+                    case AND:
+                    case OR:
+                    case NOT:tokens[nr_token].type=rules[i].token_type;
                            break;
-                    case 9:tokens[nr_token].type=rules[i].token_type;
+                    case NUM:
+                    case ADDR:
+                    case REG:tokens[nr_token].type=rules[i].token_type;
                            if(substr_len>=32) assert(0);
-                           strncpy(tokens[nr_token].str,e+position-substr_len,substr_len);
-                           tokens[nr_token].str[substr_len]=0;
-                           break;
-                    case 10:break;  /*TODO*/
-                    case 8:tokens[nr_token].type=rules[i].token_type;
                            strncpy(tokens[nr_token].str,e+position-substr_len,substr_len);
                            tokens[nr_token].str[substr_len]=0;
                            break;
