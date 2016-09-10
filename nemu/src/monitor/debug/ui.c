@@ -147,7 +147,7 @@ static int cmd_p(char *args){
     bool success = 1;
     unsigned ans = expr(arg,&success);
     if(success==1)
-    printf("%u",ans);
+    printf("%u\n",ans);
     return 0;
 }
 
