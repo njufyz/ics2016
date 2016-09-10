@@ -163,6 +163,7 @@ uint32_t expr(char *e, bool *success) {
             if(tokens[i+1].type=='+'||tokens[i].type=='-'||tokens[i].type=='*'||tokens[i].type=='/'||tokens[i].type==')'||tokens[i].type==EQ||tokens[i].type==NEQ || tokens[i].type==AND || tokens[i].type == OR) 
             {
                 puts("Bad EXPR!");
+                *success = 0;
                 return 0;
             }
         }
@@ -206,7 +207,7 @@ uint32_t eval(int p,int q)
     else if(check_parentheses(p,q)==-1) 
     {
         puts("Bad EXPR!");
-        return 0;
+        assert(0);
     }
     else
     {
