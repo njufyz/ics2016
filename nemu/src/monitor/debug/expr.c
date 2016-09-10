@@ -178,10 +178,16 @@ uint32_t eval(int p,int q)
    // else if(check_parentheses(p,q)==-1) assert(0);
     else
     {
-       int op=-1;; 
+        int op=-1; 
         op = position_dominant(p,q);
-       int val1 =eval(p,op-1);
-       int val2 = eval(op+1,q);
+        int val1,val2;
+        
+        if(tokens[op].type != NOT)
+           val1 =eval(p,op-1);
+        else val1=0;
+
+        val2 = eval(op+1,q);
+
        switch(tokens[op].type){
            case '+': return val1+val2;
            case '-': return val1-val2;
@@ -191,6 +197,7 @@ uint32_t eval(int p,int q)
            case NEQ:return (val1!=val2)?1:0;
            case AND:return val1&&val2;
            case OR: return val1||val2;
+           case NOT: return !val2;
            
            default: assert(0);
 
@@ -224,7 +231,7 @@ int position_dominant(int p, int q)
     int pos3 = -1;   // == !=
     int pos4 = -1;  // &&
     int pos5 = -1;  // ||
-    // int pos6 = -1 //!
+     int pos6 = -1; //!
 
     
     int level = 0;
@@ -245,6 +252,8 @@ int position_dominant(int p, int q)
                 pos4 = p;
             else if(tokens[p].type==OR)
                 pos5 = p;
+            else if(tokens[p].type==NOT)
+                pos6 = p;
         }
     }
     if(pos5!=-1) return pos5;
@@ -252,5 +261,6 @@ int position_dominant(int p, int q)
     else if(pos3!=-1) return pos3;
     else if(pos1!=-1) return pos1;
     else if(pos2!=-1) return pos2;
+    else if(pos6!=-1) return pos6;
     else return -1;
 }
