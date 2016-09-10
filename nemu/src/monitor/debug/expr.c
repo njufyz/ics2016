@@ -150,6 +150,10 @@ uint32_t expr(char *e, bool *success) {
     if(tokens[i].type == '-' && (i == 0 || ( tokens[i-1].type=='(' || tokens[i - 1].type == '+'||tokens[i - 1].type == '-'||tokens[i - 1].type == '*'||tokens[i - 1].type == '/'||tokens[i - 1].type      == EQ||tokens[i - 1].type == NOT||tokens[i - 1].type == NEQ || tokens[i - 1].type == AND ||tokens[i - 1].type == OR)))                                                            
                                     {                                                                                                                                                                                                                                                                tokens[i].type = NEG;                            }                                                                                                                                                                        
                         }
+    for(i = 0; i < nr_token; i ++) {                                                                                                                                               
+    if(tokens[i].type == '-' && (i == 0 || ( tokens[i-1].type=='(' || tokens[i - 1].type == '+'||tokens[i - 1].type == '-'||tokens[i - 1].type == '*'||tokens[i - 1].type == '/'||tokens[i - 1].type      == EQ||tokens[i - 1].type == NOT||tokens[i - 1].type == NEQ || tokens[i - 1].type == AND ||tokens[i - 1].type == OR)))                                                            
+                                    {                                                                                                                                                                                                                                                                tokens[i].type = NEG;                            }                                                                                                                                                                        
+                        }
 
 
    // panic("please implement me");
