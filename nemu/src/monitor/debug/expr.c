@@ -239,6 +239,7 @@ int position_dominant(int p, int q)
     int pos4 = -1;  // &&
     int pos5 = -1;  // ||
      int pos6 = -1; //!
+     int pos7 = -1;  // *
 
     
     int level = 0;
@@ -261,6 +262,8 @@ int position_dominant(int p, int q)
                 pos5 = p;
             else if(tokens[p].type==NOT)
                 pos6 = p;
+            else if(tokens[p].type==DEREF)
+                pos7 = p;
         }
     }
     if(pos5!=-1) return pos5;
@@ -269,5 +272,6 @@ int position_dominant(int p, int q)
     else if(pos1!=-1) return pos1;
     else if(pos2!=-1) return pos2;
     else if(pos6!=-1) return pos6;
+    else if(pos7!=-1) return pos7;
     else return -1;
 }
