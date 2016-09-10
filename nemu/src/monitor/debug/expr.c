@@ -156,6 +156,17 @@ uint32_t expr(char *e, bool *success) {
                         }
 
 
+    for(i=0;i<nr_token;i++)
+    {
+        if(tokens[i].type=='+'||tokens[i].type=='-'||tokens[i].type=='*'||tokens[i].type=='/'||tokens[i].type==NEG||tokens[i].type==DEREF)
+        {
+            if(tokens[i+1].type=='+'||tokens[i].type=='-'||tokens[i].type=='*'||tokens[i].type=='/'||tokens[i].type==')'||tokens[i].type==EQ||tokens[i].type==NEQ || tokens[i].type==AND || tokens[i].type == OR) 
+            {
+                puts("Bad EXPR!");
+                return 0;
+            }
+        }
+    }
    // panic("please implement me");
 	return eval(0,nr_token-1);
 }
