@@ -187,6 +187,11 @@ uint32_t eval(int p,int q)
            case '-': return val1-val2;
            case '*': return val1*val2;
            case '/': return val1/val2;
+           case EQ: return (val1==val2)?1:0;
+           case NEQ:return (val1!=val2)?1:0;
+           case AND:return val1&&val2;
+           case OR: return val1||val2;
+           
            default: assert(0);
 
             }
@@ -216,8 +221,11 @@ int position_dominant(int p, int q)
 {
     int pos1 =-1;    //pos of +/-
     int pos2 = -1;   //pos of */ /
-//    int pos3 = -1;
-//    int pos4 = -1;
+    int pos3 = -1;   // == !=
+    int pos4 = -1;  // &&
+    int pos5 = -1;  // ||
+    // int pos6 = -1 //!
+
     
     int level = 0;
     for(;p<=q;p++)
@@ -228,12 +236,21 @@ int position_dominant(int p, int q)
         if(level==0)
         {
             if(tokens[p].type=='+'||tokens[p].type=='-')
-                pos1=p;
+                pos1 = p;
             else if(tokens[p].type=='*'||tokens[p].type=='/')
-                pos2=p;
+                pos2 = p;
+            else if(tokens[p].type==EQ||tokens[p].type==NEQ)
+                pos3 = p;
+            else if(tokens[p].type==AND)
+                pos4 = p;
+            else if(tokens[p].type==OR)
+                pos5 = p;
         }
     }
-    if(pos1!=-1) return pos1;
+    if(pos5!=-1) return pos5;
+    else if(pos4!=-1) return pos4;
+    else if(pos3!=-1) return pos3;
+    else if(pos1!=-1) return pos1;
     else if(pos2!=-1) return pos2;
     else return -1;
 }
