@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-	NOTYPE = 256,OP ,EQ, NEQ, NUM, REG, ADDR, AND, NOT, OR, DEREF
+	NOTYPE = 256,OP ,EQ, NEQ, NUM, REG, ADDR, AND, NOT, OR, DEREF, NEG
 
 	/* TODO: Add more token types */
 
@@ -140,11 +140,16 @@ uint32_t expr(char *e, bool *success) {
 	/* TODO: Insert codes to evaluate the expression. */
     int i = 0;
     for(i = 0; i < nr_token; i ++) {
-         if(tokens[i].type == '*' && (i == 0 || (tokens[i - 1].type == '+'||tokens[i - 1].type == '-'||tokens[i - 1].type == '*'||tokens[i - 1].type == '/'||tokens[i - 1].type == EQ||tokens[i - 1].type == NOT||tokens[i - 1].type == NEQ || tokens[i - 1].type == AND ||tokens[i - 1].type == OR))) 
+         if(tokens[i].type == '*' && (i == 0 || (tokens[i-1].type=='(' || tokens[i - 1].type == '+'||tokens[i - 1].type == '-'||tokens[i - 1].type == '*'||tokens[i - 1].type == '/'||tokens[i - 1].type == EQ||tokens[i - 1].type == NOT||tokens[i - 1].type == NEQ || tokens[i - 1].type == AND ||tokens[i - 1].type == OR))) 
          {
             tokens[i].type = DEREF;
          }
  }
+
+    for(i = 0; i < nr_token; i ++) {                                                                                                                                               
+    if(tokens[i].type == '-' && (i == 0 || ( tokens[i-1].type=='(' || tokens[i - 1].type == '+'||tokens[i - 1].type == '-'||tokens[i - 1].type == '*'||tokens[i - 1].type == '/'||tokens[i - 1].type      == EQ||tokens[i - 1].type == NOT||tokens[i - 1].type == NEQ || tokens[i - 1].type == AND ||tokens[i - 1].type == OR)))                                                            
+                                    {                                                                                                                                                                                                                                                                tokens[i].type = NEG;                            }                                                                                                                                                                        
+                        }                                  
    // panic("please implement me");
 	return eval(0,nr_token-1);
 }
@@ -188,7 +193,7 @@ uint32_t eval(int p,int q)
         op = position_dominant(p,q);
         int val1,val2;
         
-        if(tokens[op].type != NOT&&tokens[op].type!=DEREF)
+        if(tokens[op].type != NOT && tokens[op].type!=DEREF && tokens[op].type != NEG)
            val1 =eval(p,op-1);
         else val1=0;
 
@@ -205,7 +210,7 @@ uint32_t eval(int p,int q)
            case OR: return val1||val2;
            case NOT: return !val2;
            case DEREF: return swaddr_read(val2,4);
-           
+           case NEG: return -val2;
            default: assert(0);
 
             }
@@ -240,6 +245,7 @@ int position_dominant(int p, int q)
     int pos5 = -1;  // ||
      int pos6 = -1; //!
      int pos7 = -1;  // *
+     int pos8 = -1;  //NEG
 
     
     int level = 0;
@@ -264,6 +270,8 @@ int position_dominant(int p, int q)
                 pos6 = p;
             else if(tokens[p].type==DEREF)
                 pos7 = p;
+            else if(tokens[p].type==NEG)
+                pos8 = p;
         }
     }
     if(pos5!=-1) return pos5;
@@ -273,5 +281,6 @@ int position_dominant(int p, int q)
     else if(pos2!=-1) return pos2;
     else if(pos6!=-1) return pos6;
     else if(pos7!=-1) return pos7;
+    else if(pos8!=-1) return pos8;
     else return -1;
 }
