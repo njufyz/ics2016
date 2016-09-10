@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-	NOTYPE = 256,OP ,EQ, NEQ, NUM, REG, ADDR, AND, NOT, OR
+	NOTYPE = 256,OP ,EQ, NEQ, NUM, REG, ADDR, AND, NOT, OR, DEREF
 
 	/* TODO: Add more token types */
 
@@ -138,7 +138,13 @@ uint32_t expr(char *e, bool *success) {
 	}
 
 	/* TODO: Insert codes to evaluate the expression. */
-
+    int i = 0;
+    for(i = 0; i < nr_token; i ++) {
+         if(tokens[i].type == '*' && (i == 0 || (tokens[i - 1].type == '+'||tokens[i - 1].type == '-'||tokens[i - 1].type == '*'||tokens[i - 1].type == '/'||tokens[i - 1].type == EQ||tokens[i - 1].type == NOT||tokens[i - 1].type == NEQ || tokens[i - 1].type == AND ||tokens[i - 1].type == OR))) 
+         {
+            tokens[i].type = DEREF;
+         }
+ }
    // panic("please implement me");
 	return eval(0,nr_token-1);
 }
@@ -182,7 +188,7 @@ uint32_t eval(int p,int q)
         op = position_dominant(p,q);
         int val1,val2;
         
-        if(tokens[op].type != NOT)
+        if(tokens[op].type != NOT&&tokens[op].type!=DEREF)
            val1 =eval(p,op-1);
         else val1=0;
 
@@ -198,6 +204,7 @@ uint32_t eval(int p,int q)
            case AND:return val1&&val2;
            case OR: return val1||val2;
            case NOT: return !val2;
+           case DEREF: return swaddr_read(val2,4);
            
            default: assert(0);
 
