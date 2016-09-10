@@ -143,7 +143,12 @@ static int cmd_info(char *args){
 }
 
 static int cmd_p(char *args){
-    return -1;
+    char* arg= strtok(NULL," ");
+    bool success = 1;
+    unsigned ans = expr(arg,&success);
+    if(success==1)
+    printf("%u",ans);
+    return 0;
 }
 
 static int cmd_x(char *args)
