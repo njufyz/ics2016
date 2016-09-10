@@ -170,7 +170,6 @@ uint32_t eval(int p,int q)
 
         assert(0);
      }
-     /*TODO*/
     }
     else if(check_parentheses(p,q)==1)
     {
@@ -181,7 +180,6 @@ uint32_t eval(int p,int q)
     {
        int op=-1;; 
         op = position_dominant(p,q);
-        printf("op= %d\n",op);
        int val1 =eval(p,op-1);
        int val2 = eval(op+1,q);
        switch(tokens[op].type){
@@ -216,8 +214,10 @@ int check_parentheses(int p, int q)
 
 int position_dominant(int p, int q)
 {
-    int pos1 =-1;
-    int pos2 = -1;
+    int pos1 =-1;    //pos of +/-
+    int pos2 = -1;   //pos of */ /
+//    int pos3 = -1;
+//    int pos4 = -1;
     
     int level = 0;
     for(;p<=q;p++)

@@ -177,7 +177,6 @@ static int cmd_x(char *args)
     uint32_t address;
     bool success = 1;
     address = expr(arg2,&success);
-    printf("%u",address);
     if(success==1)
     {
         puts(" ");
