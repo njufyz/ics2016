@@ -74,6 +74,7 @@ void free_wp(WP* wp)
 int check_watchpoint()
 {
     WP* p = head;
+    if(head==NULL) return 0;
     for(;p->next!=NULL;p=p->next)
     {
         bool su = 1;
