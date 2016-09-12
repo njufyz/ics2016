@@ -2,12 +2,13 @@
 #include "monitor/expr.h"
 #include "monitor/watchpoint.h"
 #include "nemu.h"
-
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 
 void cpu_exec(uint32_t);
+WP* new_wp();
+void free_wp(WP*);
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 char* rl_gets() {
@@ -196,12 +197,37 @@ static int cmd_x(char *args)
 
 static int cmd_w(char *args)
 {
-    return -1;
+    char* arg=strtok(NULL," ");
+    WP* wp=new_wp();
+    strcpy(wp->expr,arg);
+    bool success = 1;
+    uint32_t k =expr(arg,&success);
+    if(success==1)
+    {
+        wp->val=k;
+        printf("watchpoint %d: expr:%s  value:  %u\n",wp->NO,wp->expr,wp->val);
+    }
+    else 
+        puts("Bad EXPR!");
+
+    return 0;
 }
 
 static int cmd_d(char *args)
 {
-    return -1;
+  /*  char* arg = strtok(NULL," ");
+    int NO = atoi(arg);
+    WP* wp = head;
+    for(;wp->next!=NULL&&wp->val!=NO;wp=wp->next);
+    if(wp==NULL){
+        puts("No such watchpoint in use!");
+        return 0;
+    }
+    else
+    {
+        free_wp(wp);
+    }*/
+    return 0;
 }
 
 static int cmd_bt(char *args)
