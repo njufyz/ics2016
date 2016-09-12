@@ -78,7 +78,7 @@ int check_watchpoint()
     for(;p!=NULL;p=p->next)
     {
         bool su = 1;
-        Log("%u",expr(p->expr,&su));
+    //    Log("%u",expr(p->expr,&su));
         if(expr(p->expr,&su)!=p->val)
         {
             nemu_state = STOP;
