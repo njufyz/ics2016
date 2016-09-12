@@ -75,10 +75,10 @@ int check_watchpoint()
 {
     WP* p = head;
     if(head==NULL) return 0;
-    Log("1111");
     for(;p->next!=NULL;p=p->next)
     {
         bool su = 1;
+        Log("%u",expr(p->expr,&su));
         if(expr(p->expr,&su)!=p->val)
         {
             nemu_state = STOP;
