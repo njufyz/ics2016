@@ -75,7 +75,7 @@ int check_watchpoint()
 {
     WP* p = head;
     if(head==NULL) return 0;
-    for(;p->next!=NULL;p=p->next)
+    for(;p!=NULL;p=p->next)
     {
         bool su = 1;
         Log("%u",expr(p->expr,&su));
