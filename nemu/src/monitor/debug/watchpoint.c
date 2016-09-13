@@ -100,8 +100,11 @@ int check_watchpoint()
 void display()
 {
     WP*p =head;
-    for(;p->next!=NULL;p=p->next)
+    for(;p!=NULL;p=p->next)
+    {
+        if(p==NULL) break;
         printf("Watchpoint:%d  EXPR:%s   Value:%u\n",p->NO,p->expr,p->val);
+    }
 }
     
 
