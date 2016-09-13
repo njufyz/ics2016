@@ -49,17 +49,12 @@ void free_wp(int NO)
     if(head1->NO!=NO)
     {
         for(;head1->NO!=NO;pre=head1,head1=head1->next);
-     //   strcpy(head1->expr,NULL);
         pre->next=head1->next;
     }
     else {
     head=head1->next;
-   // strcpy(head1->expr,NULL);
     }
     WP* wp=head1;
-
-    
-
 
     if(free_ == NULL) {
         free_=wp;
@@ -69,12 +64,13 @@ void free_wp(int NO)
      head1 = free_;
      pre = NULL;
      Log("free_->NO%d\nwp->NO%d\n",free_->NO,wp->NO);
-    if(wp->NO < free_->NO)
+    
+     if(wp->NO < free_->NO)
     {
         wp->next = free_;
         free_ = wp;
     }
-
+    Log("free_->NO%d",free_->NO);
     for(;head1->next!=NULL && wp->NO > head1->NO;pre = head1, head1=head1->next);
     pre->next = wp;
     wp->next = head1;
