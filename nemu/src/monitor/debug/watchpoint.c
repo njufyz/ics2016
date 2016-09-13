@@ -63,6 +63,7 @@ void free_wp(WP* wp)
 
      head1 = free_;
      pre = NULL;
+     Log("free_->NO%d\nwp->NO%d\n",free_->NO,wp->NO);
     if(wp->NO < free_->NO)
     {
         wp->next = free_;
