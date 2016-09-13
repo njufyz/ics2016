@@ -46,9 +46,13 @@ void free_wp(WP* wp)
 {
     WP* head1=head;
     WP* pre=NULL;
+    if(head1->NO!=wp->NO)
+    {
+        for(;head1->NO!=wp->NO;pre=head1,head1=head1->next);
+        pre->next=head1->next;
+    }
+    else head=head1->next;
 
-    for(;head1->NO!=wp->NO;pre=head1,head1=head1->next);
-    pre->next=head1->next;
     wp->next=NULL;
 
 
