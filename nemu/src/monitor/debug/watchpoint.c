@@ -33,7 +33,7 @@ WP* new_wp()
     free_->next=free_;
      p->next=NULL;
     puts(" ");
-    for(;p->next!=NULL;p=p->next)
+    for(p=free_;p->next!=NULL;p=p->next)
     Log("free_->NO: %d",p->NO);
     WP* q= head;
     if(q==NULL) head=p;
