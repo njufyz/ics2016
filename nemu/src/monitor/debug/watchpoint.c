@@ -32,13 +32,15 @@ WP* new_wp()
      p->next=NULL;
     
     WP* q= head;
-    if(q==NULL) head=p;
+    if(head==NULL) head=p;
     else
     {
         for(;q->next!=NULL;q=q->next);
         q->next = p;
         p->next=NULL;
     }
+    
+    Log("head:%d",head->NO);
     return p;
 
 }
