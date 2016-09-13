@@ -22,7 +22,7 @@ void init_wp_pool() {
 
 WP* new_wp();
 void free_wp(int );
-
+void display();
 
 WP* new_wp()
 {
@@ -39,8 +39,7 @@ WP* new_wp()
         q->next = p;
         p->next=NULL;
     }
-    
-    Log("head:%d",head->NO);
+   display(); 
     return p;
 
 }
