@@ -83,8 +83,9 @@ int check_watchpoint()
 {
     WP* p = head;
     if(head==NULL) return 0;
-    for(;p->next!=NULL;p=p->next)
+    for(;p!=NULL;p=p->next)
     {
+        if(p==NULL) break;
         bool su = 1;
         int k =expr(p->expr,&su);
         if(k!=p->val)

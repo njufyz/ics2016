@@ -1,5 +1,6 @@
 #include "monitor/monitor.h"
 #include "cpu/helper.h"
+#include "monitor/watchpoint.h"
 #include <setjmp.h>
 
 /* The assembly code of instructions executed is only output to the screen
@@ -10,7 +11,6 @@
 #define MAX_INSTR_TO_PRINT 10
 
 int nemu_state = STOP;
-int check_watchpoint();
 int exec(swaddr_t);
 
 char assembly[80];
