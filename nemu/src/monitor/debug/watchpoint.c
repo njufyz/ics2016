@@ -28,9 +28,10 @@ WP* new_wp()
 {
     if(free_==NULL) assert(0);
     WP* p = free_;
-    Log("free_->NO: %d",free_->NO);
+    for(;p->next!=NULL;p=p->next)
+
+    Log("free_->NO: %d",p->NO);
     free_->next=free_;
-    Log("New free_->NO: %d",free_->NO);
      p->next=NULL;
 
     WP* q= head;
