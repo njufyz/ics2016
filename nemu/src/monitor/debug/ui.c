@@ -117,6 +117,8 @@ static int cmd_si(char *args)
         return 0;}
 }
 
+void display();
+
 static int cmd_info(char *args){
     char *arg = strtok(NULL," ");
     int i;
@@ -133,7 +135,7 @@ static int cmd_info(char *args){
     }
     else if(strcmp(arg,"w")==0)
     {
-        /*TODO*/
+        display();
     }
     else
     {

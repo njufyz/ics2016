@@ -96,7 +96,12 @@ int check_watchpoint()
     return 0;
 }
             
-
+void display()
+{
+    WP*p =head;
+    for(;p->next!=NULL;p=p->next)
+        printf("Watchpoint:%d  EXPR:%s   Value:%u\n",p->NO,p->expr,p->val);
+}
     
 
 
