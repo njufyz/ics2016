@@ -8,7 +8,7 @@
 
 void cpu_exec(uint32_t);
 WP* new_wp();
-void free_wp(WP*);
+void free_wp(int);
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 char* rl_gets() {
@@ -213,20 +213,13 @@ static int cmd_w(char *args)
     return 0;
 }
 
+extern WP* head;
+
 static int cmd_d(char *args)
 {
-  /*  char* arg = strtok(NULL," ");
+    char* arg = strtok(NULL," ");
     int NO = atoi(arg);
-    WP* wp = head;
-    for(;wp->next!=NULL&&wp->val!=NO;wp=wp->next);
-    if(wp==NULL){
-        puts("No such watchpoint in use!");
-        return 0;
-    }
-    else
-    {
-        free_wp(wp);
-    }*/
+    free_wp(NO);
     return 0;
 }
 
