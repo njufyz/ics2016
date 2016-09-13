@@ -37,6 +37,7 @@ WP* new_wp()
     {
         for(;q->next!=NULL;q=q->next);
         q->next = p;
+        p->next=NULL;
     }
     return p;
 
