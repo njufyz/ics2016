@@ -69,8 +69,9 @@ void free_wp(int NO)
     {
         wp->next = free_;
         free_ = wp;
+        return;
     }
-    Log("free_->NO%d",free_->NO);
+
     for(;head1->next!=NULL && wp->NO > head1->NO;pre = head1, head1=head1->next);
     pre->next = wp;
     wp->next = head1;
