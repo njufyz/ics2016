@@ -1,5 +1,6 @@
 #include "monitor/watchpoint.h"
 #include "monitor/expr.h"
+#include "nemu.h"
 #include "monitor/monitor.h"
 #define NR_WP 32
 
@@ -93,6 +94,7 @@ int check_watchpoint()
             
             nemu_state = STOP;
             printf("watchpoint %d: %s\nOld value:%u\nNew value:%u\n",p->NO,p->expr,p->val,k);
+            printf("Stop at %u\n",cpu.eip);
             p->val=k;
             return 1;
         }
