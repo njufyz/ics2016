@@ -81,14 +81,14 @@ int check_watchpoint()
 {
     WP* p = head;
     if(head==NULL) return 0;
-    for(;p!=NULL;p=p->next)
+    for(;p->next!=NULL;p=p->next)
     {
         bool su = 1;
-    //    Log("%u",expr(p->expr,&su));
-        if(expr(p->expr,&su)!=p->val)
+        int k =expr(p->expr,&su);
+        if(k!=p->val)
         {
             nemu_state = STOP;
-            printf("watchpoint %d: %s\nOld value:%u\nNew value:%u\n",p->NO,p->expr,p->val,expr(p->expr,&su));
+            printf("watchpoint %d: %s\nOld value:%u\nNew value:%u\n",p->NO,p->expr,p->val,k);
             return 1;
         }
     }
