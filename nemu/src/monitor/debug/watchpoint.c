@@ -94,7 +94,7 @@ int check_watchpoint()
             
             nemu_state = STOP;
             printf("watchpoint %d: %s\nOld value:%u\nNew value:%u\n",p->NO,p->expr,p->val,k);
-            printf("Stop at %u\n",cpu.eip);
+            printf("Stop at 0x%x\n",cpu.eip);
             p->val=k;
             return 1;
         }
