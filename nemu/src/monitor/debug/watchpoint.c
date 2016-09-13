@@ -90,8 +90,10 @@ int check_watchpoint()
         int k =expr(p->expr,&su);
         if(k!=p->val)
         {
+            
             nemu_state = STOP;
             printf("watchpoint %d: %s\nOld value:%u\nNew value:%u\n",p->NO,p->expr,p->val,k);
+            p->val=k;
             return 1;
         }
     }
