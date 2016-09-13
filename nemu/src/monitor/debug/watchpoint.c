@@ -30,7 +30,7 @@ WP* new_wp()
     WP* p = free_;
     for(;p->next!=NULL;p=p->next)
     Log("free_->NO: %d",p->NO);
-    free_->next=free_;
+    free_=free_->next;
      p->next=NULL;
     puts(" ");
     for(p=free_;p->next!=NULL;p=p->next)
