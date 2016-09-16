@@ -187,7 +187,7 @@ static int cmd_x(char *args)
     address = expr(arg2,&success);
     if(success==1)
     {
-        puts(" ");
+        printf("\n");;
         for(;i!=step;i++)
         {
             printf("0x%x\n\t",swaddr_read(address+4*i,4));
