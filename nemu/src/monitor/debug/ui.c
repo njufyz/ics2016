@@ -191,7 +191,7 @@ static int cmd_x(char *args)
         for(;i!=step;i++)
         
         {
-            printf("0x%x\t:",address+4*i);
+            printf("0x%x:\t",address+4*i);
             printf("0x%x\n",swaddr_read(address+4*i,4));
         
         }
