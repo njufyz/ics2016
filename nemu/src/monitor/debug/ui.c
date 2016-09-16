@@ -125,13 +125,13 @@ static int cmd_info(char *args){
 
     if(strcmp(arg,"r")==0){
         for(i=0;i<8;i++)
-            printf("%s\t0x%x\t%I32u\n",regsl[i],cpu.gpr[i]._32,cpu.gpr[i]._32);
+            printf("%s\t0x%x\t\t%u\n",regsl[i],cpu.gpr[i]._32,cpu.gpr[i]._32);
         for(i=0;i<8;i++)
-            printf("%s\t0x%x\t%I32u\n",regsw[i],cpu.gpr[i]._16,cpu.gpr[i]._16);
+            printf("%s\t0x%x\t\t%u\n",regsw[i],cpu.gpr[i]._16,cpu.gpr[i]._16);
         for(i=0;i<4;i++)
-            printf("%s\t0x%x\t%I32u\n",regsb[i],cpu.gpr[i]._8[0],cpu.gpr[i]._8[0]);
+            printf("%s\t0x%x\t\t%u\n",regsb[i],cpu.gpr[i]._8[0],cpu.gpr[i]._8[0]);
         for(;i<8;i++)
-            printf("%s\t0x%x\t%I32u\n",regsb[i],cpu.gpr[i]._8[1],cpu.gpr[i]._8[1]);
+            printf("%s\t0x%x\t\t%2u\n",regsb[i],cpu.gpr[i]._8[1],cpu.gpr[i]._8[1]);
     }
     else if(strcmp(arg,"w")==0)
     {
