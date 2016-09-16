@@ -190,7 +190,7 @@ static int cmd_x(char *args)
         printf("\n");;
         for(;i!=step;i++)
         {
-            printf("0x%x\n\t",swaddr_read(address+4*i,4));
+            printf("0x%x\n",swaddr_read(address+4*i,4));
         }
     }
     puts(" ");
