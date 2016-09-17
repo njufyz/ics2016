@@ -123,6 +123,11 @@ static int cmd_info(char *args){
     char *arg = strtok(NULL," ");
     int i;
 
+    if(arg==NULL)
+    {
+        printf("Bad Argeement.\n");
+        return 0;
+    }
     if(strcmp(arg,"r")==0){
         for(i=0;i<8;i++)
             printf("%s\t0x%x\t\t%u\n",regsl[i],cpu.gpr[i]._32,cpu.gpr[i]._32);
@@ -147,6 +152,11 @@ static int cmd_info(char *args){
 
 static int cmd_p(char *args){
     char* arg= strtok(NULL," ");
+    if(arg==NULL)
+    {
+        puts("Bad agreement.");
+        return 0;
+    }
     bool success = 1;
     unsigned ans = expr(arg,&success);
     if(success==1)
@@ -202,6 +212,11 @@ static int cmd_x(char *args)
 static int cmd_w(char *args)
 {
     char* arg=strtok(NULL," ");
+    if(arg==NULL)
+    {
+        puts("Bad Argeement.");
+        return 0;
+    }
     WP* wp=new_wp();
     strcpy(wp->expr,arg);
     bool success = 1;
@@ -222,6 +237,11 @@ extern WP* head;
 static int cmd_d(char *args)
 {
     char* arg = strtok(NULL," ");
+    if(arg==NULL)
+    {
+        puts("Bad Agreement.");
+        return 0;
+    }
     int NO = atoi(arg);
     free_wp(NO);
     return 0;
@@ -229,7 +249,7 @@ static int cmd_d(char *args)
 
 static int cmd_bt(char *args)
 {
-    return -1;
+    return 0;
 }
 
 void ui_mainloop() {
