@@ -160,7 +160,7 @@ static int cmd_p(char *args){
     bool success = 1;
     unsigned ans = expr(arg,&success);
     if(success==1)
-    printf("%u\n",ans);
+    printf("%u\t\t0x%x\n",ans,ans);
     return 0;
 }
 
