@@ -217,10 +217,11 @@ static int cmd_w(char *args)
         puts("Bad Argeement.");
         return 0;
     }
-    WP* wp=new_wp();
-    strcpy(wp->expr,arg);
     bool success = 1;
     uint32_t k =expr(arg,&success);
+    if(success==0) return 0;
+    WP* wp=new_wp();
+    strcpy(wp->expr,arg);
     if(success==1)
     {
         wp->val=k;
