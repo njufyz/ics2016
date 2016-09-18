@@ -156,18 +156,24 @@ uint32_t expr(char *e, bool *success) {
                         }
 
 
-/*    for(i=0;i<nr_token;i++)
+    for(i=0;i<nr_token-1;i++)
     {
         if(tokens[i].type=='+'||tokens[i].type=='-'||tokens[i].type=='*'||tokens[i].type=='/'||tokens[i].type==NEG||tokens[i].type==DEREF)
         {
-            if(tokens[i+1].type=='+'||tokens[i].type=='-'||tokens[i].type=='*'||tokens[i].type=='/'||tokens[i].type==')'||tokens[i].type==EQ||tokens[i].type==NEQ || tokens[i].type==AND || tokens[i].type == OR) 
+            if(tokens[i+1].type=='+'||tokens[i+1].type=='-'||tokens[i+1].type=='*'||tokens[i+1].type=='/'||tokens[i+1].type==')'||tokens[i+1].type==EQ||tokens[i+1].type==NEQ || tokens[i+1].type==AND || tokens[i+1].type == OR) 
             {
                 puts("Bad EXPR!");
                 *success = 0;
                 return 0;
             }
         }
-    }*/
+        if((tokens[i].type==NUM||tokens[i].type==ADDR) &&(tokens[i+1].type=='('||tokens[i+1].type==NEG||tokens[i+1].type==NOT||tokens[i+1].type==DEREF))
+        {
+            puts("Bad EXPR!");
+            *success=0;
+            return 0;
+        }
+    }
    // panic("please implement me");
 	return eval(0,nr_token-1);
 }
