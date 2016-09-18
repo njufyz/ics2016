@@ -156,7 +156,7 @@ uint32_t expr(char *e, bool *success) {
                         }
 
 
-    for(i=0;i<nr_token;i++)
+/*    for(i=0;i<nr_token;i++)
     {
         if(tokens[i].type=='+'||tokens[i].type=='-'||tokens[i].type=='*'||tokens[i].type=='/'||tokens[i].type==NEG||tokens[i].type==DEREF)
         {
@@ -167,7 +167,7 @@ uint32_t expr(char *e, bool *success) {
                 return 0;
             }
         }
-    }
+    }*/
    // panic("please implement me");
 	return eval(0,nr_token-1);
 }
