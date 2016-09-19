@@ -40,7 +40,6 @@ WP* new_wp()
         q->next = p;
         p->next=NULL;
     }
-   display(); 
     return p;
 
 }
