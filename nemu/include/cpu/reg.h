@@ -31,6 +31,11 @@ typedef struct {
     };
 	swaddr_t eip;
 
+    /*struct eflags{
+        unsigned nouse:23;
+        unsigned cf:1;
+        unsigned 
+*/
 } CPU_state;
 
 extern CPU_state cpu;
