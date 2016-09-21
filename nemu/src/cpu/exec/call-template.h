@@ -4,7 +4,7 @@
 
 static void do_execute()
 {
-    assert(op_src->val==6);
+    printf("%d",op_src->val);
     cpu.eip+=op_src->val;
     print_asm_template1();
 }
