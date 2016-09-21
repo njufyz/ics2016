@@ -46,7 +46,7 @@ make_helper(concat(decode_si_, SUFFIX)) {
 make_helper(concat(decode_ni_,SUFFIX)){
 
 	op_src->type = OP_TYPE_IMM;
-	op_src->imm = instr_fetch(eip+1, DATA_BYTE);
+	op_src->imm = instr_fetch(eip, DATA_BYTE);
 	op_src->val = op_src->imm;
 
 #ifdef DEBUG
