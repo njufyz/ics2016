@@ -50,8 +50,6 @@ make_helper(decode_rm_imm_b);
 make_helper(decode_rm_imm_w);
 make_helper(decode_rm_imm_l);
 
-make_helper(decode_ni_l);
-
 
 void write_operand_b(Operand *, uint8_t);
 void write_operand_w(Operand *, uint16_t);

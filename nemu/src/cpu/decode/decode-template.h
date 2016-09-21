@@ -42,18 +42,6 @@ make_helper(concat(decode_si_, SUFFIX)) {
 	return DATA_BYTE;
 }
 #endif
-/* next immediate */
-make_helper(concat(decode_ni_,SUFFIX)){
-
-	op_src->type = OP_TYPE_IMM;
-	op_src->imm = instr_fetch(eip, DATA_BYTE);
-	op_src->val = op_src->imm;
-
-#ifdef DEBUG
-	snprintf(op_src->str, OP_STR_SIZE, "$0x%x", op_src->imm);
-#endif
-	return DATA_BYTE;
-}
 
 /* eAX */
 static int concat(decode_a_, SUFFIX) (swaddr_t eip, Operand *op) {

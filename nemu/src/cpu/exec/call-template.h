@@ -4,11 +4,10 @@
 
 static void do_execute()
 {
-    printf("%d",op_src->val);
     cpu.eip+=op_src->val;
-    print_asm_template1();
+    //print_asm_template1();
 }
 
-make_instr_helper(ni)
+make_instr_helper(i)
 
 #include "cpu/exec/template-end.h"

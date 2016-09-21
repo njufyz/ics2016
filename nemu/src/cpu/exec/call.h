@@ -2,6 +2,6 @@
 #define _CALL_H_
 
 
-make_helper(call_ni_l);
+make_helper(call_i_l);
 
 #endif
