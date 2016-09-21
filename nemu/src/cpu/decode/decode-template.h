@@ -52,7 +52,7 @@ make_helper(concat(decode_ni_,SUFFIX)){
 #ifdef DEBUG
 	snprintf(op_src->str, OP_STR_SIZE, "$0x%x", op_src->imm);
 #endif
-	return DATA_BYTE+1;
+	return DATA_BYTE;
 }
 
 /* eAX */
