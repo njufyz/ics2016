@@ -89,6 +89,18 @@ void restart() {
     cpu.eflags.nouse1=0;
     cpu.eflags.nouse2=0;
     cpu.eflags.nouse3=0;
+    cpu.eflags.of=0;
+    cpu.eflags.df=0;
+    cpu.eflags.If=0;
+    cpu.eflags.tf=0;
+    cpu.eflags.sf=0;
+    cpu.eflags.zf=0;
+    cpu.eflags.no1=0;
+    cpu.eflags.af=0;
+    cpu.eflags.no2=0;
+    cpu.eflags.pf=0;
+    cpu.eflags.no3=1;
+    cpu.eflags.cf=0;
 	/* Initialize DRAM. */
 	init_ddr3();
 }
