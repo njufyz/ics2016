@@ -29,13 +29,28 @@ typedef struct {
     uint32_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
             };
     };
+
 	swaddr_t eip;
 
-    /*struct eflags{
-        unsigned nouse:23;
+    struct Eflags
+    {
+        unsigned nouse1:8;
+        unsigned nouse2:8;
+        unsigned nouse3:4;
+        unsigned of:1;
+        unsigned df:1;
+        unsigned If:1;
+        unsigned tf:1;
+        unsigned sf:1;
+        unsigned zf:1;
+        unsigned no1:1;
+        unsigned af:1;
+        unsigned no2:1;
+        unsigned pf:1;
+        unsigned no3:1;
         unsigned cf:1;
-        unsigned 
-*/
+    }eflags;
+
 } CPU_state;
 
 extern CPU_state cpu;
