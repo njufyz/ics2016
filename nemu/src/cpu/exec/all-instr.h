@@ -20,6 +20,7 @@
 #include "logic/shr.h"
 #include "logic/shrd.h"
 #include "logic/test.h"
+#include "logic/cmp.h"
 
 #include "jcc/je.h"
 
