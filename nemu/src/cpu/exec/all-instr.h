@@ -32,5 +32,6 @@
 #include "special/special.h"
 
 #include "call.h"
+#include "ret.h"
 
 #include "push.h"
