@@ -3,6 +3,7 @@
 #define instr pop
 
 static void do_execute(){
+    printf("%d",op_src->val);
     OPERAND_W(op_dest,op_src->val);
     cpu.gpr[4]._32+=4;
     print_asm_template1();
