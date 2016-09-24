@@ -4,8 +4,8 @@ make_helper(push)
 {
     uint32_t op=instr_fetch(eip,1);
     int index = op-0x50;
-    reg_l(4)-=4;
-    uint32_t k = swaddr_read(reg_l(index),4);
-    swaddr_write(reg_l(4),4,k);
+    cpu.gpr[4]._32-=4;
+    uint32_t k = swaddr_read(cpu.gpr[index]._32,4);
+    swaddr_write(cpu.gpr[4]._32,4,k);
     return 1;
 }
