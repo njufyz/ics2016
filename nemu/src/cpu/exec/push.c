@@ -5,6 +5,7 @@ make_helper(push)
     uint32_t op=instr_fetch(eip,1);
     int index = op-0x50;
     reg_l(4)-=4;
-    swaddr_write(reg_l(4),4,reg_l(index));
+    uint32_t k = swaddr_read(reg_l(index),4);
+    swaddr_write(reg_l(4),4,k);
     return 1;
 }
