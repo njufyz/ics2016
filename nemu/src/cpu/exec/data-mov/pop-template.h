@@ -11,8 +11,7 @@ static void do_execute(){
    
     MEM_W(op_src->val,cpu.gpr[4]._32);
     cpu.gpr[4]._32+=DATA_BYTE;
-    printf("rp\n");
-
+    print_asm_template1();   
 }
 
 make_instr_helper(r)
