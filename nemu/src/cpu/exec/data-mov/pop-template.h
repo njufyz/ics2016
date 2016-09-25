@@ -8,8 +8,10 @@ static void do_execute(){
    // swaddr_write(reg_l(op_src->val),4,swaddr_read(reg_l(4),4));
    // cpu.gpr[4]._32+=4;
    // print_asm_template1();
+   
     MEM_W(op_src->val,cpu.gpr[4]._32);
     cpu.gpr[4]._32+=DATA_BYTE;
+    printf("rp\n");
 
 }
 
