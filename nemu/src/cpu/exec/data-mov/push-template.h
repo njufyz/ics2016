@@ -5,7 +5,7 @@
 static void do_execute()
 {
     cpu.gpr[4]._32-=DATA_BYTE;
-    MEM_W(cpu.gpr[4]._32,op_dest->val);
+    MEM_W(cpu.gpr[4]._32,op_src->val);
 }
 
 make_instr_helper(r)
