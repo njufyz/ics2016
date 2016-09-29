@@ -23,10 +23,11 @@ static void do_execute(){
         }
         if(count%2) cpu.eflags.pf = 1;
         else cpu.eflags.pf=0;
-        result>>=(8*DATA_BYTE-1);
+       /* result>>=(8*DATA_BYTE-1);
         result&=1;
         if(result) cpu.eflags.sf = 1;
-        else cpu.eflags.sf = 0;
+        else cpu.eflags.sf = 0;*/
+        cpu.eflags.sf= MSB(result);
         }
 }
 
