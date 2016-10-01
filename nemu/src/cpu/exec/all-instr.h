@@ -26,7 +26,7 @@
 #include "logic/cmp.h"
 
 #include "jcc/je.h"
-#include "jmp/jmp.h"
+#include "control/jmp.h"
 
 #include "string/rep.h"
 
@@ -34,6 +34,6 @@
 
 #include "special/special.h"
 
-#include "call.h"
-#include "ret.h"
+#include "control/call.h"
+#include "control/ret.h"
 
