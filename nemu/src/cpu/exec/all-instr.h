@@ -25,7 +25,7 @@
 #include "logic/test.h"
 #include "logic/cmp.h"
 
-#include "jcc/je.h"
+#include "control/jcc.h"
 #include "control/jmp.h"
 
 #include "string/rep.h"
