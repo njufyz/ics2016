@@ -4,16 +4,18 @@
 
 static void do_execute()
 {
-    DATA_TYPE result = op_src->val - op_dest->val; //???
-    cpu.eflags.sf=MSB(result);
-    if(!result) {
-        cpu.eflags.zf=1;
-        cpu.eflags.pf=1;
-        int k = (op_src->val>0 && op_dest->val<0 && result<=0);
-        int t = (op_src->val<=0 && op_dest->val >= 0&&result>0);
-        cpu.eflags.of=!k&&!t;
-        /*TODO*/
-    }
+    DATA_TYPE result = op_dest->val - op_src->val; //???
+    update_eflags(result);
+    long long result_l = (((long long)op_dest->val - (long long)op_src->val)>>(8*DATA_BYTE));
+    cpu.eflags.cf = result_l & 1;  //CF
+
+    if(op_dest->val > op_src->val) cpu.eflags.af=0;
+    else cpu.eflags.af=1;    //AF
+
+    if(MSB(op_dest->val)!=MSB(op_src->val) && MSB(op_dest->val) != MSB(result))
+        cpu.eflags.of=1;
+    else cpu.eflags.of=0;
+
     print_asm_template2();
 }
 

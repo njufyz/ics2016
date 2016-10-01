@@ -33,3 +33,12 @@
 #define OPERAND_W(op, src) concat(write_operand_, SUFFIX) (op, src)
 
 #define MSB(n) ((DATA_TYPE)(n) >> ((DATA_BYTE << 3) - 1))
+
+#define update_eflags(result) \
+    cpu.eflags.zf = !result;\
+    cpu.eflags.sf = MSB(result);\
+    int i = 0;\
+    cpu.eflags.pf=1;\
+    result&=0xff;\
+    for(;i<8;i++) cpu.eflags.pf ^= result>>i;  
+    
