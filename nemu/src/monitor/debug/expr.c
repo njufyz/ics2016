@@ -194,6 +194,7 @@ uint32_t eval(int p,int q)
      {
         int index = 0;
         char* name = tokens[p].str+1;
+        if(strcmp(name,"eip")==0) return cpu.eip;
         for(;index<8;index++)
             if(strcmp(name,regsl[index])==0) return cpu.gpr[index]._32;
         for(index=0;index<8;index++)
