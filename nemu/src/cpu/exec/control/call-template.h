@@ -5,10 +5,9 @@
 static void do_execute()
 {
     cpu.gpr[4]._32-=4;
-//    swaddr_write(cpu.gpr[4]._32,4,cpu.eip);
     MEM_W(cpu.gpr[4]._32,cpu.eip+4);
     cpu.eip+=op_src->val;
-    //print_asm_template1();
+    print_asm_template1();
 }
 
 make_instr_helper(i)
