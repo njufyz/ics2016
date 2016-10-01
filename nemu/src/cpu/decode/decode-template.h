@@ -33,16 +33,10 @@ make_helper(concat(decode_si_, SUFFIX)) {
 	op_src->simm = ???
 	 */
 //	panic("please implement me");
-    uint32_t k = instr_fetch(eip,DATA_BYTE);
-    uint32_t t = 1<<(8*DATA_BYTE-1);
-    int o = k&t;
-    if(o) k=-(k&(t-1));
-    DATA_TYPE tmp = k;
-   // tmp=(tmp>>(8*DATA_BYTE-1))&1;
-    //if(temp) temp= */
-    op_src->simm = tmp;
-	op_src->val = op_src->simm;
-
+   op_src->simm = instr_fetch(eip,DATA_BYTE);
+   op_src->simm <<= (32 - 8*DATA_BYTE);
+   op_src->simm >>= (32 - 8*DATA_BYTE);
+   op_src->val = op_src->simm;
 #ifdef DEBUG
 	snprintf(op_src->str, OP_STR_SIZE, "$0x%x", op_src->val);
 #endif
