@@ -28,6 +28,7 @@
 
 #include "control/jcc.h"
 #include "control/jmp.h"
+#include "control/leave.h"
 
 #include "string/rep.h"
 
