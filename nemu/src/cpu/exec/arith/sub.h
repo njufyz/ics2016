@@ -3,6 +3,6 @@
 
 #include "cpu/exec/helper.h"
 
-make_helper(rm_imm_b);
+make_helper(sub_si2rm_v);
 
 #endif
