@@ -4,12 +4,6 @@
 
 static void do_execute(){
     
-   // OPERAND_W(op_dest,op_src->val);
-   // swaddr_write(reg_l(op_src->val),4,swaddr_read(reg_l(4),4));
-   // cpu.gpr[4]._32+=4;
-   // print_asm_template1();
-   
-   // MEM_W(op_src->val,cpu.gpr[4]._32);
     OPERAND_W(op_src,swaddr_read(cpu.gpr[4]._32,4));
     cpu.gpr[4]._32+=DATA_BYTE;
     print_asm_template1();   
