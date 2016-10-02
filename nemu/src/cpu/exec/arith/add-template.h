@@ -4,8 +4,9 @@
 
 static void do_execute(){
 
-    Log("op_dest->val %x,op_src->val),%x\n",op_dest->val,op_src->val);
+    Log("op_dest->val:%x,op_src->val:%x DATA_BYTE:%d",op_dest->val,op_src->val,DATA_BYTE);
     DATA_TYPE result = op_dest->val + op_src->val;
+    Log("result:%x",result);
     update_eflags(result);
     cpu.eflags.af = ((op_dest->val & 0x7) + (op_src->val & 0x7)) > 0x7 ? 0 : 1;
     if( MSB(op_dest->val) == MSB(op_src->val) && MSB(result) != MSB(op_dest->val)) 
