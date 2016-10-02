@@ -5,7 +5,7 @@
 static void do_execute(){
 
     DATA_TYPE result = op_dest->val + op_src->val;
-    Log("result:%x",result); 
+//    Log("result:%x",result); 
     OPERAND_W(op_dest, result); 
     cpu.eflags.af = ((op_dest->val & 0x7) + (op_src->val & 0x7)) > 0x7 ? 0 : 1;
     if( MSB(op_dest->val) == MSB(op_src->val) && MSB(result) != MSB(op_dest->val)) 
