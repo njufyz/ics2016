@@ -4,12 +4,9 @@
 
 static void do_execute(){
 
-    Log("op_dest->val:%x,op_src->val:%x DATA_BYTE:%d",op_dest->val,op_src->val,DATA_BYTE);
     DATA_TYPE result = op_dest->val + op_src->val;
-    Log("result:%x",result);
-    
+    Log("result:%x",result); 
     OPERAND_W(op_dest, result); 
-    update_eflags(result);
     cpu.eflags.af = ((op_dest->val & 0x7) + (op_src->val & 0x7)) > 0x7 ? 0 : 1;
     if( MSB(op_dest->val) == MSB(op_src->val) && MSB(result) != MSB(op_dest->val)) 
         cpu.eflags.of = 1; 
@@ -19,6 +16,7 @@ static void do_execute(){
     if(result_l >> (8 * DATA_BYTE)) cpu.eflags.cf = 1;
     else cpu.eflags.cf = 0;
 
+    update_eflags(result);
 	print_asm_template2();
 }
 
