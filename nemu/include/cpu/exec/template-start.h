@@ -40,5 +40,5 @@
     int i = 0;\
     cpu.eflags.pf=1;\
     result&=0xff;\
-    for(;i<8;i++) cpu.eflags.pf ^= result>>i;  
+    for(;i<8;i++) cpu.eflags.pf ^= (result &(1<<i))>>i;  
     
