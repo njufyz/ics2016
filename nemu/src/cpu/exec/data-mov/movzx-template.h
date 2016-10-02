@@ -3,9 +3,9 @@
 #define instr movzx
 
 static void do_execute(){
-    DATA_TYPE result = op_src->val;
+    uint32_t result = op_src->val;
     result&=((1<<op_src->size * 8)-1);
-    swaddr_write(op_dest->val,op_dest->size,result);
+    write_operand_l(op_dest,result);
     print_asm_template2();
 }
 
