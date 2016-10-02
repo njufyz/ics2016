@@ -12,7 +12,7 @@ int main() {
     A[1][5] = 3;
 //	b = A[3];
 //	A[5] = b;
-	b = A[1][4]
+	b = A[1][4];
 	nemu_assert(A[0][0] == 0);
 	nemu_assert(A[0][1] == 1);
 	nemu_assert(A[0][2] == 2);
