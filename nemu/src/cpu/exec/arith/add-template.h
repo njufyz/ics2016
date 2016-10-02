@@ -4,6 +4,7 @@
 
 static void do_execute(){
 
+    Log("op_dest->val %x,op_src->val),%x\n",op_dest->val,op_src->val);
     DATA_TYPE result = op_dest->val + op_src->val;
     update_eflags(result);
     cpu.eflags.af = ((op_dest->val & 0x7) + (op_src->val & 0x7)) > 0x7 ? 0 : 1;
