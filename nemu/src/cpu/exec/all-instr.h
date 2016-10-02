@@ -27,6 +27,7 @@
 #include "logic/shr.h"
 #include "logic/shrd.h"
 #include "logic/test.h"
+#include "logic/setcc.h"
 
 #include "control/jcc.h"
 #include "control/jmp.h"
