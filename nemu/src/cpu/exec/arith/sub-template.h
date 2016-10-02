@@ -15,7 +15,7 @@ static void do_execute(){
     if(MSB(op_dest->val)!=MSB(op_src->val) && MSB(op_dest->val) != MSB(result))
         cpu.eflags.of=1;
     else cpu.eflags.of=0;  //of
-
+    OPERAND_W(op_dest,result);
     print_asm_template2();
 }
 
