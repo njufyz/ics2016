@@ -35,7 +35,7 @@ make_group(group1_sx_v,
 /* 0xc0 */
 make_group(group2_i_b,
 	inv, inv, inv, inv, 
-	sar_rm_imm_v, inv, inv, inv)
+	sar_rm_imm_b, inv, inv, inv)
 
 /* 0xc1 */
 make_group(group2_i_v,
