@@ -15,6 +15,7 @@
 #include "arith/sub.h"
 #include "arith/add.h"
 #include "arith/adc.h"
+#include "arith/cmp.h"
 
 #include "logic/and.h"
 #include "logic/or.h"
@@ -25,7 +26,6 @@
 #include "logic/shr.h"
 #include "logic/shrd.h"
 #include "logic/test.h"
-#include "logic/cmp.h"
 
 #include "control/jcc.h"
 #include "control/jmp.h"
