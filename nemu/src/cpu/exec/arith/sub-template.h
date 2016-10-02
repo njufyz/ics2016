@@ -6,7 +6,6 @@ static void do_execute(){
     DATA_TYPE result = op_dest->val - op_src->val;
     
     OPERAND_W(op_dest,result);
-    update_eflags(result);
 
     long long result_l = (((long long)op_dest->val - (long long)op_src->val)>>(8*DATA_BYTE));
     cpu.eflags.cf = result_l & 1;  //CF
@@ -17,6 +16,8 @@ static void do_execute(){
     if(MSB(op_dest->val)!=MSB(op_src->val) && MSB(op_dest->val) != MSB(result))
         cpu.eflags.of=1;
     else cpu.eflags.of=0;  //of
+
+    update_eflags(result);
     print_asm_template2();
 }
 
