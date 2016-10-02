@@ -27,7 +27,7 @@ int main() {
       for(;j<2;j++)
         {
             A[i][j]=i+j;
-            nemu_assert(A[i][j]==B[b++];
+            nemu_assert(A[i][j]==B[b++]);
         }
 	return 0;
 }
