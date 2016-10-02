@@ -10,7 +10,7 @@ static void do_execute(){
     long long result_l = (((long long)op_dest->val - (long long)op_src->val)>>(8*DATA_BYTE));
     cpu.eflags.cf = result_l & 1;  //CF
 
-    if((op_dest->val & 0x7) > (op_src->val & 0x7)) cpu.eflags.af=0;
+    if((op_dest->val & 0xf) > (op_src->val & 0xf)) cpu.eflags.af=0;
     else cpu.eflags.af=1;    //AF
 
     if(MSB(op_dest->val)!=MSB(op_src->val) && MSB(op_dest->val) != MSB(result))
