@@ -13,6 +13,7 @@ static void do_execute()
 #if DATA_BYTE == 2 
     cpu.eip&=0xffff;
 #endif
+    print_asm_template1();
 }
 
 make_instr_helper(si)
@@ -30,6 +31,7 @@ static void do_execute(){
 #if DATA_BYTE == 2
     cpu.eip&=0xffff;
 #endif
+    print_asm_template1();
 }
 
 make_instr_helper(si)
