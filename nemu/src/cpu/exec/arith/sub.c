@@ -14,7 +14,7 @@
 #undef DATA_BYTE
 
 make_helper_v(sub_si2rm)
-
+make_helper_v(sub_rm2r)
 
 
 
