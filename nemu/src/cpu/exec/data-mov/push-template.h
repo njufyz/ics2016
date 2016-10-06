@@ -4,7 +4,9 @@
 
 static void do_execute()
 {
+    if(DATA_BYTE==2)
     cpu.gpr[4]._32-=DATA_BYTE;
+    else cpu.gpr[4]._32-=4;
     MEM_W(cpu.gpr[4]._32,op_src->val);
     print_asm_template1();
 }
