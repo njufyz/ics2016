@@ -60,7 +60,7 @@ make_instr_helper(si)
 #define instr jle
 
 static void do_execute(){
-    if(cpu.eflags.zf==1 && cpu.eflags.sf != cpu.eflags.of)
+    if(cpu.eflags.zf==1 || cpu.eflags.sf != cpu.eflags.of)
         cpu.eip+=op_src->val;
 #if DATA_BYTE == 2
     cpu.eip&=0xffff;
