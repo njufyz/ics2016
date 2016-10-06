@@ -4,10 +4,19 @@
 
 static void do_execute()
 {
+    int l;
     if(DATA_BYTE==2)
-    cpu.gpr[4]._32-=DATA_BYTE;
-    else cpu.gpr[4]._32-=4;
-    MEM_W(cpu.gpr[4]._32,op_src->val);
+    {   
+        l=2;
+        cpu.gpr[4]._32-=DATA_BYTE;
+    }
+    else
+    {
+        l=4;
+        cpu.gpr[4]._32-=4;
+    }
+   // MEM_W(cpu.gpr[4]._32,op_src->val);
+    swaddr_write(cpu.gpr[4]._32,l,op_src->val);
     print_asm_template1();
 }
 
