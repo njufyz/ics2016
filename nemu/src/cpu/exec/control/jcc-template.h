@@ -71,7 +71,19 @@ static void do_execute(){
 make_instr_helper(si)
 #undef instr
 
+/*-----------------------*/
+#define instr jg
 
+static void do_execute(){
+    if(cpu.eflags.zf==0 || cpu.eflags.sf==cpu.eflags.of)
+        cpu.eip+=op_src->val;
+#if DATA_BYTE == 2
+    cpu.eip&=0xffff;
+#endif
+    print_asm_template1();
+}
+
+make_instr_helper(si)
 
 
 
