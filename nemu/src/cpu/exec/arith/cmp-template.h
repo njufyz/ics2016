@@ -5,7 +5,6 @@
 static void do_execute()
 {
     DATA_TYPE result = op_dest->val - op_src->val; //???
-    update_eflags(result);
     long long result_l = ((long long)op_dest->val - (long long)op_src->val)>>(8*DATA_BYTE);
     cpu.eflags.cf = result_l & 1;  //CF
 
@@ -16,6 +15,7 @@ static void do_execute()
         cpu.eflags.of=1;
     else cpu.eflags.of=0;
 
+    update_eflags(result);
     print_asm_template2();
 }
 
