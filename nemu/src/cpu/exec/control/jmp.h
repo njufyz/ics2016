@@ -2,5 +2,5 @@
 #define _JMP_H_
 
 make_helper(jmp_i_b);
-
+make_helper(jmp_i_w);
 #endif

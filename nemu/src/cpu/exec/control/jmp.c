@@ -5,3 +5,16 @@
 #undef DATA_BYTE
 
 
+#define DATA_BYTE 2
+#include "jmp-template.h"
+#undef DATA_BYTE
+
+
+
+
+
+
+
+
+
+
