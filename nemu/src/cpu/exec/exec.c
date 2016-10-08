@@ -120,7 +120,7 @@ helper_fun opcode_table [256] = {
 /* 0x5c */	pop_r_v, pop_r_v, pop_r_v, pop_r_v,
 /* 0x60 */	inv, inv, inv, inv,
 /* 0x64 */	inv, inv, operand_size, inv,
-/* 0x68 */	push_i_v, inv, push_i_b, inv,
+/* 0x68 */	push_i_v, imul_i_rm2r_v, push_i_b, inv,
 /* 0x6c */	inv, inv, inv, inv,
 /* 0x70 */	inv, inv, inv, inv,
 /* 0x74 */	je_si_b, jne_si_b, jbe_si_b, inv,
