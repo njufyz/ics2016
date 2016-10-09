@@ -4,7 +4,8 @@
 
 static void do_execute(){
     uint32_t result = op_src->val;
-    result&=((1ll<<op_src->size * 8)-1);
+    long long i =1;
+    result&=((i<<op_src->size * 8)-1);
     write_operand_l(op_dest,result);
     print_asm_template2();
 }

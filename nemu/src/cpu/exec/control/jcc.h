@@ -1,11 +1,11 @@
 #ifndef _JE_H_
 #define _JE_H_
 
-make_helper(je_si_b);
-make_helper(jbe_si_b);
-make_helper(jne_si_b);
-make_helper(jle_si_b);
-//make_helper(jle_si_v);
-make_helper(jg_si_b);
-make_helper(jl_si_b);
+make_helper(je_i_b);
+make_helper(jbe_i_b);
+make_helper(jne_i_b);
+make_helper(jle_i_b);
+make_helper(jle_i_v);
+make_helper(jg_i_b);
+make_helper(jl_i_b);
 #endif

@@ -5,7 +5,7 @@
 #undef DATA_BYTE
 
 
-/*#define DATA_BYTE 2
+#define DATA_BYTE 2
 #include "jcc-template.h"
 #undef DATA_BYTE
 
@@ -14,8 +14,8 @@
 #include "jcc-template.h"
 #undef DATA_BYTE
 
-make_helper_v(jle_i_v)
-*/
+make_helper_v(jle_i)
+
 
 
 
