@@ -89,6 +89,18 @@ make_instr_helper(i)
 
 #undef instr
 
+/*------------------------------*/
+#define instr jge
+
+static void do_execute(){
+    update_eip();
+    if(cpu.eflags.sf==cpu.eflags.of)
+        cpu.eip=new_;
+}
+
+make_instr_helper(i)
+#undef instr
+
 
 
 #include "cpu/exec/template-end.h"
