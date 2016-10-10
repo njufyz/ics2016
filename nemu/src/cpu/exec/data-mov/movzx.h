@@ -3,5 +3,5 @@
 
 make_helper(movzx_rm2r_b);
 
-make_helper(movzx_rm2r_v);
+make_helper(movzx_rm2r_w);
 #endif
