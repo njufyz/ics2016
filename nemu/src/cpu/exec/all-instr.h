@@ -19,6 +19,7 @@
 #include "arith/add.h"
 #include "arith/adc.h"
 #include "arith/cmp.h"
+#include "arith/sbb.h"
 
 #include "logic/and.h"
 #include "logic/or.h"
