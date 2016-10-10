@@ -1,7 +1,7 @@
 #include "cpu/exec/template-start.h"
 
 #define instr jmp
-
+extern int Len;
 static void do_execute(){
     if(op_src->type==OP_TYPE_IMM)
     {
@@ -10,16 +10,9 @@ static void do_execute(){
           cpu.eip &= 0xffff;
     }
     else{
-       if (DATA_BYTE == 2)
-       {
-           cpu.eip = (op_src->val & 0xffff);
-           cpu.eip -=2;
-       }
-       else 
-           cpu.eip = op_src->val;
-       if(op_src->type == OP_TYPE_MEM)
-           cpu.eip -= DATA_BYTE + 3;
-       else cpu.eip -= 2;
+        if (DATA_BYTE == 2) 
+            op_src->val &= 0xffff;
+        cpu.eip = op_src->val - Len;
     }
 
 
