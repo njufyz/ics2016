@@ -8,10 +8,11 @@ make_helper(jle_i_b);
 make_helper(jg_i_b);
 make_helper(jl_i_b);
 make_helper(jge_i_b);
+make_helper(ja_i_b);
 
 make_helper(jle_i_v);
 make_helper(jge_i_v);
 make_helper(jl_i_v);
-
+make_helper(ja_i_v);
 
 #endif

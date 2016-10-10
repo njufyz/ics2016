@@ -101,7 +101,17 @@ static void do_execute(){
 make_instr_helper(i)
 #undef instr
 
+/*-----------------------------*/
 
+#define instr ja
+
+static void do_execute(){
+    update_eip();
+    if(cpu.eflags.cf==0&&cpu.eflags.zf==0)
+        cpu.eip=new_;
+}
+make_instr_helper(i)
+#undef instr
 
 #include "cpu/exec/template-end.h"
 
