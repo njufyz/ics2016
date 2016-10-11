@@ -2,10 +2,11 @@
 
 #define instr call
 
+extern int Len;
 static void do_execute()
 {
     cpu.gpr[4]._32-=4;
-    MEM_W(cpu.gpr[4]._32,cpu.eip+4);
+    MEM_W(cpu.gpr[4]._32,cpu.eip+Len);
     cpu.eip+=op_src->val;
     print_asm_template1();
 }
