@@ -6,13 +6,14 @@ make_helper(rep) {
 	int len;
 	int count = 0;
 	if(instr_fetch(eip + 1, 1) == 0xc3) {
-		/* repz ret */
+		/* r:q
+         * epz ret */
 		exec(eip + 1);
 		len = 0;
 	}
 	else {
 		while(cpu.ecx) {
-            Log("here11");
+            Log("ecx=%x",cpu.ecx);
 			exec(eip + 1);
 			count ++;
 			cpu.ecx --;
@@ -27,6 +28,7 @@ make_helper(rep) {
 				);
 
 			/* TODO: Jump out of the while loop if necessary. */
+
 
 		}
 		len = 1;
