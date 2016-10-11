@@ -35,6 +35,9 @@
 #include "control/jcc.h"
 #include "control/jmp.h"
 #include "control/leave.h"
+#include "control/call.h"
+#include "control/ret.h"
+#include "control/ret_i.h"
 
 #include "string/rep.h"
 #include "string/movs.h"
@@ -42,7 +45,4 @@
 #include "misc/misc.h"
 
 #include "special/special.h"
-
-#include "control/call.h"
-#include "control/ret.h"
 
