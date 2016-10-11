@@ -3,16 +3,16 @@
 #define instr movs
 
 make_helper(concat(movs_,SUFFIX)){
-    MEM_W(cpu.gpr[7]._32,swaddr_read(cpu.gpr[2]._32,DATA_BYTE));
+    MEM_W(cpu.esi,MEM_R(cpu.esi));
     if(cpu.eflags.df == 0)
     {
-        cpu.gpr[7]._32 += DATA_BYTE;
-        cpu.gpr[2]._32 += DATA_BYTE;
+        cpu.esi += DATA_BYTE;
+        cpu.edi += DATA_BYTE;
     }
     else 
     {
-        cpu.gpr[7]._32 -= DATA_BYTE;
-        cpu.gpr[2]._32 -= DATA_BYTE;
+        cpu.esi -= DATA_BYTE;
+        cpu.edi -= DATA_BYTE;
     }
     print_asm("movs");
     return 1;
