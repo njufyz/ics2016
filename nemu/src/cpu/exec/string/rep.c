@@ -13,7 +13,6 @@ make_helper(rep) {
 	}
 	else {
 		while(cpu.ecx) {
-            Log("ecx=%x",cpu.ecx);
 			exec(eip + 1);
 			count ++;
 			cpu.ecx --;
