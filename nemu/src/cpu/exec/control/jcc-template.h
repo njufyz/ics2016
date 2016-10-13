@@ -118,7 +118,7 @@ make_instr_helper(i)
 
 static void do_execute(){
     update_eip();
-    if(cpu.eflags.sf)
+    if(cpu.eflags.sf==1)
         cpu.eip=new_;
 }
 make_instr_helper(i)

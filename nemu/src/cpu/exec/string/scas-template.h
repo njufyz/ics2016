@@ -9,6 +9,7 @@ make_helper(concat(scas_,SUFFIX)){
     else cpu.eflags.of = 0;
     cpu.eflags.cf = (result_l >> (8* DATA_BYTE)) & 1;
     update_eflags(result);
+   
     if(cpu.eflags.df == 0)
         cpu.edi +=DATA_BYTE;
     else cpu.edi -=DATA_BYTE;
