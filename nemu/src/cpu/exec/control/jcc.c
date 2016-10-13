@@ -19,7 +19,8 @@ make_helper_v(jge_i)
 make_helper_v(jl_i)
 make_helper_v(ja_i)
 make_helper_v(jbe_i)
-
+make_helper_v(je_i)
+make_helper_v(jne_i)
 
 
 
