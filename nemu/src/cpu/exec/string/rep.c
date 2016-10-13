@@ -34,6 +34,7 @@ make_helper(rep) {
             {
                 if(sw&&cpu.eflags.zf) break;
                 else if(!sw && !cpu.eflags.zf) break;
+                else ;
             }
 
 
