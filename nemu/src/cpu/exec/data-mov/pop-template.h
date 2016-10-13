@@ -4,8 +4,8 @@
 
 static void do_execute(){
     
-    OPERAND_W(op_src,swaddr_read(cpu.gpr[4]._32,4));
-    cpu.gpr[4]._32+=DATA_BYTE;
+    OPERAND_W(op_src,MEM_R(cpu.esp));
+    cpu.esp += DATA_BYTE;
     print_asm_template1();   
 }
 
