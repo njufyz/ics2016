@@ -14,8 +14,6 @@ int b[8] = {0,1,2,0x7fffffff,0x80000000,0x80000001,0xfffffffe,0xffffffff};
 int main() {
 	int i, j, ans_idx = 0;
 	int loop = 0;
-    for(i=0;i<NR_DATA;i++)
-        nemu_assert(test_data[i]==b[i]);
 
 	for(i = 0; i < NR_DATA; i ++) {
 		for(j = 0; j < NR_DATA; j ++) {
