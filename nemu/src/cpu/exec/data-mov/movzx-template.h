@@ -7,6 +7,8 @@ static void do_execute(){
     long long i =1;
     result&=((i<<op_src->size * 8)-1);
    /* uint32_t result = temp; */ 
+    if(cpu.eip==0x100a1c) 
+        Log("result=%x",result);
     write_operand_l(op_dest,result);
     print_asm_template2();
 }
