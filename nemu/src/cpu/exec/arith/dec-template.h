@@ -11,9 +11,6 @@ static void do_execute () {
         cpu.eflags.of = 1;
     else cpu.eflags.of = 0;
 
-    if(result == ~(-1<<(8*DATA_BYTE -1)) )
-        cpu.eflags.of = 1;
-    else cpu.eflags.of = 0;
     update_eflags(result);
 	print_asm_template1();
 }

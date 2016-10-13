@@ -10,8 +10,6 @@ static void do_execute () {
     if(MSB(op_src->val == 0) && MSB(result) != 0)
         cpu.eflags.of = 1;
     else cpu.eflags.of = 0;
-    if( result == ~(-1ll<<(8* DATA_BYTE))) cpu.eflags.of = 1;
-    else cpu.eflags.of = 0;
     update_eflags(result);
 	print_asm_template1();
 }
