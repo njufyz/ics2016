@@ -30,16 +30,15 @@ make_helper(rep) {
 				);
 
 			/* TODO: Jump out of the while loop if necessary. */
-         /*   if(ops_decoded.opcode == 0xa6 || ops_decoded.opcode == 0xa7 || ops_decoded.opcode ==0xae||ops_decoded.opcode ==0xaf)
+            if(ops_decoded.opcode == 0xa6 || ops_decoded.opcode == 0xa7 || ops_decoded.opcode ==0xae||ops_decoded.opcode ==0xaf)
             {
                 if(sw&&cpu.eflags.zf) break;
                 else if(!sw && !cpu.eflags.zf) break;
                 else ;
-            }*/
+            }
 
 
 		}
-		len=sw;
         len = 1;
 	}
 
