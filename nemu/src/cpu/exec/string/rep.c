@@ -6,6 +6,7 @@ make_helper(rep) {
 	int len;
 	int count = 0;
     int sw;
+    Log("cpu.eip=%x",cpu.eip);
     if(instr_fetch(eip,1) == 0xf3) sw=0; 
     else sw = 1;
 	if(instr_fetch(eip + 1, 1) == 0xc3) {
