@@ -5,6 +5,7 @@ extern int Len;
 static void do_execute(){
     if(op_src->type==OP_TYPE_IMM)
     {
+      Log("%x",cpu.eip);
       cpu.eip +=op_src->val;
       Log("cpu.eipN=%x %x",cpu.eip+Len,cpu.eip);
       if (DATA_BYTE == 2 )
