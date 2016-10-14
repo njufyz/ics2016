@@ -5,7 +5,7 @@ extern int Len;
 static void do_execute(){
     if(op_src->type==OP_TYPE_IMM)
     {
-      cpu.eip +=op_src->val + Len;  //''''''
+      cpu.eip +=(uint8_t)op_src->val;  
       if (DATA_BYTE == 2 )
           cpu.eip &= 0xffff;
     }
