@@ -6,7 +6,7 @@ static void do_execute(){
     if(op_src->type==OP_TYPE_IMM)
     {
       cpu.eip +=op_src->val;
-      Log("cpu.eip=%x",cpu.eip+Len);
+      Log("cpu.eipN=%x %x",cpu.eip+Len,cpu.eip);
       if (DATA_BYTE == 2 )
           cpu.eip &= 0xffff;
     }
