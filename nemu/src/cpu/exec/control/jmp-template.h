@@ -8,7 +8,7 @@ static void do_execute(){
       DATA_TYPE_S temp = op_src->val;
       int32_t tp = temp;
       cpu.eip +=tp;
-      Log("cpu.eipN=%x %x",cpu.eip+Len,cpu.eip);
+     // Log("cpu.eipN=%x %x",cpu.eip+Len,cpu.eip);
       if (DATA_BYTE == 2 )
           cpu.eip &= 0xffff;
     }
