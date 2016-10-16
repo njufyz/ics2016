@@ -4,7 +4,7 @@ FLOAT F_mul_F(FLOAT a, FLOAT b) {
     uint64_t a1 = a;
     uint64_t b1 = b;
     uint64_t result = a * b;
-	return result>>16;
+	return (FLOAT)result>>16;
 }
 
 FLOAT F_div_F(FLOAT a, FLOAT b) {
