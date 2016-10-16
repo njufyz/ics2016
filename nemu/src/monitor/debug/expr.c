@@ -112,7 +112,7 @@ static bool make_token(char *e) {
                            strncpy(tokens[nr_token].str,e+position-substr_len,substr_len);
                            tokens[nr_token].str[substr_len]=0;
                            break;
-				//	default: panic("aa please implement me");
+					default: break;
 				}
                 nr_token++;
 				break;

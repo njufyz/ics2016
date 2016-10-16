@@ -1,9 +1,7 @@
 #include "FLOAT.h"
 
 FLOAT F_mul_F(FLOAT a, FLOAT b) {
-    uint64_t a1 = a;
-    uint64_t b1 = b;
-    uint64_t result = a * b;
+    FLOAT result = a * b;
 	return (FLOAT)result>>16;
 }
 
@@ -42,9 +40,15 @@ FLOAT f2F(float a) {
 	 * stack. How do you retrieve it to another variable without
 	 * performing arithmetic operations on it directly?
 	 */
-    int m = *(int *)&a;
-    
-	return 0;
+    int v = *(int *)&a;
+    int s = v >>31;
+    int e = (v >> 23) & 0xff - 127;
+    int m = v & 0x7fffff;
+    FLOAT result = 1<<(e + 16) + m << (e + 15 );
+    if(s&1)
+        result &=0x7fffffff;
+    else result |= 0x80000000;
+	return result;
 }
 
 FLOAT Fabs(FLOAT a) {
