@@ -25,9 +25,11 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 	 * It is OK not to use the template above, but you should figure
 	 * out another way to perform the division.
 	 */
-
-	nemu_assert(0);
-	return 0;
+    FLOAT result;
+    FLOAT remain;
+    int t = ((a>>31)&1)?0xffffffff:0;
+	asm volatile ("idivl %2": "=a"(result) ,"=d"(remain): "r"(b),"a"(a),"d"(t));
+    return (result<<16)+remain;
 }
 
 FLOAT f2F(float a) {
@@ -40,13 +42,13 @@ FLOAT f2F(float a) {
 	 * stack. How do you retrieve it to another variable without
 	 * performing arithmetic operations on it directly?
 	 */
-
-	nemu_assert(0);
+    int m = *(int *)&a;
+    
 	return 0;
 }
 
 FLOAT Fabs(FLOAT a) {
-	return a & 0x7fffffff;
+ return (a>0)?a:-a;	
 }
 
 /* Functions below are already implemented */
