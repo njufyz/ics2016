@@ -55,7 +55,7 @@ FLOAT f2F(float a) {
         }
         m <<= 1;
     }
-     if(!s) result = -result;
+     if(s!=0) result = -result;
 	return result;
 }
 
