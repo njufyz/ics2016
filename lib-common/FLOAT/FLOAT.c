@@ -51,8 +51,7 @@ FLOAT f2F(float a) {
         result = (result << 1) + ((m & (1<<22)) >> 22);
         if(result<0) 
         {
-            FLOAT I = 0x80000000;
-            return I;
+            return 0x80000000u;
         }
         m <<= 1;
     }
