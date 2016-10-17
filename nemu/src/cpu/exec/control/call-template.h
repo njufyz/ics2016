@@ -6,11 +6,20 @@ extern int Len;
 static void do_execute()
 {
     cpu.esp-=4;
-    MEM_W(cpu.gpr[4]._32,cpu.eip+Len);
-    cpu.eip+=op_src->val;
-    print_asm_template1();
+    swaddr_write(cpu.esp,4,cpu.eip+Len);
+    if(op_src->type==OP_TYPE_IMM)
+    {
+        cpu.eip+=op_src->val;
+        print_asm("call $0x%x", cpu.eip + Len);
+    }
+    else
+    {
+        cpu.eip=op_src->val - Len;
+        print_asm("call $0x%x", cpu.eip + Len);
+    }
+    //print_asm_template1();
 }
 
 make_instr_helper(i)
-
+make_instr_helper(rm)
 #include "cpu/exec/template-end.h"
