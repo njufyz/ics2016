@@ -49,14 +49,14 @@ FLOAT f2F(float a) {
     for(;i<e+16+1;i++)
     {
         result = (result << 1) + ((m & (1<<22)) >> 22);
-        if((result >>31)&1) 
+        if(result<0) 
         {
             FLOAT I = 0x80000000;
             return I;
         }
         m <<= 1;
     }
-     if(!(s&1)) result = -result;
+     if(!s) result = -result;
 	return result;
 }
 
