@@ -14,7 +14,7 @@ static void do_execute()
     }
     else
     {
-        cpu.eip=op_src->val - Len;
+        cpu.eip=op_src->val - Len -1;
         print_asm("call $0x%x", cpu.eip + Len);
     }
     //print_asm_template1();
