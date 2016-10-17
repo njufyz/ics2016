@@ -4,7 +4,7 @@ FLOAT_O := $(FLOAT:.a=.o)
 FLOAT_VFPRINTF_O := $(dir $(FLOAT))FLOAT_vfprintf.o
 
 FLOAT_SRC:= lib-common/FLOAT/FLOAT.c
-FLOAT_V_SRC:=lib-common/FLOAT/FLOAT_vfprint.c
+FLOAT_V_SRC:= lib-common/FLOAT/FLOAT_vfprintf.c
 
 FLOAT_CFLAGS_EXTRA := -c -m32 -O2 -fno-builtin -I$(LIB_COMMON_DIR) 
 
@@ -15,8 +15,10 @@ $(FLOAT): $(FLOAT_A_OBJ)
 
 # TODO: complete the following rules
 
-$(FLOAT_O):$(FLOAT_SRC)
-	$(call make_command, $(CC), $(FLOAT_CFLAGS_EXTRA),cc $@, $^)
-$(FLOAT_VFPRINT_O):
-	$(call make_command, $(CC), $(FLOAT_CFLAGS_EXTRA1),cc $@, $^)
 
+$(FLOAT_O):$(FLOAT_SRC)
+	$(call make_command, $(CC), $(FLOAT_CFLAGS_EXTRA),cc $@,$<)
+
+$(FLOAT_VFPRINTF_O):$(FLOAT_V_SRC)
+	$(call make_command, $(CC), $(FLOAT_CFLAGS_EXTRA),cc $@,$<)
+#	gcc $(FLOAT_CFLAGS_EXTRA) $(FLOAT_V_SRC) obj/lib-common/FLOAT_vfprintf.o
