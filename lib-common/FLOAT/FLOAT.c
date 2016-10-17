@@ -49,8 +49,6 @@ FLOAT f2F(float a) {
     for(;i<e+16+1;i++)
     {
         result = (result << 1) + ((m & (1<<22)) >> 22);
-       // if(result<0) 
-       //     return 0x80000000u;
         m <<= 1;
     }
      if(s!=0) result = -result;
@@ -58,7 +56,8 @@ FLOAT f2F(float a) {
 }
 
 FLOAT Fabs(FLOAT a) {
- return (a>0)?a:-a;	
+    if(a>0) return a;
+    else return -a;
 }
 
 /* Functions below are already implemented */
