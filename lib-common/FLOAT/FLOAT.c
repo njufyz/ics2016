@@ -44,10 +44,19 @@ FLOAT f2F(float a) {
     int s = v >>31;
     int e = (v >> 23) & 0xff - 127;
     int m = v & 0x7fffff;
-    FLOAT result = 1<<(e + 16) + m << (e + 15 );
-    if(s&1)
-        result &=0x7fffffff;
-    else result |= 0x80000000;
+    int result = 1;
+    int i=1;
+    for(;i<e+16+1;i++)
+    {
+        result = (result << 1) + ((m & (1<<22)) >> 22);
+        if((result >>31)&1) 
+        {
+            FLOAT I = 0x80000000;
+            return I;
+        }
+        m <<= 1;
+    }
+     if(!(s&1)) result = -result;
 	return result;
 }
 
