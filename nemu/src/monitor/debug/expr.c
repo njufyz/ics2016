@@ -6,9 +6,10 @@
 #include <sys/types.h>
 #include <regex.h>
 
+
 enum {
 	NOTYPE = 256,OP ,EQ, NEQ, NUM, REG, ADDR, AND, NOT, OR, DEREF, NEG
-
+,OBJ
 	/* TODO: Add more token types */
 
 };
@@ -24,7 +25,8 @@ static struct rule {
 
 	{" +",	NOTYPE},				// spaces
 	{"\\+", '+'},					// plus
-	{"==", EQ},                    // equal
+	{"==", EQ},
+    {"[A-Z,a-z,0-9,_]+",OBJ},
     {"[$eacdbspixlh]+",REG},
     {"!=",NEQ},
     {"&&",AND},
@@ -105,6 +107,7 @@ static bool make_token(char *e) {
                     case OR:
                     case NOT:tokens[nr_token].type=rules[i].token_type;
                            break;
+                    case OBJ:
                     case NUM:
                     case ADDR:
                     case REG:tokens[nr_token].type=rules[i].token_type;
@@ -177,12 +180,25 @@ uint32_t expr(char *e, bool *success) {
    // panic("please implement me");
 	return eval(0,nr_token-1);
 }
+
+uint32_t get_obj(char*);
+
 uint32_t eval(int p,int q)
 {
     if(p>q) assert(0);
    
     else if(p==q)
     {
+     if(tokens[p].type==OBJ)
+     {
+         uint32_t k  = get_obj(tokens[p].str);
+         if(k==0xffffffff) 
+         {
+             puts("NO Such Object!");
+             assert(0);
+         }
+         else return k;
+     }
      if(tokens[p].type!=REG)
      {
      char *num;

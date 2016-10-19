@@ -58,15 +58,19 @@ void load_elf_tables(int argc, char *argv[]) {
 				strcmp(shstrtab + sh[i].sh_name, ".symtab") == 0) {
 			/* Load symbol table from exec_file */
 			symtab = malloc(sh[i].sh_size);
+
 			fseek(fp, sh[i].sh_offset, SEEK_SET);
 			ret = fread(symtab, sh[i].sh_size, 1, fp);
 			assert(ret == 1);
 			nr_symtab_entry = sh[i].sh_size / sizeof(symtab[0]);
+
 		}
 		else if(sh[i].sh_type == SHT_STRTAB && 
 				strcmp(shstrtab + sh[i].sh_name, ".strtab") == 0) {
 			/* Load string table from exec_file */
 			strtab = malloc(sh[i].sh_size);
+
+
 			fseek(fp, sh[i].sh_offset, SEEK_SET);
 			ret = fread(strtab, sh[i].sh_size, 1, fp);
 			assert(ret == 1);
@@ -81,3 +85,13 @@ void load_elf_tables(int argc, char *argv[]) {
 	fclose(fp);
 }
 
+uint32_t get_obj(char* str)
+{
+     int i=0;
+     for(;i<nr_symtab_entry;i++)
+     {
+         if(strcmp(str,strtab+symtab[i].st_name) == 0)
+             return symtab[i].st_value;
+     }
+     return -1;
+}
