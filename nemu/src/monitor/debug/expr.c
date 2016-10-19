@@ -26,7 +26,6 @@ static struct rule {
 	{" +",	NOTYPE},				// spaces
 	{"\\+", '+'},					// plus
 	{"==", EQ},
-    {"[$eacdbspixlh]+",REG},
     {"!=",NEQ},
     {"&&",AND},
     {"[||]{2}",OR},
@@ -38,7 +37,9 @@ static struct rule {
     {"[)]",')'},
     {"((0x)|(0X))([0-9,A-F,a-f]){1,8}",ADDR},
     {"[0-9]+",NUM},
-    {"[A-Z,a-z,0-9,_]+",OBJ}
+    {"[A-Z,a-z,0-9,_]+",OBJ},
+
+    {"[$eacdbspixlh]+",REG}
 };
 
 
