@@ -137,6 +137,12 @@ static int cmd_info(char *args){
             printf("%s\t0x%x\t\t%u\n",regsb[i],cpu.gpr[i]._8[0],cpu.gpr[i]._8[0]);
         for(;i<8;i++)
             printf("%s\t0x%x\t\t%2u\n",regsb[i],cpu.gpr[i]._8[1],cpu.gpr[i]._8[1]);
+
+            printf("CF\t0x%x\t\t%2u\n",cpu.eflags.cf,cpu.eflags.cf);
+            printf("OF\t0x%x\t\t%2u\n",cpu.eflags.of,cpu.eflags.of);
+            printf("SF\t0x%x\t\t%2u\n",cpu.eflags.sf,cpu.eflags.sf);
+            printf("ZF\t0x%x\t\t%2u\n",cpu.eflags.zf,cpu.eflags.zf);
+
     }
     else if(strcmp(arg,"w")==0)
     {

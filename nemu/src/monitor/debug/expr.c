@@ -131,7 +131,7 @@ static bool make_token(char *e) {
 	return true; 
 }
 
-uint32_t eval(int,int);
+uint32_t eval(int,int,bool*);
 int check_parentheses(int ,int);
 int position_dominant(int,int);
 
@@ -178,16 +178,24 @@ uint32_t expr(char *e, bool *success) {
             return 0;
         }
     }
-   // panic("please implement me");
-	return eval(0,nr_token-1);
+  
+    // panic("please implement me");
+    bool s = 1;
+    eval(0,nr_token-1,&s);
+    if(s==0)
+    {
+        *success=0;
+        return 0;
+    }
+        
+    return eval(0,nr_token-1,&s);
 }
 
 uint32_t get_obj(char*);
 
-uint32_t eval(int p,int q)
+uint32_t eval(int p,int q,bool *s)
 {
-    if(p>q) assert(0);
-   
+    if(p>q) {*s = 0; return 0xffffffff;}   
     else if(p==q)
     {
      if(tokens[p].type==OBJ)
@@ -196,7 +204,8 @@ uint32_t eval(int p,int q)
          if(k==0xffffffff) 
          {
              puts("NO Such Object!");
-             assert(0);
+             *s = 0;
+             return 0xffffffff;
          }
          else return k;
      }
@@ -212,6 +221,10 @@ uint32_t eval(int p,int q)
         int index = 0;
         char* name = tokens[p].str+1;
         if(strcmp(name,"eip")==0) return cpu.eip;
+        if(strcmp(name,"cf")==0)  return cpu.eflags.cf;
+        if(strcmp(name,"of")==0)  return cpu.eflags.of;
+        if(strcmp(name,"zf")==0)  return cpu.eflags.zf;
+        if(strcmp(name,"sf")==0)  return cpu.eflags.sf;
         for(;index<8;index++)
             if(strcmp(name,regsl[index])==0) return cpu.gpr[index]._32;
         for(index=0;index<8;index++)
@@ -221,17 +234,20 @@ uint32_t eval(int p,int q)
         for(;index<8;index++)
             if(strcmp(name,regsb[index])==0) return cpu.gpr[index]._8[1];
 
-        assert(0);
+        *s = 0;
+        puts("No such register!");
+        return 0xffffffff;
      }
     }
     else if(check_parentheses(p,q)==1)
     {
-        return eval(p+1,q-1);
+        return eval(p+1,q-1,s);
     }
     else if(check_parentheses(p,q)==-1) 
     {
         puts("Bad EXPR!");
-        assert(0);
+        *s = 0;
+        return 0xffffffff;
     }
     else
     {
@@ -240,10 +256,10 @@ uint32_t eval(int p,int q)
         int val1,val2;
         
         if(tokens[op].type != NOT && tokens[op].type!=DEREF && tokens[op].type != NEG)
-           val1 =eval(p,op-1);
+           val1 =eval(p,op-1,s);
         else val1=0;
 
-        val2 = eval(op+1,q);
+        val2 = eval(op+1,q,s);
 
        switch(tokens[op].type){
            case '+': return val1+val2;
@@ -257,7 +273,7 @@ uint32_t eval(int p,int q)
            case NOT: return !val2;
            case DEREF: return swaddr_read(val2,4);
            case NEG: return -val2;
-           default: assert(0);
+           default: *s = 0; return 0xffffffff;
 
             }
 
