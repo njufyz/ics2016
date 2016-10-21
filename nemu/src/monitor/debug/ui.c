@@ -262,17 +262,17 @@ static int cmd_bt()
  uint32_t argv[4]={0,0,0,0};
  char* name = NULL;
  uint32_t readdr = -1;
- int count = 0;
+// int count = 0;
  do{
      name=NULL;
      readdr = -1;
-    name = get_func(addr,&readdr);
+     name = get_func(addr,&readdr);
     argv[0] = swaddr_read(ebp+8,4);
     argv[1] = swaddr_read(ebp+12,4);
     argv[2] = swaddr_read(ebp+16,4);
     argv[3] = swaddr_read(ebp+20,4);
     if(!ebp) name = "_start";
-    printf("#%d %s()  at: 0x%x  argv1: 0x%x, argv2: 0x%x, argv3: 0x%x, argv4: 0x%x\n",++count,name,readdr,argv[0],argv[1],argv[2],argv[3]);
+    printf(" %s()  at: 0x%x  argv1: 0x%x, argv2: 0x%x, argv3: 0x%x, argv4: 0x%x\n",name,readdr,argv[0],argv[1],argv[2],argv[3]);
    if(ebp==0) break;
    addr= swaddr_read(ebp + 4,4);
     ebp = swaddr_read(ebp,4);
