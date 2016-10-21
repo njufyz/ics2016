@@ -276,7 +276,7 @@ static int cmd_bt()
    if(ebp==0) break;
    addr= swaddr_read(ebp + 4,4);
     ebp = swaddr_read(ebp,4);
-}while(ebp!=0);
+}while(1);
 return 0;
 }
 
