@@ -270,7 +270,7 @@ static int cmd_bt()
     argv[1] = swaddr_read(ebp+12,4);
     argv[2] = swaddr_read(ebp+16,4);
     argv[3] = swaddr_read(ebp+20,4);
-    printf("%s  at: 0x%x  argv1: 0x%x, argv2: 0x%x, argv3: 0x%x, argv4: 0%x\n",name,readdr,argv[0],argv[1],argv[2],argv[3]);
+    printf("%s  at: 0x%x  argv1: 0x%x, argv2: 0x%x, argv3: 0x%x, argv4: 0x%x\n",name,readdr,argv[0],argv[1],argv[2],argv[3]);
    if(ebp==0) break;
    addr= swaddr_read(ebp + 4,4);
     ebp = swaddr_read(ebp,4);

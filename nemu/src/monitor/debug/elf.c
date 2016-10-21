@@ -107,7 +107,7 @@ char* get_func(uint32_t addr,uint32_t *readdr)
             return symtab[i].st_name + strtab;
         }
     }
-    *readdr = -1;
+    *readdr = 0;
     return NULL;
 }
             
