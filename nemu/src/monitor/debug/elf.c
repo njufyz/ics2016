@@ -95,3 +95,20 @@ uint32_t get_obj(char* str)
      }
      return -1;
 }
+
+char* get_func(uint32_t addr,uint32_t *readdr)
+{
+    int i=0;
+    for(;i<nr_symtab_entry;i++)
+    {
+        if((symtab[i].st_info & 0xf) == STT_FUNC && (symtab[i].st_value <= addr && addr <= symtab[i].st_value + symtab[i].st_size) )
+        {
+            *readdr = symtab[i].st_value;
+            return symtab[i].st_name + strtab;
+        }
+    }
+    *readdr = -1;
+    return NULL;
+}
+            
+

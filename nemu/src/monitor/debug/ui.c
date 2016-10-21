@@ -51,7 +51,7 @@ static int cmd_w(char *args);
 
 static int cmd_d(char *args);
 
-static int cmd_bt(char *args);
+static int cmd_bt();
 
 static struct {
 	char *name;
@@ -254,9 +254,27 @@ static int cmd_d(char *args)
     return 0;
 }
 
-static int cmd_bt(char *args)
+char* get_func(uint32_t addr, uint32_t *readdr);
+static int cmd_bt()
 {
-    return 0;
+ uint32_t addr = cpu.eip;
+ uint32_t ebp = cpu.ebp;
+ uint32_t argv[4]={0,0,0,0};
+ char* name = NULL;
+ do{
+     name=NULL;
+    uint32_t readdr = -1;
+    name = get_func(addr,&readdr);
+    argv[0] = swaddr_read(ebp+8,4);
+    argv[1] = swaddr_read(ebp+12,4);
+    argv[2] = swaddr_read(ebp+16,4);
+    argv[3] = swaddr_read(ebp+20,4);
+    printf("%s  at: 0x%x  argv1: 0x%x, argv2: 0x%x, argv3: 0x%x, argv4: %x\n",name,readdr,argv[0],argv[1],argv[2],argv[3]);
+    
+    ebp = swaddr_read(ebp,4);
+    addr = ebp;
+}while(ebp!=0);
+return 0;
 }
 
 void ui_mainloop() {
