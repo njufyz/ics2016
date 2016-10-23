@@ -3,7 +3,7 @@
 make_helper(exec);
 
 make_helper(rep) {
-    printf("%x\n",instr_fetch((cpu.eip),1));
+    printf("%x %x\n",cpu.eip,instr_fetch((cpu.eip),1));
     int len;
 	int count = 0;
 	if(instr_fetch(eip + 1, 1) == 0xc3) {
