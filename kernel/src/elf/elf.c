@@ -60,6 +60,7 @@ uint32_t loader() {
 			if(cur_brk < new_brk) { max_brk = cur_brk = new_brk; }
 #endif
 		}
+        ph++;
 	}
 
 	volatile uint32_t entry = elf->e_entry;
