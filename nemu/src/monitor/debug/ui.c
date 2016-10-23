@@ -158,6 +158,7 @@ static int cmd_info(char *args){
 
 static int cmd_p(char *args){
     char* arg= strtok(NULL," ");
+    printf("%s",arg);
     if(arg==NULL)
     {
         puts("Bad agreement.");
