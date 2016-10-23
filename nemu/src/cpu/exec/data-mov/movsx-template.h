@@ -3,10 +3,16 @@
 #define instr movsx
 
 static void do_execute(){
-    if(!ops_decoded.is_operand_size_16) op_src->val &= 0xff;
-    else op_src->val &= 0xffff;
-    uint32_t result = (DATA_TYPE_S) op_src->val;
-    OPERAND_W(op_dest,result);
+    if(!ops_decoded.is_operand_size_16) {
+        op_src->val &= 0xff;
+        int8_t temp = op_src->val;
+    OPERAND_W(op_dest,temp);
+    }
+    else {
+        op_src->val &= 0xffff;
+        int16_t temp = op_src->val;
+    OPERAND_W(op_dest,temp);
+    };
     print_asm_template2();
 }
 
