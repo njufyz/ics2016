@@ -4,7 +4,7 @@
 
 static void do_execute(){
     uint32_t result;
-    if(ops_decoded.is_operand_size_16)
+    if(!ops_decoded.is_operand_size_16)
     {
          result =op_src->val & 0xff;   //bw
     }
