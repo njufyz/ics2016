@@ -72,10 +72,10 @@ FLOAT f2F(float a) {
                     result = r << (16 + e - 23);
             else
                         result = r >> (23 - e - 16);
-              //  FLOAT sign = v >> 31;
-                /*    if (sign)
+                FLOAT sign = v >> 31;
+                    if (sign)
                                 result = -result;
-                                */
+            
                         return result;
 }
 
