@@ -69,14 +69,12 @@ FLOAT f2F(float a) {
     FLOAT result;
     int r = (v&0x7fffff) + 0x800000;
         if (16 + e - 23 >= 0)
-                    result = r << (16 + e - 23);
-            else
-                        result = r >> (23 - e - 16);
-                FLOAT sign = v >> 31;
-                    if (sign)
-                                result = -result;
-            
-                        return result;
+            result = r << (16 + e - 23);
+        else
+            result = r >> (23 - e - 16);
+        if (s)
+            result = -result;
+            return result;
 }
 
 FLOAT Fabs(FLOAT a) {
