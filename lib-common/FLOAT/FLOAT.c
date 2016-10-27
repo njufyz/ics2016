@@ -34,8 +34,8 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
          int integer;
              int fraction;
                  FLOAT r = 0;
-                     asm volatile ("idivl %2" : "=a"(integer), "=d"(remainder[0]) : "r"(Fabs(b)), "a"(Fabs(a)), "d"(0));
-                         asm volatile ("idivl %2" : "=a"(fraction), "=d"(remainder[1]) : "r"(Fabs(b)), "a"(remainder[0]<<16), "d"(remainder[0]>>31));
+                     asm volatile ("idivl %2" : "=a"(integer), "=d"(remainder[0]) : "r"((b)), "a"((a)), "d"(0));
+                         asm volatile ("idivl %2" : "=a"(fraction), "=d"(remainder[1]) : "r"((b)), "a"(remainder[0]<<16), "d"(remainder[0]>>31));
                              r += integer << 16;
                                  r += fraction;
                                                  return r;
