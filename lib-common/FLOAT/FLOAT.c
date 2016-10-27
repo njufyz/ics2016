@@ -23,14 +23,14 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 	 * It is OK not to use the template above, but you should figure
 	 * out another way to perform the division.
 	 */
-    FLOAT result;
+  /*  FLOAT result;
     FLOAT remain;
     int t = ((a>>31)&1)?0xffffffff:0;
 	asm volatile ("idivl %2": "=a"(result) ,"=d"(remain): "r"(b),"a"(a),"d"(t));
 
     return (result<<16)+remain;
-    
-    /* int remainder[2];
+    */
+     int remainder[2];
          int integer;
              int fraction;
                  FLOAT r = 0;
@@ -39,7 +39,7 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
                              r += integer << 16;
                                  r += fraction;
                                                  return r;
-*/
+
 }
 
 
