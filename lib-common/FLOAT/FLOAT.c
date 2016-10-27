@@ -30,7 +30,7 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 
     return (result<<16)+remain;
     */
-     int remainder[2];
+    /* int remainder[2];
          int integer;
              int fraction;
                  FLOAT r = 0;
@@ -39,7 +39,8 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
                              r += integer << 16;
                                  r += fraction;
                                                  return r;
-
+*/
+    return 0;
 }
 
 
