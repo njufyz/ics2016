@@ -40,7 +40,6 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
                                  r += fraction;
                                                  return r;
 */
-    return 1000000;
 }
 
 
@@ -58,7 +57,7 @@ FLOAT f2F(float a) {
     int s = v >>31;
     int e = (v >> 23) & 0xff - 127;
     int m = v & 0x7fffff;
-    int result = 1;
+   /* int result = 1;
     int i=1;
     for(;i<e+16+1;i++)
     {
@@ -66,7 +65,17 @@ FLOAT f2F(float a) {
         m <<= 1;
     }
      if(s!=0) result = -result;
-	return result;
+	return result;*/
+    FLOAT result;
+    int r = (v&0x7fffff) + 0x800000;
+        if (16 + e - 23 >= 0)
+                    result = r << (16 + e - 23);
+            else
+                        result = r >> (23 - e - 16);
+                FLOAT sign = v >> 31;
+                    if (sign)
+                                result = -result;
+                        return result;
 }
 
 FLOAT Fabs(FLOAT a) {
