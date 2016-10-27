@@ -40,6 +40,7 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
                                  r += fraction;
                                                  return r;
 */
+    nemu_assert(0);
     return 0;
 }
 
