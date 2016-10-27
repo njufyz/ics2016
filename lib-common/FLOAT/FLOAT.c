@@ -16,14 +16,11 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
     */
     // int remainder[2];
      int r0,r1;
-     int integer;
-     int fraction;
-     FLOAT r = 0;
-     asm volatile ("idivl %2" : "=a"(integer), "=d"(r0) : "r"((b)), "a"((a)), "d"(a>>31));
-     asm volatile ("idivl %2" : "=a"(fraction), "=d"(r1) : "r"((b)), "a"(r0<<16), "d"(r0>>31));
-     r += integer << 16;
-     r += fraction;
-     return r;
+     int i;
+     int f;
+     asm volatile ("idivl %2" : "=a"(i), "=d"(r0) : "r"((b)), "a"((a)), "d"(a>>31));
+     asm volatile ("idivl %2" : "=a"(f), "=d"(r1) : "r"((b)), "a"(r0<<16), "d"(r0>>31));
+     return (i<<16 + f);
 
 }
 
