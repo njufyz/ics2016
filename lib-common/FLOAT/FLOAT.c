@@ -19,7 +19,7 @@ FLOAT f2F(float a) {
     int e = (v >> 23) & 0xff - 127;
     int r = (v&0x7fffff) + 0x800000;
     FLOAT result;
-    result = (16+e-23)>0 ? (r<<(16+r-23)) : (r>>23-e-16);
+    result = (16+e-23)>0 ? (r<<(16+e-23)) : (r>>23-e-16);
     if (s)
     result = -result;
     return result;
