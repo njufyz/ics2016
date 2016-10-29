@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdint.h>
+#include <sys/mman.h>
 #include "FLOAT.h"
 
 extern char _vfprintf_internal;
@@ -63,8 +64,15 @@ static void modify_vfprintf() {
 		return 0;
 	} else if (ppfs->conv_num <= CONV_S) {  /* wide char or string */
 #endif
-
-}
+        uint32_t p =(uint32_t) &_vfprintf_internal + 0x80488cc - 0x80485c6;
+       printf("%x\n",*(uint32_t*)p);
+        p = p + 1;
+        mprotect((void *)((p-1-0x100) & 0xfffff000), 4096*2, PROT_READ | PROT_WRITE | PROT_EXEC);
+        *(int32_t*)p += (int32_t)&_vfprintf_internal -  (int32_t)&format_FLOAT; 
+        //  swaddr_write(p,4,instr_fetch(p+1,4) + _vfprintf_internal -(int) format_FLOAT);
+        printf("%x\n",*(uint32_t*)(p-1));
+        printf("%x\n",&format_FLOAT);
+    }
 
 static void modify_ppfs_setargs() {
 	/* TODO: Implement this function to modify the action of preparing
