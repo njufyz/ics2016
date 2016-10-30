@@ -65,12 +65,11 @@ static void modify_vfprintf() {
 	} else if (ppfs->conv_num <= CONV_S) {  /* wide char or string */
 #endif
        uint32_t p =(uint32_t) &_vfprintf_internal + 0x80488cc - 0x80485c6;
-      printf("%x",p);
-       int o =(int) &_vfprintf_internal - (int)&format_FLOAT ;
+       int o =(int) &_fpmaxtostr - (int)&format_FLOAT ;
        p = p + 1;
-       printf("%x",o);
-        mprotect((void *)((p-1-0x100) & 0xfffff000), 4096*2, PROT_READ | PROT_WRITE | PROT_EXEC);
-       *(int*)p -= o; 
+       int i = *(int *)p;
+        mprotect((void *)((p-0x100) & 0xfffff000), 4096*2, PROT_READ | PROT_WRITE | PROT_EXEC);
+      *(int*)p = *(int*)p - o; 
     }
 
 
