@@ -19,7 +19,15 @@ __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT f) {
 
 	char buf[80];
 	int len = sprintf(buf, "0x%08x", f);
-    strcpy(buf,"1.000000");
+    int a,b[6];
+    a = f >> 16;
+    f -= a<<16;
+    int i = 0;
+    for(;i<6;i++)
+    {
+        b[i]=f>>(15-i);
+        f -= (b[i]<<(15-i));
+    }
     return __stdio_fwrite(buf, len, stream);
 }
 
