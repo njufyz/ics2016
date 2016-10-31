@@ -23,4 +23,4 @@ make_helper_v(je_i)
 make_helper_v(jne_i)
 make_helper_v(js_i)
 make_helper_v(jns_i)
-
+make_helper_v(jb_i)
