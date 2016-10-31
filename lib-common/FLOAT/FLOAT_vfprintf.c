@@ -16,7 +16,6 @@ __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT fn) {
 	 *         0x00010000    "1.000000"
 	 *         0x00013333    "1.199996"
 	 */
- 
     long long f = fn;
 	char buf[80];
   //  memset((void*)buf,0,80);
@@ -28,7 +27,6 @@ __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT fn) {
         flag = 1;
         f=-f;
     }
-//	int len = sprintf(buf, "0x%08x", f);
    
     int a,b;
     a = f >> 16;
@@ -44,7 +42,7 @@ __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT fn) {
     strcat(buf,tempa);
     strcat(buf,".");
     strcat(buf,tempb);
-    len=strlen(buf);
+    len = strlen(buf);
     return __stdio_fwrite(buf, len, stream);
 }
 
@@ -95,7 +93,7 @@ static void modify_vfprintf() {
        int o =(int) &_fpmaxtostr - (int)&format_FLOAT ;
        p = p + 1;
        int i = *(int *)p;
-       // mprotect((void *)((p-0x100) & 0xfffff000), 4096*2, PROT_READ | PROT_WRITE | PROT_EXEC);
+      //  mprotect((void *)((p-0x100) & 0xfffff000), 4096*2, PROT_READ | PROT_WRITE | PROT_EXEC);
       *(int*)p = *(int*)p - o;        //change call
       uint32_t sub = (uint32_t) &_vfprintf_internal + 0x80488df - 0x80485e6;
       *(uint32_t*)(sub) = 0xdb08ec83; //correct esp
