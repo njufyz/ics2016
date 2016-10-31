@@ -12,5 +12,6 @@ int main()
     qsort(a, n, sizeof(int), cmp);
     for (i = 0; i < n; i++)
         nemu_assert(a[i] == i + 1);
+    HIT_GOOD_TRAP;
     return 0;
 }
