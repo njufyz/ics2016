@@ -25,6 +25,9 @@ int main() {
 */
      sprintf(buf,"%d",123456);
      nemu_assert(strcmp(buf,"123456")==0);
+    
+	sprintf(buf, "%d %f", 123456,FLOAT_ARG(0xfffecccd));
+    nemu_assert(strcmp(buf, "123456 -1.199996") == 0);
 #endif
 
 	return 0;
