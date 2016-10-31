@@ -38,6 +38,7 @@ __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT fn) {
     tempc[1]=0;
     sprintf(tempa,"%d",a);
     sprintf(tempb,"%d",b);
+    if(f==0) strcpy(tempb,"000000");
     strcat(buf,tempc);
     strcat(buf,tempa);
     strcat(buf,".");
