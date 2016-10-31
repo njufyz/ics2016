@@ -8,7 +8,7 @@ extern char _fpmaxtostr;
 extern int __stdio_fwrite(char *buf, int len, FILE *stream);
 extern char _ppfs_setargs;
 
-__attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT f) {
+__attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT fn) {
 	/* TODO: Format a FLOAT argument `f' and write the formating
 	 * result to `stream'. Keep the precision of the formating
 	 * result with 6 by truncating. For example:
@@ -16,18 +16,34 @@ __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT f) {
 	 *         0x00010000    "1.000000"
 	 *         0x00013333    "1.199996"
 	 */
-
+ 
+    long long f = fn;
 	char buf[80];
-	int len = sprintf(buf, "0x%08x", f);
-    int a,b[6];
-    a = f >> 16;
-    f -= a<<16;
-    int i = 0;
-    for(;i<6;i++)
+    memset((void*)buf,0,80);
+    int len;
+    int flag=0;
+    if(f<0) 
     {
-        b[i]=f>>(15-i);
-        f -= (b[i]<<(15-i));
+        flag = 1;
+        f=-f;
     }
+//	int len = sprintf(buf, "0x%08x", f);
+   
+    int a,b;
+    a = f >> 16;
+    f -= (a<<16);
+    b = (1000000*f)/(1<<16);
+    char tempa[20],tempb[20],tempc[2];
+    tempc[0] = (flag)?'-':0;
+    tempc[1]=0;
+    sprintf(tempa,"%d",a);
+    sprintf(tempb,"%d",b);
+    strcat(buf,tempc);
+    strcat(buf,tempa);
+    strcat(buf,".");
+    strcat(buf,tempb);
+    len=strlen(buf);
+    buf[len]=0;
     return __stdio_fwrite(buf, len, stream);
 }
 
