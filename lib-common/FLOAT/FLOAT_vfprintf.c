@@ -6,7 +6,7 @@
 extern char _vfprintf_internal;
 extern char _fpmaxtostr;
 extern int __stdio_fwrite(char *buf, int len, FILE *stream);
-//extern char _ppfs_setargs;
+extern char _ppfs_setargs;
 
 __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT f) {
 	/* TODO: Format a FLOAT argument `f' and write the formating
@@ -69,7 +69,7 @@ static void modify_vfprintf() {
        int o =(int) &_fpmaxtostr - (int)&format_FLOAT ;
        p = p + 1;
        int i = *(int *)p;
-        mprotect((void *)((p-0x100) & 0xfffff000), 4096*2, PROT_READ | PROT_WRITE | PROT_EXEC);
+      //  mprotect((void *)((p-0x100) & 0xfffff000), 4096*2, PROT_READ | PROT_WRITE | PROT_EXEC);
       *(int*)p = *(int*)p - o;        //change call
       uint32_t sub = (uint32_t) &_vfprintf_internal + 0x80488df - 0x80485e6;
       *(uint32_t*)(sub) = 0xdb08ec83; //correct esp
@@ -183,12 +183,11 @@ static void modify_ppfs_setargs() {
 		++p;
 	}
 #endif
-/*  uint32_t  p = (int)&_ppfs_setargs + 0x801083 - 0x801017;
-  *(uint32_t*)p = 0x754a00e9;
+  uint32_t  p = (int)&_ppfs_setargs + 0x8049138 - 0x80490cc;
+  *(uint32_t*)p = 0x750046e9;
 }
-
 void init_FLOAT_vfprintf() {
 	modify_vfprintf();
 	modify_ppfs_setargs();
-}*/
 }
+
