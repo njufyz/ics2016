@@ -30,7 +30,7 @@ $(testcase_OBJ_DIR)/quadratic-eq.o: testcase/src/quadratic-eq.c
 # These rules are used to generate print-FLOAT program run under
 # GNU/Linux run-time.
 $(testcase_OBJ_DIR)/print-FLOAT-linux.o: testcase/src/print-FLOAT.c
-	$(call make_command, $(CC), $(testcase_CFLAGS) -DLINUX_RT, cc $@, $<)
+	$(call make_command, $(CC), $(testcase_CFLAGS)  -DLINUX_RT, cc $@, $<)
 
 $(testcase_OBJ_DIR)/print-FLOAT-linux: % : \
 	$(LIBC_LIB_DIR)/crt1.o \
@@ -39,8 +39,8 @@ $(testcase_OBJ_DIR)/print-FLOAT-linux: % : \
 	$(FLOAT) \
 	$(LIBC) \
 	$(LIBC_LIB_DIR)/crtn.o
-	$(call make_command, $(LD), -m elf_i386, ld $@, $^)
-
+#	$(call make_command, $(LD), -m elf_i386, ld $@, $^)
+	$(call make_command, $(LD), -m  elf_i386, ld $@, $^)
 pa2-7: $(testcase_OBJ_DIR)/print-FLOAT-linux
 
 .PHONY: pa2-7
