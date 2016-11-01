@@ -207,9 +207,9 @@ static void modify_ppfs_setargs() {
 		++p;
 	}
 #endif
-/*  uint32_t  p = (int)&_ppfs_setargs + 0x8049138 - 0x80490cc;
-  *(uint32_t*)p = 0x000047eb;
-  */
+  uint32_t  p = (int)&_ppfs_setargs + 0x8049138 - 0x80490cc;
+  *(uint32_t*)p = 0x000049eb;
+  
 }
 void init_FLOAT_vfprintf() {
 	modify_vfprintf();
