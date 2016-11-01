@@ -8,7 +8,7 @@ extern char _vfprintf_internal;
 extern char _fpmaxtostr;
 extern int __stdio_fwrite(char *buf, int len, FILE *stream);
 extern char _ppfs_setargs;
-
+char* itoa(int,char*,int);
 __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT fn) {
 	/* TODO: Format a FLOAT argument `f' and write the formating
 	 * result to `stream'. Keep the precision of the formating
@@ -36,11 +36,11 @@ __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT fn) {
     char tempa[20],tempb[20],tempc[2];
     tempc[0] = (flag)?'-':0;
     tempc[1]=0;
-    sprintf(tempa,"%d",a);
-    sprintf(tempb,"%d",b);
+//    sprintf(tempa,"%d",a);
+//    sprintf(tempb,"%d",b);
    char temp[80];
- //  strcpy(tempa,itoa(a,temp,10));
- //  strcpy(tempb,itoa(b,temp,10));
+   strcpy(tempa,itoa(a,temp,10));
+   strcpy(tempb,itoa(b,temp,10));
     if(f==0) strcpy(tempb,"000000");
     strcat(buf,tempc);
     strcat(buf,tempa);
@@ -223,4 +223,26 @@ void init_FLOAT_vfprintf() {
 	modify_vfprintf();
 	modify_ppfs_setargs();
 }
+
+
+char *itoa(int value,char *string,int radix)  
+{  
+    //    assert(string!=NULL);  
+        char tmp[32]={'\0'};  
+        int tmpval=value;  
+        int i,j;  
+        for(i=0;i<32;i++)  
+        {                  
+            tmp[i]=(tmpval%radix)+'0';  
+            tmpval=tmpval/radix;  
+            if(tmpval==0)  
+                break;  
+        }  
+        if(value<0)tmp[++i]='-';  
+        for(j=0;i>=0;i--)  
+            string[j++]=tmp[i];  
+        string[j]='\0';  
+        return string;  
+}  
+
 
