@@ -48,9 +48,9 @@ __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT fn) {
     strcat(buf,tempb);
     len = strlen(buf);
     
-    memset(buf,0,80);
-    strcpy(buf,"1.000000");
-    len=8;
+   // memset(buf,0,80);
+  //  strcpy(buf,"1.000000");
+   // len=8;
     return __stdio_fwrite(buf, len, stream);
 }
 
