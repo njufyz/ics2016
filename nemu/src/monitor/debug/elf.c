@@ -91,7 +91,7 @@ uint32_t get_obj(char* str)
      for(;i<nr_symtab_entry;i++)
      {
 
-         if(symtab[i].st_info==STT_OBJECT && strcmp(str,strtab+symtab[i].st_name) == 0)
+         if( strcmp(str,strtab+symtab[i].st_name) == 0)
              return symtab[i].st_value;
      }
      return -1;
