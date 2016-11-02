@@ -1,11 +1,12 @@
 #include "cpu/exec/template-start.h"
+extern int Len;
 #define update_eip()\
     DATA_TYPE_S t = op_src->val;\
     int v = t;\
     uint32_t _new = cpu.eip + v;\
     if(DATA_BYTE==2) \
         _new&=0xffff;\
-    print_asm_template1();
+    print_asm("%s $0x%x",str(instr),_new+Len);
 
 /*------------------------*/
 #define instr je
