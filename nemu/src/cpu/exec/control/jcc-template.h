@@ -2,9 +2,9 @@
 #define update_eip()\
     DATA_TYPE_S t = op_src->val;\
     int v = t;\
-    uint32_t new_ = cpu.eip + v;\
+    uint32_t _new = cpu.eip + v;\
     if(DATA_BYTE==2) \
-        new_&=0xffff;\
+        _new&=0xffff;\
     print_asm_template1();
 
 /*------------------------*/
@@ -14,7 +14,7 @@ static void do_execute()
 {
     update_eip();
     if(cpu.eflags.zf==1) 
-        cpu.eip=new_;
+        cpu.eip=_new;
 }
 
 make_instr_helper(i)
@@ -29,7 +29,7 @@ make_instr_helper(i)
 static void do_execute(){
     update_eip();
     if(cpu.eflags.cf==1 || cpu.eflags.zf==1)
-        cpu.eip=new_;
+        cpu.eip=_new;
 }
 
 make_instr_helper(i)
@@ -44,7 +44,7 @@ make_instr_helper(i)
 static void do_execute(){
     update_eip();
     if(cpu.eflags.zf==0)
-        cpu.eip=new_;
+        cpu.eip=_new;
 }
 
 make_instr_helper(i)
@@ -57,7 +57,7 @@ make_instr_helper(i)
 static void do_execute(){
     update_eip();
     if(cpu.eflags.zf==1 || cpu.eflags.sf != cpu.eflags.of)
-        cpu.eip=new_;
+        cpu.eip=_new;
 }
 
 make_instr_helper(i)
@@ -69,7 +69,7 @@ make_instr_helper(i)
 static void do_execute(){
     update_eip();
     if(cpu.eflags.zf==0 && cpu.eflags.sf==cpu.eflags.of)
-        cpu.eip=new_;
+        cpu.eip=_new;
 }
 
 make_instr_helper(i)
@@ -81,7 +81,7 @@ make_instr_helper(i)
 static void do_execute(){
     update_eip();
     if(cpu.eflags.sf!=cpu.eflags.of)
-        cpu.eip=new_;
+        cpu.eip=_new;
 }
 
 make_instr_helper(i)
@@ -94,7 +94,7 @@ make_instr_helper(i)
 static void do_execute(){
     update_eip();
     if(cpu.eflags.sf==cpu.eflags.of)
-        cpu.eip=new_;
+        cpu.eip=_new;
 }
 
 make_instr_helper(i)
@@ -107,7 +107,7 @@ make_instr_helper(i)
 static void do_execute(){
     update_eip();
     if(cpu.eflags.cf==0&&cpu.eflags.zf==0)
-        cpu.eip=new_;
+        cpu.eip=_new;
 }
 make_instr_helper(i)
 #undef instr
@@ -118,7 +118,7 @@ make_instr_helper(i)
 static void do_execute(){
     update_eip();
     if(cpu.eflags.sf==1)
-        cpu.eip=new_;
+        cpu.eip=_new;
 }
 make_instr_helper(i)
 #undef instr
@@ -129,7 +129,7 @@ make_instr_helper(i)
 static void do_execute(){
     update_eip();
     if(cpu.eflags.sf==0)
-        cpu.eip=new_;
+        cpu.eip=_new;
 }
 make_instr_helper(i)
 #undef instr
@@ -139,7 +139,7 @@ make_instr_helper(i)
 static void do_execute(){
      update_eip();
      if(cpu.eflags.cf==1)
-         cpu.eip=new_;
+         cpu.eip=_new;
 }
  make_instr_helper(i)
  #undef instr
@@ -152,7 +152,7 @@ static void do_execute(){
 static void do_execute(){
     update_eip();
     if(cpu.eflags.cf==0)
-        cpu.eip=new_;
+        cpu.eip=_new;
 }
 make_instr_helper(i)
 #undef instr
