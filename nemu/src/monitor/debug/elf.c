@@ -92,7 +92,7 @@ uint32_t get_obj(char* str)
      {
 
          if( strcmp(str,strtab+symtab[i].st_name) == 0)
-             return (uint32_t)(symtab[i].st_name + strtab);
+             return symtab[i].st_value;
      }
      return -1;
 }
