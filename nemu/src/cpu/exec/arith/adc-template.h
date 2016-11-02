@@ -11,7 +11,6 @@ static void do_execute(){
     if(MSB(op_dest->val)==MSB(op_src->val) && MSB(op_dest->val)!= MSB(result)) 
         cpu.eflags.of=1;
     else cpu.eflags.of=0;
-    cpu.eflags.af = ((op_dest->val &0xf) + (op_src->val & 0xf) + cpu.eflags.cf ) > 0xf ? 0 : 1;
     update_eflags(result);
     print_asm_template2();
 
