@@ -50,7 +50,7 @@ __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT fn) {
    // memset(buf,0,80);
   //  strcpy(buf,"1.000000");
    // len=8;
-    len = sprintf(buf,"%0x",f);
+    len = sprintf(buf,"0x%08x",fn);
     return __stdio_fwrite(buf, len, stream);
 }
 
@@ -215,9 +215,9 @@ static void modify_ppfs_setargs() {
 		++p;
 	}
 #endif
-  uint32_t  p = (int)&_ppfs_setargs + 0x801200 - 0x801194;
+ /* uint32_t  p = (int)&_ppfs_setargs + 0x801200 - 0x801194;
   *(uint32_t*)p = 0x000047eb;
-  
+  */
 }
 void init_FLOAT_vfprintf() {
 	modify_vfprintf();
