@@ -50,6 +50,7 @@ __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT fn) {
    // memset(buf,0,80);
   //  strcpy(buf,"1.000000");
    // len=8;
+    len = sprintf(buf,"%0x",f);
     return __stdio_fwrite(buf, len, stream);
 }
 
