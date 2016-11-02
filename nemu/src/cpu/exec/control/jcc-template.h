@@ -1,8 +1,7 @@
 #include "cpu/exec/template-start.h"
 #define update_eip()\
-    int32_t v = op_src->val;\
-    v<<= (32 - 8 * DATA_BYTE);\
-    v>>= (32 - 8 * DATA_BYTE);\
+    DATA_TYPE_S t = op_src->val;\
+    int v = t;\
     uint32_t new_ = cpu.eip + v;\
     if(DATA_BYTE==2) \
         new_&=0xffff;\
