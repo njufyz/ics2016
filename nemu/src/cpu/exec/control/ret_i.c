@@ -4,8 +4,8 @@
 make_helper(ret_i){
 
     uint32_t offset = instr_fetch(cpu.eip+1,2);
-    cpu.eip = swaddr_read(cpu.gpr[4]._32,4);
-    cpu.gpr[4]._32 += 4;
+    cpu.eip = swaddr_read(cpu.esp,4);
+    cpu.esp += 4;
     cpu.eip -= 3;
     cpu.esp += offset;
     print_asm_template1();
