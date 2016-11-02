@@ -6,7 +6,6 @@ static void do_execute () {
 	DATA_TYPE result = op_src->val - 1;
 	OPERAND_W(op_src, result);
 
-	/* TODO: Update EFLAGS. */
     if(MSB(op_src->val)==1 && MSB(result)!=1)
         cpu.eflags.of = 1;
     else cpu.eflags.of = 0;
