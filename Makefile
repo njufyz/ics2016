@@ -75,7 +75,7 @@ submit: clean
 	cd .. && tar cvj $(shell pwd | grep -o '[^/]*$$') > $(STU_ID).tar.bz2
 
 count: 
-	find /home/njufyz/ics2016/nemu -name "*.c" -or -name "*.h" |xargs wc -l
+	find /home/njufyz/ics2016/ -name "*.c" -or -name "*.h" |xargs wc -l
 
 count_none:
 	find /home/njufyz/ics2016/nemu -name "*.c" -or -name "*.h" |xargs grep -v "^$$" | wc -l
