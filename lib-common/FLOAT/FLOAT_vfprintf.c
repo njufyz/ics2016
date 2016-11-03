@@ -18,7 +18,7 @@ __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT fn) {
 	 */
     long long f = fn;
 	char buf[80];
-  //  memset((void*)buf,0,80);
+    memset((void*)buf,0,80);
     buf[0]=0;
     int len;
     int flag=0;
