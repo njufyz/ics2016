@@ -35,8 +35,6 @@ __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT fn) {
     char tempa[20],tempb[20],tempc[2];
     tempc[0] = (flag)?'-':0;
     tempc[1]=0;
-//    sprintf(tempa,"%d",a);
-//    sprintf(tempb,"%d",b);
    char temp[80];
    strcpy(tempa,itoa(a,temp,10));
    strcpy(tempb,itoa(b,temp,10));
@@ -46,9 +44,6 @@ __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT fn) {
     strcat(buf,".");
     strcat(buf,tempb);
     len = strlen(buf);
-   // memset(buf,0,80);
-  //  strcpy(buf,"1.000000");
-   // len=8;
     return __stdio_fwrite(buf, len, stream);
 }
 
