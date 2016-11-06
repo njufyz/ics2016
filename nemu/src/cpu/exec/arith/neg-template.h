@@ -11,6 +11,9 @@ static void do_execute() {
 	 */
     if(op_src->val == 0) cpu.eflags.cf = 0;
     else cpu.eflags.cf = 1;
+    if((DATA_BYTE == 1 && op_src->val==0xff) || (DATA_BYTE == 2 && op_src->val == 0xffff) || (DATA_BYTE == 4 && op_src->val == 0xffffffff)) 
+        cpu.eflags.of = 1;
+    else cpu.eflags.of = 0;
     update_eflags(result);
 	print_asm_template1();
 }
