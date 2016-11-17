@@ -82,6 +82,7 @@ uint32_t cache_read(hwaddr_t addr, size_t len){
         }
     }
         //miss
+        Log("miss");
         bool flag = 0;
         for(i = 0;i < NR_WAY; i++)
             if(cache[temp.index][i].valid == 0 ) 
