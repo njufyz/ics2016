@@ -100,8 +100,8 @@ uint32_t cache_read(hwaddr_t addr, size_t len){
         cache[temp.index][i].tag = temp.tag;
         cache[temp.index][i].valid = 1;
         int j = 0;
-        for(; j < NR_BLOCK / 4; j++)
-            memcpy(cache[temp.index][i].block + 32*j, (void *)dram_read(temp2.addr + 32*j,4),4);
+        for(; j < NR_BLOCK ; j++)
+            cache[temp.index][i].block[j] = dram_read(temp2.addr + j, 1);
         return cache_read(addr, len);
     }
 
