@@ -4,7 +4,7 @@
 #include "stdlib.h"
 #include "time.h"
 
-#define ADDR_SIZE 27
+#define ADDR_SIZE 32
 #define HW_MEM_SIZE (1<<27)
 
 #define BLOCK_WIDTH 6
