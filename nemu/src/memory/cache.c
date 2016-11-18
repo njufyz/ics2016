@@ -62,13 +62,14 @@ uint32_t cache_read(hwaddr_t addr, size_t len){
         {
             if(len + block_addr <= NR_BLOCK)
             {
+                Log("hit");
                 uint32_t t;
                 memcpy(&t,&cache[group][i].block[block_addr],len);
                 return t;
             }
             else
             {
-                //unaligned
+                Log("unaligned");
                 uint32_t result, t;
                 uint32_t l =len - (len + block_addr - NR_BLOCK);
               //  uint32_t l2 = len - l;
