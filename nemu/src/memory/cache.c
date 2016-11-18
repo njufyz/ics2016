@@ -23,7 +23,7 @@ uint32_t dram_read(hwaddr_t addr, size_t len);
 typedef union{
     struct {
         uint32_t block_addr : BLOCK_WIDTH;
-        uint32_t index      : GROUP_WIDTH;
+        uint32_t group      : GROUP_WIDTH;
         uint32_t tag        : TAG_WIDTH;
     };
     uint32_t addr;
@@ -51,19 +51,19 @@ uint32_t cache_read(hwaddr_t addr, size_t len){
     cache_addr temp;
     temp.addr = addr;
     uint32_t block_addr = temp.block_addr;
-    uint32_t index = temp.index;
+    uint32_t group = temp.group;
     uint32_t tag = temp.tag;
 
     int i = 0;
     for(; i < NR_WAY ; i++)
     {
         //hit
-        if(cache[index][i].valid == 1 && cache[index][i].tag == tag)
+        if(cache[group][i].valid == 1 && cache[group][i].tag == tag)
         {
             if(len + block_addr <= NR_BLOCK)
             {
                 uint32_t t;
-                memcpy(&t,&cache[index][i].block[block_addr],len);
+                memcpy(&t,&cache[group][i].block[block_addr],len);
                 return t;
             }
             else
@@ -74,7 +74,7 @@ uint32_t cache_read(hwaddr_t addr, size_t len){
               //  uint32_t l2 = len - l;
                 result = cache_read(addr + l, 4);
                 result <<= (l * 8);
-                memcpy(&t, &cache[index][i].block[block_addr], 4);
+                memcpy(&t, &cache[group][i].block[block_addr], 4);
                if(l == 1)
                 unalign_rw(&result, 1) = t;
                else if(l == 2)
@@ -83,13 +83,13 @@ uint32_t cache_read(hwaddr_t addr, size_t len){
                 unalign_rw(&result, 3) = t;
                 return result;
             }
-        }
     }
+}
         //miss
         Log("miss");
         bool flag = 0;
         for(i = 0;i < NR_WAY; i++)
-            if(cache[index][i].valid == 0 ) 
+            if(cache[group][i].valid == 0 ) 
             {
                 flag = 1;
                 break;
@@ -102,11 +102,11 @@ uint32_t cache_read(hwaddr_t addr, size_t len){
 
         cache_addr temp2 = temp;
         temp2.block_addr = 0;
-        cache[index][i].tag = tag;
-        cache[index][i].valid = 1;
+        cache[group][i].tag = tag;
+        cache[group][i].valid = 1;
         int j = 0;
         for(; j < NR_BLOCK ; j++)
-            cache[index][i].block[j] = dram_read(temp2.addr + j, 1);
+            cache[group][i].block[j] = dram_read(temp2.addr + j, 1);
         return cache_read(addr, len);
     }
 
