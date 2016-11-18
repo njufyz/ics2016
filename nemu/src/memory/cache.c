@@ -71,15 +71,15 @@ uint32_t cache_read(hwaddr_t addr, size_t len){
                 //unaligned
                 uint32_t result, t;
                 uint32_t l =len - (len + block_addr - NR_BLOCK);
-                uint32_t l2 = len - l;
-                result = cache_read(addr + l, l2);
+              //  uint32_t l2 = len - l;
+                result = cache_read(addr + l, 4);
                 result <<= (l * 8);
-                memcpy(&t, &cache[index][i].block[block_addr], l);
-               if(l2 == 1)
+                memcpy(&t, &cache[index][i].block[block_addr], 4);
+               if(l == 1)
                 unalign_rw(&result, 1) = t;
-               else if(l2 == 2)
+               else if(l == 2)
                 unalign_rw(&result, 2) = t;
-               else if(l2 == 3)
+               else if(l == 3)
                 unalign_rw(&result, 3) = t;
                 return result;
             }
