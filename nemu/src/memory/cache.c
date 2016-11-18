@@ -70,19 +70,20 @@ uint32_t cache_read(hwaddr_t addr, size_t len){
             else
             {
                 Log("unaligned");
-                uint32_t result, t;
-                uint32_t l =len - (len + block_addr - NR_BLOCK);
+                uint32_t high, low;
+                uint32_t l2 = (len + block_addr - NR_BLOCK);
+                uint32_t l1 = len - l2;
               //  uint32_t l2 = len - l;
-                result = cache_read(addr + l, 4);
-                result <<= (l * 8);
-                memcpy(&t, &cache[group][i].block[block_addr], 4);
-               if(l == 1)
-                unalign_rw(&result, 1) = t;
-               else if(l == 2)
-                unalign_rw(&result, 2) = t;
-               else if(l == 3)
-                unalign_rw(&result, 3) = t;
-                return result;
+                high = cache_read(addr + l1, 4);
+                high <<= (l1 * 8);
+                memcpy(&low, &cache[group][i].block[block_addr], 4);
+               if(l1 == 1)
+                unalign_rw(&high, 1) = low;
+               else if(l1 == 2)
+                unalign_rw(&high, 2) = low;
+               else if(l1 == 3)
+                unalign_rw(&high, 3) = low;
+                return high;
             }
     }
 }
