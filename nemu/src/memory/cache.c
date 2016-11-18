@@ -31,7 +31,7 @@ typedef union{
 
 typedef struct{
     uint8_t block[NR_BLOCK];
-    int32_t tag;
+    uint32_t tag;
     bool valid;
 } CB;
 
@@ -50,27 +50,31 @@ uint32_t cache_read(hwaddr_t addr, size_t len){
    Assert(addr < HW_MEM_SIZE, "physical address %x is outside of the physical memory!   ", addr);
     cache_addr temp;
     temp.addr = addr;
+    uint32_t block_addr = temp.block_addr;
+    uint32_t index = temp.index;
+    uint32_t tag = temp.tag;
+
     int i = 0;
     for(; i < NR_WAY ; i++)
     {
         //hit
-        if(cache[temp.index][i].valid == 1 && cache[temp.index][i].tag == temp.tag)
+        if(cache[index][i].valid == 1 && cache[index][i].tag == tag)
         {
-            if(len + temp.block_addr <= NR_BLOCK)
+            if(len + block_addr <= NR_BLOCK)
             {
                 uint32_t t;
-                memcpy(&t,&cache[temp.index][i].block[temp.block_addr],len);
+                memcpy(&t,&cache[index][i].block[block_addr],len);
                 return t;
             }
             else
             {
                 //unaligned
                 uint32_t result, t;
-                uint32_t l =len - (len + temp.block_addr - NR_BLOCK);
+                uint32_t l =len - (len + block_addr - NR_BLOCK);
                 uint32_t l2 = len - l;
                 result = cache_read(addr + l, l2);
                 result <<= (l * 8);
-                memcpy(&t, &cache[temp.index][i].block[temp.block_addr], l);
+                memcpy(&t, &cache[index][i].block[block_addr], l);
                if(l2 == 1)
                 unalign_rw(&result, 1) = t;
                else if(l2 == 2)
@@ -85,7 +89,7 @@ uint32_t cache_read(hwaddr_t addr, size_t len){
         Log("miss");
         bool flag = 0;
         for(i = 0;i < NR_WAY; i++)
-            if(cache[temp.index][i].valid == 0 ) 
+            if(cache[index][i].valid == 0 ) 
             {
                 flag = 1;
                 break;
@@ -98,11 +102,11 @@ uint32_t cache_read(hwaddr_t addr, size_t len){
 
         cache_addr temp2 = temp;
         temp2.block_addr = 0;
-        cache[temp.index][i].tag = temp.tag;
-        cache[temp.index][i].valid = 1;
+        cache[index][i].tag = tag;
+        cache[index][i].valid = 1;
         int j = 0;
         for(; j < NR_BLOCK ; j++)
-            cache[temp.index][i].block[j] = dram_read(temp2.addr + j, 1);
+            cache[index][i].block[j] = dram_read(temp2.addr + j, 1);
         return cache_read(addr, len);
     }
 
