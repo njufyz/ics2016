@@ -96,7 +96,7 @@ uint32_t cache_read(hwaddr_t addr, size_t len){
                 flag = 1;
                 break;
             }
-        if(flag)
+        if(!flag)
         {
             srand(time(0));
             i = rand() % NR_WAY;
