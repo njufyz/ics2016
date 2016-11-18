@@ -62,14 +62,14 @@ uint32_t cache_read(hwaddr_t addr, size_t len){
         {
             if(len + block_addr <= NR_BLOCK)
             {
-                Log("hit");
+            //    Log("hit");
                 uint32_t t;
                 memcpy(&t,&cache[group][i].block[block_addr],len);
                 return t;
             }
             else
             {
-                Log("unaligned");
+             //   Log("unaligned");
                 uint32_t high, low;
                 uint32_t l2 = (len + block_addr - NR_BLOCK);
                 uint32_t l1 = len - l2;
@@ -88,7 +88,7 @@ uint32_t cache_read(hwaddr_t addr, size_t len){
     }
 }
         //miss
-        Log("miss");
+ //       Log("miss");
         bool flag = 0;
         for(i = 0;i < NR_WAY; i++)
             if(cache[group][i].valid == 0 ) 
