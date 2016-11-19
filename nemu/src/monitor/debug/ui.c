@@ -269,15 +269,11 @@ return 0;
 
 void cache_monitor(hwaddr_t addr);
 static int cmd_cache(char* args){
-    char* arg = strtok(NULL," ");
-    if(arg == NULL) {
-        puts("Bad Agreement1!");
-        return 0;
-    }
+   if(args==NULL) return 0;
     bool success;
-    uint32_t addr = expr(arg,&success);
+    uint32_t addr = expr(args,&success);
     if(success==0) {
-        puts("Bad Agreement2!");
+        puts("Bad Agreement!");
         return 0;
     }
     cache_monitor(addr);
