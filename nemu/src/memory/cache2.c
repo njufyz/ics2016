@@ -73,9 +73,9 @@ uint32_t cache2_read(hwaddr_t addr, size_t len){
              //   Log("unaligned");
                 uint32_t result, unaligned;
                 int l = ( NR_BLOCK - block_addr);
-                result = cache2_read(addr + l, 4);
+                result = cache2_read(addr + l, len - l);
                 result <<= (l * 8);
-                memcpy(&unaligned, &cache2[group][i].block[block_addr], 4);
+                memcpy(&unaligned, &cache2[group][i].block[block_addr], l);
                if(l == 1)
                 unalign_rw(&result, 1) = unaligned;
                else if(l == 2)
