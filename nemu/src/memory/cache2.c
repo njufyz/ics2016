@@ -195,7 +195,7 @@ void cache2_monitor(hwaddr_t addr){
     uint32_t block_addr = temp.block_addr;
     uint32_t group = temp.group;
     uint32_t tag = temp.tag;
-    
+    puts("");    
     printf("L2    Block_addr: %x  Group: %x   Tag: %x\n",block_addr,group,tag);
     int i = 0;
     for(; i < NR_WAY ; i++)

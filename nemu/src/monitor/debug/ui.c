@@ -268,6 +268,7 @@ return 0;
 }
 
 void cache_monitor(hwaddr_t addr);
+void cache2_monitor(hwaddr_t addr);
 static int cmd_cache(char* args){
    if(args==NULL) return 0;
     bool success = 1;
@@ -277,6 +278,7 @@ static int cmd_cache(char* args){
         return 0;
     }
     cache_monitor(addr);
+    cache2_monitor(addr);
     return 0;
 }
 
