@@ -62,7 +62,6 @@ uint32_t cache_read(hwaddr_t addr, size_t len){
         {
             if(len + block_addr <= NR_BLOCK)
             {
-            //    Log("hit");
                 uint32_t t;
                 memcpy(&t,&cache[group][i].block[block_addr],len);
                 return t;
@@ -70,20 +69,18 @@ uint32_t cache_read(hwaddr_t addr, size_t len){
             else
             {
              //   Log("unaligned");
-                uint32_t high, low;
-                uint32_t l2 = (len + block_addr - NR_BLOCK);
-                uint32_t l1 = len - l2;
-              //  uint32_t l2 = len - l;
-                high = cache_read(addr + l1, 4);
-                high <<= (l1 * 8);
-                memcpy(&low, &cache[group][i].block[block_addr], 4);
-               if(l1 == 1)
-                unalign_rw(&high, 1) = low;
-               else if(l1 == 2)
-                unalign_rw(&high, 2) = low;
-               else if(l1 == 3)
-                unalign_rw(&high, 3) = low;
-                return high;
+                uint32_t result, unaligned;
+                uint32_t l = ( NR_BLOCK - block_addr);
+                result = cache_read(addr + l, len - l);
+                result <<= (l * 8);
+                memcpy(&unaligned, &cache[group][i].block[block_addr], l);
+               if(l == 1)
+                unalign_rw(&result, 1) = unaligned;
+               else if(l == 2)
+                unalign_rw(&result, 2) = unaligned;
+               else if(l == 3)
+                unalign_rw(&result, 3) = unaligned;
+                return result;
             }
     }
 }
@@ -107,8 +104,41 @@ uint32_t cache_read(hwaddr_t addr, size_t len){
         cache[group][i].tag = tag;
         cache[group][i].valid = 1;
         int j = 0;
-        for(; j < NR_BLOCK ; j++)
-            cache[group][i].block[j] = dram_read(temp2.addr + j, 1);
+        for(; j < NR_BLOCK / 4 ; j++)
+           memcpy(&cache[group][i].block[j],(void*)dram_read(temp2.addr + 4 * j, 4),4);
         return cache_read(addr, len);
     }
+
+/*
+void cache_write(hwaddr_t addr ,size_t len, uint32_t data){
+    cache_addr temp;
+    temp.addr = addr;
+    uint32_t block_addr = temp.block_addr;
+    uint32_t group = temp.group;
+    uint32_t tag = temp.tag;
+    int i = 0;
+    for(;i<NR_WAY;i++)
+    {
+        if(cache[group][i].valid == 1 && cache[group][i].tag == tag)
+        {
+            if(block_addr + len <= NR_BLOCK)
+            {
+                memcpy(&cache[group][i].block[block_addr],&data,len);
+                return ;
+            }
+            else
+            {
+
+            }
+        }
+    }
+*/
+
+
+
+
+
+
+
+
 
