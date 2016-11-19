@@ -160,7 +160,7 @@ void cache_monitor(hwaddr_t addr){
         //hit
         if(cache[group][i].valid == 1 && cache[group][i].tag == tag)
         {
-            puts("Hit");
+            puts("Hit!");
             int i = 0;
             for(;i + block_addr <= NR_BLOCK && i < 4; i++)
                 printf("addr: 0x%x    value: 0x%02x\n" ,addr + i, cache_read(addr +i, 1 )  & 0xff);
