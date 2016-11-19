@@ -133,11 +133,11 @@ void cache_write(hwaddr_t addr ,size_t len, uint32_t data){
                int j = 0;
                for(; j < l ; j++)
               {
-                  uint32_t t = data >> (8 * j);
+                  uint32_t t = data << (8 * j);
                  cache[group][i].block[block_addr + j] = unalign_rw( &t, 1) ;
               } 
          
-               cache_write(addr + l, len - l, data << ( 8 * j) );
+               cache_write(addr + l, len - l, data >> ( 8 * j) );
                return ;   
             }
 
