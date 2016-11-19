@@ -8,11 +8,11 @@
 #define HW_MEM_SIZE (1<<27)
 
 #define BLOCK_WIDTH 6
-#define WAY_WIDTH 3
-#define GROUP_WIDTH 7
-#define TAG_WIDTH ( (ADDR_SIZE) - (BLOCK_WIDTH) - (GROUP_WIDTH) )
+#define WAY_WIDTH 4
+#define GROUP_WIDTH 10
+#define TAG_WIDTH ( (ADDR_SIZE) - (BLOCK_WIDTH) - (GROUP_WIDTH))
 
-#define CACHE_SIZE ( 1 << ((BLOCK_WIDTH) + (WAY_WIDTH) + (GROUP_WIDTH)) )
+#define cache2_SIZE ( 1 << ((BLOCK_WIDTH) + (WAY_WIDTH) + (GROUP_WIDTH)) )
 
 #define NR_BLOCK ( 1 << (BLOCK_WIDTH) )
 #define NR_WAY ( 1 << (WAY_WIDTH) )
@@ -28,28 +28,29 @@ typedef union{
         uint32_t tag        : TAG_WIDTH;
     };
     uint32_t addr;
-}cache_addr;
+}cache2_addr;
 
 typedef struct{
     uint8_t block[NR_BLOCK];
     uint32_t tag;
     bool valid;
-} CB;
+    bool dirty;
+} CB2;
 
-CB cache[NR_GROUP][NR_WAY];
+CB2 cache2[NR_GROUP][NR_WAY];
 
-void init_cache(){
+void init_cache2(){
     int i, j;
     for(i = 0; i < NR_GROUP; i ++) {
         for(j = 0; j < NR_WAY; j ++) {
-            cache[i][j].valid = false;
+            cache2[i][j].valid = false;
         }
     }
 }
 
-uint32_t cache_read(hwaddr_t addr, size_t len){
+uint32_t cache2_read(hwaddr_t addr, size_t len){
   Assert(addr < HW_MEM_SIZE, "physical address %x is outside of the physical memory!   ", addr);
-    cache_addr temp;
+    cache2_addr temp;
     temp.addr = addr;
     uint32_t block_addr = temp.block_addr;
     uint32_t group = temp.group;
@@ -59,12 +60,12 @@ uint32_t cache_read(hwaddr_t addr, size_t len){
     for(; i < NR_WAY ; i++)
     {
         //hit
-        if(cache[group][i].valid == 1 && cache[group][i].tag == tag)
+        if(cache2[group][i].valid == 1 && cache[group][i].tag == tag)
         {
             if(len + block_addr <= NR_BLOCK)
             {
                 uint32_t t;
-                memcpy(&t,&cache[group][i].block[block_addr],len);
+                memcpy(&t,&cache2[group][i].block[block_addr],len);
                 return t;
             }
             else
@@ -72,9 +73,9 @@ uint32_t cache_read(hwaddr_t addr, size_t len){
              //   Log("unaligned");
                 uint32_t result, unaligned;
                 int l = ( NR_BLOCK - block_addr);
-                result = cache_read(addr + l, 4);
+                result = cache2_read(addr + l, 4);
                 result <<= (l * 8);
-                memcpy(&unaligned, &cache[group][i].block[block_addr], 4);
+                memcpy(&unaligned, &cache2[group][i].block[block_addr], 4);
                if(l == 1)
                 unalign_rw(&result, 1) = unaligned;
                else if(l == 2)
@@ -89,7 +90,7 @@ uint32_t cache_read(hwaddr_t addr, size_t len){
  //       Log("miss");
         bool flag = 0;
         for(i = 0;i < NR_WAY; i++)
-            if(cache[group][i].valid == 0 ) 
+            if(cache2[group][i].valid == 0 ) 
             {
                 flag = 1;
                 break;
@@ -100,19 +101,29 @@ uint32_t cache_read(hwaddr_t addr, size_t len){
             i = rand() % NR_WAY;
         }
 
-        cache_addr temp2 = temp;
+        cache2_addr temp2 = temp;
         temp2.block_addr = 0;
-        cache[group][i].tag = tag;
-        cache[group][i].valid = 1;
+
+        //write back
+        if(cache2[group][i].dirty){
+            int address = 0;
+            for(;address < NR_BLOCK ; address++)
+                dram_write(temp2.addr + address, 1, cache2[group][i].block[address]);
+        } 
+        
+        cache2[group][i].tag = tag;
+        cache2[group][i].valid = 1;
+        cache2[group][i].dirty = 0;
         int j = 0;
-        for(; j < NR_BLOCK ; j++)
-           cache[group][i].block[j] = dram_read(temp2.addr + j, 1) ;
-        return cache_read(addr, len);
+        for(; j < NR_BLOCK ; j++){
+           cache2[group][i].block[j] = dram_read(temp2.addr + j, 1) ;
+        }
+        return cache2_read(addr, len);
     }
 
 
-void cache_write(hwaddr_t addr ,size_t len, uint32_t data){
-    cache_addr temp;
+void cache2_write(hwaddr_t addr ,size_t len, uint32_t data){
+    cache2_addr temp;
     temp.addr = addr;
     uint32_t block_addr = temp.block_addr;
     uint32_t group = temp.group;
@@ -120,11 +131,13 @@ void cache_write(hwaddr_t addr ,size_t len, uint32_t data){
     int i = 0;
     for(;i<NR_WAY;i++)
     {
-        if(cache[group][i].valid == 1 && cache[group][i].tag == tag)
+        if(cache2[group][i].valid == 1 && cache[group][i].tag == tag)
         {
             if(block_addr + len <= NR_BLOCK)
             {
-                memcpy(&cache[group][i].block[block_addr],&data,len);
+                memcpy(&cache2[group][i].block[block_addr],&data,len);
+                cache2[group][i].dirty = 1;
+                return;
             }
             else
             {
@@ -134,10 +147,11 @@ void cache_write(hwaddr_t addr ,size_t len, uint32_t data){
                for(; j < l ; j++)
               {
                   uint32_t t = data >> (8 * j);
-                 cache[group][i].block[block_addr + j] = unalign_rw( &t, 1) ;
+                 cache2[group][i].block[block_addr + j] = unalign_rw( &t, 1) ;
               } 
-         
-               cache_write(addr + l, len - l, data >> ( 8 * j) );
+               cache2[group][i].dirty = 1;
+               cache2_write(addr + l, len - l, data >> ( 8 * j) );
+               return;
             }
 
         }
