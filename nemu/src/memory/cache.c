@@ -19,8 +19,8 @@
 #define NR_GROUP ( 1 << (GROUP_WIDTH) )
 #define NR_TAG ( 1 << (TAG_WIDTH) )
 
-uint32_t dram_read(hwaddr_t addr, size_t len);
-uint32_t dram_write(hwaddr_t addr, size_t len, uint32_t data);
+uint32_t cache2_read(hwaddr_t addr, size_t len);
+uint32_t cache2_write(hwaddr_t addr, size_t len, uint32_t data);
 typedef union{
     struct {
         uint32_t block_addr : BLOCK_WIDTH;
@@ -106,7 +106,7 @@ uint32_t cache_read(hwaddr_t addr, size_t len){
         cache[group][i].valid = 1;
         int j = 0;
         for(; j < NR_BLOCK ; j++)
-           cache[group][i].block[j] = dram_read(temp2.addr + j, 1) ;
+           cache[group][i].block[j] = cache2_read(temp2.addr + j, 1) ;
         return cache_read(addr, len);
     }
 
@@ -142,7 +142,7 @@ void cache_write(hwaddr_t addr ,size_t len, uint32_t data){
 
         }
     }
-        dram_write(addr,len,data);
+        cache2_write(addr,len,data);
  }
 
 void cache_monitor(hwaddr_t addr){
@@ -160,7 +160,7 @@ void cache_monitor(hwaddr_t addr){
         //hit
         if(cache[group][i].valid == 1 && cache[group][i].tag == tag)
         {
-            puts("Hit!");
+            puts("Hit in L1!");
             int i = 0;
             for(;i + block_addr <= NR_BLOCK && i < 4; i++)
                 printf("Address: 0x%x    Value: 0x%02x\n" ,addr + i, cache_read(addr +i, 1 )  & 0xff);

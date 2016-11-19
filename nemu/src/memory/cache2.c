@@ -1,4 +1,4 @@
-/*#include "common.h"
+#include "common.h"
 #include "burst.h"
 #include "misc.h"
 #include "stdlib.h"
@@ -60,7 +60,7 @@ uint32_t cache2_read(hwaddr_t addr, size_t len){
     for(; i < NR_WAY ; i++)
     {
         //hit
-        if(cache2[group][i].valid == 1 && cache[group][i].tag == tag)
+        if(cache2[group][i].valid == 1 && cache2[group][i].tag == tag)
         {
             if(len + block_addr <= NR_BLOCK)
             {
@@ -131,7 +131,7 @@ void cache2_write(hwaddr_t addr ,size_t len, uint32_t data){
     int i = 0;
     for(;i<NR_WAY;i++)
     {
-        if(cache2[group][i].valid == 1 && cache[group][i].tag == tag)
+        if(cache2[group][i].valid == 1 && cache2[group][i].tag == tag)
         {
             if(block_addr + len <= NR_BLOCK)
             {
@@ -141,7 +141,6 @@ void cache2_write(hwaddr_t addr ,size_t len, uint32_t data){
             }
             else
             {
-                Log("unaligned");
                int l = NR_BLOCK - block_addr;
                int j = 0;
                for(; j < l ; j++)
@@ -156,10 +155,39 @@ void cache2_write(hwaddr_t addr ,size_t len, uint32_t data){
 
         }
     }
-        dram_write(addr,len,data);
+        bool flag = 0;
+        for(i = 0;i < NR_WAY; i++)
+            if(cache2[group][i].valid == 0 ) 
+            {
+                flag = 1;
+                break;
+            }
+        if(!flag)
+        {
+            srand(time(0));
+            i = rand() % NR_WAY;
+        }
+
+        cache2_addr temp2 = temp;
+        temp2.block_addr = 0;
+
+        //write back
+        if(cache2[group][i].dirty){
+            int address = 0;
+            for(;address < NR_BLOCK ; address++)
+                dram_write(temp2.addr + address, 1, cache2[group][i].block[address]);
+        }
+        cache2[group][i].tag = tag;
+        cache2[group][i].valid = 1;
+        cache2[group][i].dirty = 0;
+        int j = 0;
+        for(; j < NR_BLOCK ; j++){
+           cache2[group][i].block[j] = dram_read(temp2.addr + j, 1) ;
+        }
+        cache2_write(addr,len,data);
  }
 
-*/
+
 
 
 
