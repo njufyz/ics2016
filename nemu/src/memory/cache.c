@@ -20,6 +20,7 @@
 #define NR_TAG ( 1 << (TAG_WIDTH) )
 
 uint32_t dram_read(hwaddr_t addr, size_t len);
+uint32_t dram_write(hwaddr_t addr, size_t len, uint32_t data);
 typedef union{
     struct {
         uint32_t block_addr : BLOCK_WIDTH;
@@ -70,7 +71,7 @@ uint32_t cache_read(hwaddr_t addr, size_t len){
             {
              //   Log("unaligned");
                 uint32_t result, unaligned;
-                uint32_t l = ( NR_BLOCK - block_addr);
+                int l = ( NR_BLOCK - block_addr);
                 result = cache_read(addr + l, len - l);
                 result <<= (l * 8);
                 memcpy(&unaligned, &cache[group][i].block[block_addr], l);
@@ -109,7 +110,7 @@ uint32_t cache_read(hwaddr_t addr, size_t len){
         return cache_read(addr, len);
     }
 
-/*
+
 void cache_write(hwaddr_t addr ,size_t len, uint32_t data){
     cache_addr temp;
     temp.addr = addr;
@@ -124,15 +125,26 @@ void cache_write(hwaddr_t addr ,size_t len, uint32_t data){
             if(block_addr + len <= NR_BLOCK)
             {
                 memcpy(&cache[group][i].block[block_addr],&data,len);
-                return ;
+                return;
             }
             else
             {
-
+               int l = NR_BLOCK - block_addr;
+               int j = 0;
+               for(; j < l ; j++)
+              {
+                  uint32_t t = data >> (8 * j);
+                 cache[group][i].block[block_addr + j] = unalign_rw( &t, 1) ;
+              } 
+         
+               cache_write(addr + l, len - l, data << ( 8 * j) );
+               return ;   
             }
+
         }
     }
-*/
+        dram_write(addr,len,data);
+ }
 
 
 
