@@ -128,7 +128,6 @@ void cache_write(hwaddr_t addr ,size_t len, uint32_t data){
             }
             else
             {
-                Log("unaligned");
                int l = NR_BLOCK - block_addr;
                int j = 0;
                for(; j < l ; j++)
