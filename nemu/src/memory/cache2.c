@@ -188,7 +188,30 @@ void cache2_write(hwaddr_t addr ,size_t len, uint32_t data){
  }
 
 
-
+void cache2_monitor(hwaddr_t addr){
+    Assert(addr < HW_MEM_SIZE, "physical address %x is outside of the physical memory!     ", addr);
+    cache2_addr temp;
+    temp.addr = addr;
+    uint32_t block_addr = temp.block_addr;
+    uint32_t group = temp.group;
+    uint32_t tag = temp.tag;
+    
+    printf("L2    Block_addr: %x  Group: %x   Tag: %x\n",block_addr,group,tag);
+    int i = 0;
+    for(; i < NR_WAY ; i++)
+    {
+        //hit
+        if(cache2[group][i].valid == 1 && cache2[group][i].tag == tag)
+        {
+            puts("Hit in L2!");
+            int i = 0;
+            for(;i + block_addr <= NR_BLOCK && i < 4; i++)
+                printf("Address: 0x%x    Value: 0x%02x\n" ,addr + i, cache2_read(addr +i, 1 )  & 0xff);
+            return;
+        }
+    }
+    puts("Miss in L2!");
+}
 
 
 

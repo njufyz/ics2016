@@ -153,7 +153,7 @@ void cache_monitor(hwaddr_t addr){
     uint32_t group = temp.group;
     uint32_t tag = temp.tag;
     
-    printf("Block_addr: %x  Group: %x   Tag: %x\n",block_addr,group,tag);
+    printf("L1    Block_addr: %x  Group: %x   Tag: %x\n",block_addr,group,tag);
     int i = 0;
     for(; i < NR_WAY ; i++)
     {
@@ -167,7 +167,7 @@ void cache_monitor(hwaddr_t addr){
             return;
         }
     }
-    puts("Miss!");
+    puts("Miss in L1!");
 }
 
 
