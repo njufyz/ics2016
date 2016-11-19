@@ -1,4 +1,4 @@
-#include "common.h"
+/*#include "common.h"
 #include "burst.h"
 #include "misc.h"
 #include "stdlib.h"
@@ -145,30 +145,57 @@ void cache_write(hwaddr_t addr ,size_t len, uint32_t data){
         dram_write(addr,len,data);
  }
 
-void cache_monitor(hwaddr_t addr){
-    Assert(addr < HW_MEM_SIZE, "physical address %x is outside of the physical memory!     ", addr);
-    cache_addr temp;
-    temp.addr = addr;
-    uint32_t block_addr = temp.block_addr;
-    uint32_t group = temp.group;
-    uint32_t tag = temp.tag;
-    
-    printf("Block_addr: %x  Group: %x   Tag: %x\n",block_addr,group,tag);
-    int i = 0;
-    for(; i < NR_WAY ; i++)
-    {
-        //hit
-        if(cache[group][i].valid == 1 && cache[group][i].tag == tag)
-        {
-            puts("Hit");
-            int i = 0;
-            for(;i + block_addr <= NR_BLOCK && i < 4; i++)
-                printf("addr: 0x%x    value: 0x%x\n" ,addr, cache_read(addr + i, 1 ));
-            return;
-        }
-    }
-    puts("Miss!");
-}
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

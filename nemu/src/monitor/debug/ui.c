@@ -53,6 +53,8 @@ static int cmd_d(char *args);
 
 static int cmd_bt();
 
+static int cmd_cache(char *args);
+
 static struct {
 	char *name;
 	char *description;
@@ -67,7 +69,8 @@ static struct {
     { "x","Examine memory: x/FMT ADDRESS",cmd_x},
     { "w","When the value of EXPR change, the program will be suspended",cmd_w},
     { "d","Delete the No.N watchpoint",cmd_d},
-    { "bt","Print backtrace of all stack frames",cmd_bt}
+    { "bt","Print backtrace of all stack frames",cmd_bt},
+    { "cache","Print cache block at certain address",cmd_cache}
     /* TODO: Add more commands */
 
 };
@@ -181,22 +184,6 @@ static int cmd_x(char *args)
     }
 
     char *arg2 = strtok(NULL," ");
-    /*char *stop;
-    unsigned  address = strtol(arg2,&stop,16);
-    int i = 0;
-    if(0)
-    {
-        for(;i!=step;i++)
-        {
-            printf("%x\n ",swaddr_read(address,4));
-            address+=4;
-        }
-            
-    }
-    else{
-        bool success=1;
-        expr(arg2,&success);
-    }*/
     int i = 0;
     uint32_t address;
     bool success = 1;
@@ -278,6 +265,23 @@ static int cmd_bt()
     ebp = swaddr_read(ebp,4);
 }while(1);
 return 0;
+}
+
+void cache_monitor(hwaddr_t addr);
+static int cmd_cache(char* args){
+    char* arg = strtok(NULL," ");
+    if(arg == NULL) {
+        puts("Bad Agreement!");
+        return 0;
+    }
+    bool success;
+    uint32_t addr = expr(arg,&success);
+    if(success==0) {
+        puts("Bad Agreement!");
+        return 0;
+    }
+    cache_monitor(addr);
+    return 0;
 }
 
 void ui_mainloop() {
