@@ -270,7 +270,7 @@ return 0;
 void cache_monitor(hwaddr_t addr);
 static int cmd_cache(char* args){
    if(args==NULL) return 0;
-    bool success;
+    bool success = 0;
     uint32_t addr = expr(args,&success);
     if(success==0) {
         puts("Bad Agreement!");
