@@ -8,6 +8,7 @@ extern char *exec_file;
 
 void load_elf_tables(int, char *[]);
 void init_regex();
+void init_eflags();
 void init_wp_pool();
 void init_ddr3();
 void init_cache();
@@ -88,7 +89,8 @@ void restart() {
 
 	/* Set the initial instruction pointer. */
 	cpu.eip = ENTRY_START;
-    cpu.eflags.nouse1=0;
+    init_eflags();
+    /*    cpu.eflags.nouse1=0;
     cpu.eflags.nouse2=0;
     cpu.eflags.nouse3=0;
     cpu.eflags.of=0;
@@ -102,7 +104,7 @@ void restart() {
     cpu.eflags.no2=0;
     cpu.eflags.pf=0;
     cpu.eflags.no3=1;
-    cpu.eflags.cf=0;
+    cpu.eflags.cf=0;*/
 	/* Initialize DRAM. */
 	init_ddr3();
     init_cache();
