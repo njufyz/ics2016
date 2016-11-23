@@ -4,7 +4,7 @@
 static void do_execute() {
     if(instr_fetch(cpu.eip,2) == 0x0f20){
     OPERAND_W(op_dest, cpu.cr0.val);
-    print_asm("movl %cr0,%s",'c',REG_NAME(REG(op_dest->val)));
+    print_asm("movl %sr0,%s","c",REG_NAME(REG(op_dest->val)));
     }
     OPERAND_W(op_dest, op_src->val);
 	print_asm_template2();
