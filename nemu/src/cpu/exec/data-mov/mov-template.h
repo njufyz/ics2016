@@ -2,6 +2,7 @@
 
 #define instr mov
 static void do_execute() {
+    printf("%x",(instr_fetch(cpu.eip,2)));
     if(instr_fetch(cpu.eip,2) == 0x0f20){
     OPERAND_W(op_dest, cpu.cr0.val);
     printf("111");
