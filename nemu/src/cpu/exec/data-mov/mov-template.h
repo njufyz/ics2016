@@ -8,7 +8,7 @@ static void do_execute() {
     return;
     }
     else if(instr_fetch(cpu.eip,2) == 0x220f){
-        cpu.cr0.val = op_src->val;
+        cpu.cr0.val = op_dest->val;
         print_asm("movl %c%s,%%cr0",'%',REG_NAME(REG(op_dest->val)));
         return;
     }
