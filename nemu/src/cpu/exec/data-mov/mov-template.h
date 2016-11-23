@@ -4,12 +4,12 @@
 static void do_execute() {
     if(instr_fetch(cpu.eip,2) == 0x200f){
     OPERAND_W(op_dest, cpu.cr0.val);
-    print_asm("movl %%cr0,%c%s",'%',REG_NAME(REG(op_dest->val)));
+    print_asm("movl %%cr0,%c%s",'%',REG_NAME((op_dest->reg)));
     return;
     }
     else if(instr_fetch(cpu.eip,2) == 0x220f){
         cpu.cr0.val = REG(op_dest->val);
-        print_asm("movl %%%s,%%cr0",REG_NAME(REG(op_dest->val)));
+        print_asm("movl %%%s,%%cr0",REG_NAME(op_dest->reg));
         return;
     }
     OPERAND_W(op_dest, op_src->val);
