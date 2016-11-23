@@ -13,6 +13,7 @@ void init_wp_pool();
 void init_ddr3();
 void init_cache();
 void init_cache2();
+void init_cr0();
 
 FILE *log_fp = NULL;
 
@@ -89,7 +90,10 @@ void restart() {
 
 	/* Set the initial instruction pointer. */
 	cpu.eip = ENTRY_START;
-	
+   	
+    /* Initialize CRO. */
+    init_cr0();
+   
     /* Initialize eflags. */
     init_eflags();
 	

@@ -59,3 +59,7 @@ void init_eflags(){
     cpu.eflags.no3=1;
     cpu.eflags.cf=0;
 }
+
+void init_cr0(){
+    cpu.cr0.protect_enable = 0;
+}

@@ -15,6 +15,15 @@ enum { R_AL, R_CL, R_DL, R_BL, R_AH, R_CH, R_DH, R_BH };
  * For more details about the register encoding scheme, see i386 manual.
  */
 
+typedef union {
+    struct{
+        uint16_t rpl :2;
+        uint16_t ti  :1;
+        uint16_t index:13;
+       };
+       uint16_t val;
+}Selector;
+
 typedef struct {
     union{
         struct{
@@ -51,6 +60,29 @@ typedef struct {
         unsigned no3:1;
         unsigned cf:1;
     }eflags;
+   
+    CR0 cr0;
+
+    struct GDTR{
+        uint32_t base;
+        uint16_t limit;
+    }gdtr;
+
+
+    struct Selector_Cache{
+        bool valid;
+        uint32_t rpl :2;
+        uint32_t limit :20;
+        uint32_t base;
+    }segcache[4];
+
+        union{
+            Selector segreg[4];
+                struct{
+            uint16_t CS,DS,ES,SS;
+                };
+        };
+
 
 } CPU_state;
 
