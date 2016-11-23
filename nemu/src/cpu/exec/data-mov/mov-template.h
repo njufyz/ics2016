@@ -1,9 +1,12 @@
 #include "cpu/exec/template-start.h"
 
 #define instr mov
-
 static void do_execute() {
-	OPERAND_W(op_dest, op_src->val);
+    if(instr_fetch(cpu.eip,2) == 0x0f20){
+    OPERAND_W(op_dest, cpu.cr0.val);
+    print_asm("movl %%cr0,%s",REG_NAME(REG(op_dest->val)));
+    }
+    OPERAND_W(op_dest, op_src->val);
 	print_asm_template2();
 }
 
@@ -11,6 +14,7 @@ make_instr_helper(i2r)
 make_instr_helper(i2rm)
 make_instr_helper(r2rm)
 make_instr_helper(rm2r)
+make_instr_helper(rm)
 
 make_helper(concat(mov_a2moffs_, SUFFIX)) {
 	swaddr_t addr = instr_fetch(eip + 1, 4);
