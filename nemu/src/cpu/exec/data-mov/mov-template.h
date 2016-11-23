@@ -2,11 +2,9 @@
 
 #define instr mov
 static void do_execute() {
-    printf("%x",(instr_fetch(cpu.eip,2)));
-    if(instr_fetch(cpu.eip,2) == 0x0f20){
+    if(instr_fetch(cpu.eip,2) == 0x200f){
     OPERAND_W(op_dest, cpu.cr0.val);
-    printf("111");
-    print_asm("movl r0,%s",REG_NAME(REG(op_dest->val)));
+    print_asm("movl %%cr0,%s",REG_NAME(REG(op_dest->val)));
     }
     OPERAND_W(op_dest, op_src->val);
 	print_asm_template2();
