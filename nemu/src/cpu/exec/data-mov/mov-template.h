@@ -12,7 +12,7 @@ static void do_execute() {
     return;
     }
     else if(instr_fetch(cpu.eip,2) == 0x220f){
-        printf("eax= %x",op_dest->val);
+        printf("eax= %x",REG(op_dest->reg));
         cpu.cr0.val = op_dest->val;
         Log("cr0:%x",cpu.cr0.val);
         print_asm("movl %%%s,%%cr0",REG_NAME(op_dest->reg));
