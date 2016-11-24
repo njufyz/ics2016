@@ -2,7 +2,7 @@
 #define instr stos
 
 make_helper(concat(stos_,SUFFIX)){
-    MEM_W(cpu.edi,cpu.eax);
+    MEM_W(cpu.edi,cpu.eax, R_ES);
     if(cpu.eflags.df == 0)
         cpu.edi += DATA_BYTE;
     else cpu.edi -= DATA_BYTE;

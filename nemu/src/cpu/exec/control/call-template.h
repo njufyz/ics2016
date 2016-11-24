@@ -6,7 +6,7 @@ extern int Len;
 static void do_execute()
 {
     cpu.esp-=4;
-    swaddr_write(cpu.esp,4,cpu.eip+Len);
+    swaddr_write(cpu.esp,4,cpu.eip+Len, R_SS);
     if(instr_fetch(cpu.eip,1)==0xe8)
     {
         cpu.eip+=op_src->val;

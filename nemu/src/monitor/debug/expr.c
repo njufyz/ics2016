@@ -262,16 +262,16 @@ uint32_t eval(int p,int q,bool *s)
         val2 = eval(op+1,q,s);
 
        switch(tokens[op].type){
-           case '+': return val1+val2;
-           case '-': return val1-val2;
-           case '*': return val1*val2;
-           case '/': return val1/val2;
-           case EQ: return (val1==val2)?1:0;
-           case NEQ:return (val1!=val2)?1:0;
-           case AND:return val1&&val2;
-           case OR: return val1||val2;
+           case '+': return val1 + val2;
+           case '-': return val1 - val2;
+           case '*': return val1 * val2;
+           case '/': return val1 / val2;
+           case EQ: return (val1 == val2) ? 1 : 0;
+           case NEQ:return (val1 != val2) ? 1 : 0;
+           case AND:return val1 && val2;
+           case OR: return val1 || val2;
            case NOT: return !val2;
-           case DEREF: return swaddr_read(val2,4);
+           case DEREF: return swaddr_read(val2, 4, R_DS);
            case NEG: return -val2;
            default: *s = 0; return 0xffffffff;
 

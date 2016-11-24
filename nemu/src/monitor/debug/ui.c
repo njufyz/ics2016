@@ -195,7 +195,7 @@ static int cmd_x(char *args)
         
         {
             printf("0x%x:\t",address+4*i);
-            printf("0x%x\n",swaddr_read(address+4*i,4));
+            printf("0x%x\n",swaddr_read(address+4*i,4, R_DS));
         
         }
     }
@@ -254,15 +254,15 @@ static int cmd_bt()
      name=NULL;
      readdr = -1;
      name = get_func(addr,&readdr);
-    argv[0] = swaddr_read(ebp+8,4);
-    argv[1] = swaddr_read(ebp+12,4);
-    argv[2] = swaddr_read(ebp+16,4);
-    argv[3] = swaddr_read(ebp+20,4);
+    argv[0] = swaddr_read(ebp + 8, 4, R_SS );
+    argv[1] = swaddr_read(ebp + 12, 4, R_SS);
+    argv[2] = swaddr_read(ebp + 16, 4, R_SS);
+    argv[3] = swaddr_read(ebp + 20, 4, R_SS);
     if(!ebp) name = "_start";
     printf(" %s()  at: 0x%x  argv1: 0x%x, argv2: 0x%x, argv3: 0x%x, argv4: 0x%x\n",name,readdr,argv[0],argv[1],argv[2],argv[3]);
    if(ebp==0) break;
-   addr= swaddr_read(ebp + 4,4);
-    ebp = swaddr_read(ebp,4);
+   addr= swaddr_read(ebp + 4, 4, R_SS);
+    ebp = swaddr_read(ebp, 4, R_SS);
 }while(1);
 return 0;
 }
