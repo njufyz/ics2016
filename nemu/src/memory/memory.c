@@ -30,7 +30,6 @@ uint32_t swaddr_read(swaddr_t addr, size_t len, uint8_t sreg) {
 	assert(len == 1 || len == 2 || len == 4);
 #endif
     lnaddr_t lnaddr = seg_translate(addr, len, sreg);
-    Log("sreg:%x",sreg);
     return lnaddr_read(lnaddr, len);
 }
 
