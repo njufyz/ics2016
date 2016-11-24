@@ -76,12 +76,7 @@ typedef struct {
         uint32_t base;
     }segcache[4];
 
-        union{
-            Selector segreg[4];
-                struct{
-            uint16_t CS,DS,ES,SS;
-                };
-        };
+    Selector segreg[4];
 
 
 } CPU_state;
