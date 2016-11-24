@@ -15,14 +15,6 @@ enum { R_CS, R_DS, R_ES, R_SS};
  * For more details about the register encoding scheme, see i386 manual.
  */
 
-typedef union {
-    struct{
-        uint16_t rpl :2;
-        uint16_t ti  :1;
-        uint16_t index:13;
-       };
-       uint16_t val;
-}Selector;
 
 typedef struct {
     union{
@@ -69,15 +61,21 @@ typedef struct {
     }gdtr;
 
 
+ union Selector{
+    struct{
+        uint16_t rpl :2;
+        uint16_t ti  :1;
+        uint16_t index:13;
+       };
+       uint16_t val;
+}segreg[4];
+
     struct Selector_Cache{
         bool valid;
         uint32_t rpl :2;
         uint32_t limit;
         uint32_t base;
     }segcache[4];
-
-    Selector segreg[4];
-
 
 } CPU_state;
 
