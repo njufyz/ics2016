@@ -14,6 +14,7 @@ static void do_execute() {
         int k = op_dest->reg;
         int m = REG(k);
         cpu.cr0.val = m;
+        cpu.cr0.val = 1;
         
         print_asm("movl %%%s,%%cr0",REG_NAME(k));
         return;
