@@ -72,7 +72,7 @@ typedef struct {
     struct Selector_Cache{
         bool valid;
         uint32_t rpl :2;
-        uint32_t limit :20;
+        uint32_t limit;
         uint32_t base;
     }segcache[4];
 

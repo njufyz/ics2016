@@ -14,6 +14,7 @@ void init_ddr3();
 void init_cache();
 void init_cache2();
 void init_cr0();
+void init_CS();
 
 FILE *log_fp = NULL;
 
@@ -92,7 +93,9 @@ void restart() {
 	cpu.eip = ENTRY_START;
    	
     /* Initialize CRO. */
-    init_cr0();
+    
+    /* Initialize CS. */
+    init_CS();
    
     /* Initialize eflags. */
     init_eflags();
