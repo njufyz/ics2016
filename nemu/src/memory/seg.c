@@ -5,6 +5,7 @@ uint32_t lnaddr_read(swaddr_t addr, size_t len);
 void load_segcache(uint8_t sreg){
     if(cpu.segcache[sreg].valid==1) return;
     else{
+        printf("sreg:%d\n",sreg);
         cpu.segcache[sreg].valid = 1;
         uint8_t m[8];
         int i;
