@@ -32,7 +32,7 @@ lnaddr_t seg_translate(swaddr_t addr ,size_t len, uint8_t sreg){
     if(cpu.cr0.protect_enable == 0) return addr;
     else if(cpu.segcache[sreg].valid == 0) {
     load_segcache(sreg);
-    return seg_translate(addr, len, sreg);
+    return cpu.segcache[sreg].base + addr;
     }
     else{
         return cpu.segcache[sreg].base + addr;
