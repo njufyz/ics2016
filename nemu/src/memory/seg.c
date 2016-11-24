@@ -18,7 +18,7 @@ void load_segcache(uint8_t sreg){
             
         SegDesc *temp2 = (SegDesc *)m;
         /* assert check */
-        assert(temp2->present == 1);
+    //    assert(temp2->present == 1);
         assert(temp2->limit_15_0 + (temp2->limit_19_16 <<16) >= cpu.segreg[sreg].index * 8) ;
         /* load seg */
         cpu.segcache[sreg].limit = temp2->limit_15_0 + (temp2->limit_19_16 <<16);
