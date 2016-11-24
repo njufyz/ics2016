@@ -5,14 +5,12 @@ uint32_t lnaddr_read(swaddr_t addr, size_t len);
 void load_segcache(uint8_t sreg){
     if(cpu.segcache[sreg].valid==1) return;
     else{
-        Log("sreg:%x",sreg);
         cpu.segcache[sreg].valid = 1;
         uint8_t m[8];
         int i;
         for(i = 0; i< 8; i++)
         {
          m[i] = lnaddr_read(cpu.gdtr.base + cpu.segreg[sreg].index * 8 + i, 1);
-        printf("%x index:%d",m[i], cpu.segreg[sreg].index);
         }
             
         SegDesc *temp2 = (SegDesc *)m;
