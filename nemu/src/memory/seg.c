@@ -40,7 +40,7 @@ lnaddr_t seg_translate(swaddr_t addr ,size_t len, uint8_t sreg){
 
 void init_CS(){
     cpu.segcache[R_CS].base = 0;
-  //  cpu.segcache[R_CS].valid = 1;
+    cpu.segreg[R_CS].val = 8;
     cpu.segcache[R_CS].limit = 0xffffffff;
 }
 
