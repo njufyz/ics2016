@@ -1,16 +1,22 @@
 #include "common.h"
 #include "cpu/reg.h"
+uint32_t lnaddr_read(swaddr_t addr, size_t len);
+
 void load_segcache(uint8_t sreg){
     if(cpu.segcache[sreg].valid==1) return;
     else{
         cpu.segcache[sreg].valid = 1;
-        uint64_t m;
-        memcpy(&m, (void *)(cpu.gdtr.base + cpu.segreg[sreg].index * 8), 8);
+        uint8_t m[8];
+        int i;
+        for(i = 0; i< 8; i++)
+        {
+         m[i] = lnaddr_read(cpu.gdtr.base + cpu.segreg[sreg].index * 8 + i, 1);
+        }
         union{
             uint64_t temp1;
             SegDesc temp2;
         }t;
-        t.temp1 = m;
+        memcpy(&t.temp1, m, 8);
         /* assert check */
         assert(t.temp2.present == 1);
         assert(t.temp2.limit_15_0 + (t.temp2.limit_19_16 <<16) >= cpu.segreg[sreg].index * 8 );
