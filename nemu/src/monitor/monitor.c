@@ -93,7 +93,8 @@ void restart() {
 	cpu.eip = ENTRY_START;
    	
     /* Initialize CRO. */
-    
+    init_cr0();
+
     /* Initialize CS. */
     init_CS();
    
