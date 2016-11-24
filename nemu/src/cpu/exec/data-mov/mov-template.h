@@ -12,6 +12,7 @@ static void do_execute() {
     }
     else if(instr_fetch(cpu.eip,2) == 0x220f){
         cpu.cr0.val = REG(op_dest->reg);
+        Log("11111");
         print_asm("movl %%%s,%%cr0",REG_NAME(op_dest->reg));
         return;
     }
