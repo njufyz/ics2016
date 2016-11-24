@@ -11,10 +11,10 @@ void load_segcache(uint8_t sreg){
         for(i = 0; i< 8; i++)
         {
          m[i] = lnaddr_read(cpu.gdtr.base + cpu.segreg[sreg].index * 8 + i, 1);
+        printf("%x",m[i]);
         }
             
         SegDesc *temp2 = (SegDesc *)m;
-
         /* assert check */
         assert(temp2->present == 1);
         assert(temp2->limit_15_0 + (temp2->limit_19_16 <<16) >= cpu.segreg[sreg].index * 8) ;
