@@ -16,8 +16,8 @@ void load_segcache(uint8_t sreg){
             
         SegDesc *temp2 = (SegDesc *)m;
         /* assert check */
-       // assert(temp2->present == 1);
-      //  assert(temp2->limit_15_0 + (temp2->limit_19_16 <<16) >= cpu.segreg[sreg].index * 8) ;
+        assert(temp2->present == 1);
+        assert(temp2->limit_15_0 + (temp2->limit_19_16 <<16) >= cpu.segreg[sreg].index * 8) ;
         /* load seg */
         cpu.segcache[sreg].limit = temp2->limit_15_0 + (temp2->limit_19_16 <<16);
         cpu.segcache[sreg].base = temp2->base_15_0 + (temp2->base_23_16 << 16) +( temp2->base_31_24 <<24);
@@ -38,6 +38,7 @@ lnaddr_t seg_translate(swaddr_t addr ,size_t len, uint8_t sreg){
 }
 
 void init_CS(){
+    printf("%d", R_CS);
     cpu.segcache[R_CS].base = 0;
     cpu.segcache[R_CS].limit = 0xffffffff;
 }
