@@ -11,9 +11,10 @@ static void do_execute() {
     return;
     }
     else if(instr_fetch(cpu.eip,2) == 0x220f){
+        int k = op_dest->reg;
         cpu.cr0.val = REG(op_dest->reg);
-        Log("11111");
-        print_asm("movl %%%s,%%cr0",REG_NAME(op_dest->reg));
+        
+        print_asm("movl %%%s,%%cr0",REG_NAME(k));
         return;
     }
 
