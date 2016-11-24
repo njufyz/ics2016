@@ -11,7 +11,7 @@ void load_segcache(uint8_t sreg){
         for(i = 0; i< 8; i++)
         {
          m[i] = lnaddr_read(cpu.gdtr.base + cpu.segreg[sreg].index * 8 + i, 1);
-        printf("%x %d",m[i], cpu.segreg[sreg].index);
+        printf("%x index:%d",m[i], cpu.segreg[sreg].index);
         }
             
         SegDesc *temp2 = (SegDesc *)m;
