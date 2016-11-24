@@ -12,18 +12,17 @@ void load_segcache(uint8_t sreg){
         {
          m[i] = lnaddr_read(cpu.gdtr.base + cpu.segreg[sreg].index * 8 + i, 1);
         }
-        union{
-            uint64_t temp1;
-            SegDesc temp2;
-        }t;
-        memcpy(&t.temp1, m, 8);
+            
+        SegDesc temp2;
+        memcpy(&temp2, m, 8);
+
         /* assert check */
-        assert(t.temp2.present == 1);
-        assert(t.temp2.limit_15_0 + (t.temp2.limit_19_16 <<16) >= cpu.segreg[sreg].index * 8 );
+        assert(temp2.present == 1);
+        assert(temp2.limit_15_0 + (temp2.limit_19_16 <<16) >= cpu.segreg[sreg].index * 8) ;
         /* load seg */
-        cpu.segcache[sreg].limit = t.temp2.limit_15_0 + (t.temp2.limit_19_16 <<16);
-        cpu.segcache[sreg].base = t.temp2.base_15_0 + (t.temp2.base_23_16 << 16) +( t.temp2.base_31_24 <<24);
-        cpu.segcache[sreg].rpl = t.temp2.privilege_level;
+        cpu.segcache[sreg].limit = temp2.limit_15_0 + (temp2.limit_19_16 <<16);
+        cpu.segcache[sreg].base = temp2.base_15_0 + (temp2.base_23_16 << 16) +( temp2.base_31_24 <<24);
+        cpu.segcache[sreg].rpl = temp2.privilege_level;
     }
 }
         
