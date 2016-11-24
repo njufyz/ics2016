@@ -6,11 +6,14 @@ static void do_execute() {
     //CR0 mov
     if(instr_fetch(cpu.eip,2) == 0x200f){
     OPERAND_W(op_dest, cpu.cr0.val);
+    Log("cr0:%x",cpu.cr0.val);
     print_asm("movl %%cr0,%%%s",REG_NAME((op_dest->reg)));
+
     return;
     }
     else if(instr_fetch(cpu.eip,2) == 0x220f){
         cpu.cr0.val = REG(op_dest->val);
+        Log("cr0:%x",cpu.cr0.val);
         print_asm("movl %%%s,%%cr0",REG_NAME(op_dest->reg));
         return;
     }
