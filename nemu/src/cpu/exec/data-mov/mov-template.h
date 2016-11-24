@@ -12,7 +12,7 @@ static void do_execute() {
     return;
     }
     else if(instr_fetch(cpu.eip,2) == 0x220f){
-        cpu.cr0.val = REG(op_dest->val);
+        cpu.cr0.val = op_dest->val;
         Log("cr0:%x",cpu.cr0.val);
         print_asm("movl %%%s,%%cr0",REG_NAME(op_dest->reg));
         return;
@@ -25,7 +25,6 @@ static void do_execute() {
         return;
     }
     else if(instr_fetch(cpu.eip, 1) == 0x8e){
-        printf("op_src->val =%x", op_src->val);
         cpu.segreg[op_dest->reg].val = op_src->val;
         load_segcache(op_src->val);             //load segcache
         print_asm("movw %%%s, %%%s",REG_NAME(op_src->reg), REG_NAMES(op_dest->reg));
