@@ -6,14 +6,16 @@ void load_segcache(uint8_t sreg){
     if(cpu.segcache[sreg].valid==1) return;
     else{
         Log("%x",sreg);
+        printf("%x",cpu.segreg[sreg].index);
         cpu.segcache[sreg].valid = 1;
         uint8_t m[8];
         int i;
         for(i = 0; i< 8; i++)
         {
          m[i] = lnaddr_read(cpu.gdtr.base + cpu.segreg[sreg].index * 8 + i, 1);
+        printf("cache:%x",m[i]);
         }
-            
+         puts("");   
         SegDesc *temp2 = (SegDesc *)m;
         /* assert check */
        assert(temp2->present == 1);

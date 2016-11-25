@@ -29,7 +29,7 @@ make_helper(ljmp){
         cpu.segreg[R_CS].val = instr_fetch(cpu.eip + 5,  2);
         load_segcache(R_CS);
         cpu.eip = instr_fetch(cpu.eip + 1, 4) - 7;
-        print_asm("ljmpl %x 0x%x",cpu.segreg[R_CS].val,cpu.eip);
+        print_asm("ljmpl %x 0x%x",cpu.segreg[R_CS].val,cpu.eip + 7);
         return 7;
 }
 #endif
