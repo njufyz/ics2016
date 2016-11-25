@@ -29,8 +29,8 @@ void load_segcache(uint8_t sreg){
 lnaddr_t seg_translate(swaddr_t addr ,size_t len, uint8_t sreg){
     if(cpu.cr0.protect_enable == 0) return addr;
     else if(cpu.segcache[sreg].valid == 0) {
-    load_segcache(sreg);
     if(sreg==3) Log("%x %x",addr, len);
+    load_segcache(sreg);
     return cpu.segcache[sreg].base + addr;
     }
     else{
