@@ -14,7 +14,7 @@ void init_ddr3();
 void init_cache();
 void init_cache2();
 void init_cr0();
-void init_CS();
+void init_seg();
 
 FILE *log_fp = NULL;
 
@@ -96,7 +96,7 @@ void restart() {
     init_cr0();
 
     /* Initialize CS. */
-    init_CS();
+    init_seg();
    
     /* Initialize eflags. */
     init_eflags();

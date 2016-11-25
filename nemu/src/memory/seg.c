@@ -5,17 +5,13 @@ uint32_t lnaddr_read(swaddr_t addr, size_t len);
 void load_segcache(uint8_t sreg){
     if(cpu.segcache[sreg].valid==1) return;
     else{
-        Log("%x",sreg);
-        printf("%x",cpu.segreg[sreg].index);
         cpu.segcache[sreg].valid = 1;
         uint8_t m[8];
         int i;
         for(i = 0; i< 8; i++)
         {
          m[i] = lnaddr_read(cpu.gdtr.base + cpu.segreg[sreg].index * 8 + i, 1);
-        printf("cache:%x",m[i]);
         }
-         puts("");   
         SegDesc *temp2 = (SegDesc *)m;
         /* assert check */
        assert(temp2->present == 1);
@@ -31,7 +27,6 @@ void load_segcache(uint8_t sreg){
 lnaddr_t seg_translate(swaddr_t addr ,size_t len, uint8_t sreg){
     if(cpu.cr0.protect_enable == 0) return addr;
     else if(cpu.segcache[sreg].valid == 0) {
-    if(sreg==3) Log("%x %x",addr, len);
     load_segcache(sreg);
     return cpu.segcache[sreg].base + addr;
     }
@@ -40,7 +35,10 @@ lnaddr_t seg_translate(swaddr_t addr ,size_t len, uint8_t sreg){
     }
 }
 
-void init_CS(){
+void init_seg(){
+    int i = 0;
+    for(;i<4;i++)
+        cpu.segcache[i].valid = 0;
     cpu.segcache[R_CS].base = 0;
     cpu.segreg[R_CS].val = 8;
     cpu.segcache[R_CS].limit = 0xffffffff;
