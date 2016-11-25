@@ -2,6 +2,8 @@
 
 #define instr jmp
 extern int Len;
+void load_segcache(uint8_t);
+
 static void do_execute(){
     if(instr_fetch(cpu.eip,1)==0xeb||instr_fetch(cpu.eip,1)==0xe9)
     {
@@ -14,8 +16,9 @@ static void do_execute(){
     }
     else if(instr_fetch(cpu.eip, 1) == 0xea)
     {
-        cpu.segreg[R_CS].val = swaddr_read(op_src->addr, 2, R_CS);
-        cpu.eip = swaddr_read(op_src->addr + 2, 4, R_CS);
+        cpu.segreg[R_CS].val = swaddr_read(op_src->addr +4, 2, R_CS);
+        load_segcache(R_CS);
+        cpu.eip = swaddr_read(op_src->addr, 4, R_CS) - Len;
         print_asm("ljmp");
     }
     else{
