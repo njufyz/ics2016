@@ -12,6 +12,12 @@ static void do_execute(){
           cpu.eip &= 0xffff;
     print_asm("jmp $0x%x",cpu.eip+Len);;
     }
+    else if(instr_fetch(cpu.eip, 1) == 0xea)
+    {
+        cpu.segreg[R_CS].val = swaddr_read(op_src->addr, 2, R_CS);
+        cpu.eip = swaddr_read(op_src->addr + 2, 4, R_CS);
+        print_asm("ljmp");
+    }
     else{
         if (DATA_BYTE == 2) 
             op_src->val &= 0xffff;
