@@ -14,14 +14,6 @@ static void do_execute(){
           cpu.eip &= 0xffff;
     print_asm("jmp $0x%x",cpu.eip+Len);;
     }
-    else if(instr_fetch(cpu.eip, 1) == 0xea)
-    {
-        Log("%x",instr_fetch(cpu.eip + 5,  2));
-        cpu.segreg[R_CS].val = instr_fetch(cpu.eip + 5,  2);
-        load_segcache(R_CS);
-        cpu.eip = instr_fetch(cpu.eip + 1, 4) - Len;
-        print_asm("ljmp");
-    }
     else{
         if (DATA_BYTE == 2) 
             op_src->val &= 0xffff;
@@ -31,6 +23,16 @@ static void do_execute(){
 
 
 }
+
+#if DATA_BYTE == 4
+make_helper(ljmp){
+        cpu.segreg[R_CS].val = instr_fetch(cpu.eip + 5,  2);
+        load_segcache(R_CS);
+        cpu.eip = instr_fetch(cpu.eip + 1, 4) - Len;
+        print_asm("ljmp");
+        return Len;
+}
+#endif
 
 make_instr_helper(i)
 #if DATA_BYTE == 2 || DATA_BYTE == 4
