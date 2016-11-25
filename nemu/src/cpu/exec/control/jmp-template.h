@@ -16,9 +16,9 @@ static void do_execute(){
     }
     else if(instr_fetch(cpu.eip, 1) == 0xea)
     {
-        cpu.segreg[R_CS].val = swaddr_read(op_src->addr +4, 2, R_CS);
+        cpu.segreg[R_CS].val = instr_fetch(cpu.eip + 5,  2);
         load_segcache(R_CS);
-        cpu.eip = swaddr_read(op_src->addr, 4, R_CS) - Len;
+        cpu.eip = instr_fetch(cpu.eip + 1, 4) - Len;
         print_asm("ljmp");
     }
     else{
