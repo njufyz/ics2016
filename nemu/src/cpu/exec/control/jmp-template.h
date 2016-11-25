@@ -16,6 +16,7 @@ static void do_execute(){
     }
     else if(instr_fetch(cpu.eip, 1) == 0xea)
     {
+        Log("%x",instr_fetch(cpu.eip + 5,  2));
         cpu.segreg[R_CS].val = instr_fetch(cpu.eip + 5,  2);
         load_segcache(R_CS);
         cpu.eip = instr_fetch(cpu.eip + 1, 4) - Len;
