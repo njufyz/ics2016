@@ -28,7 +28,7 @@ static void do_execute() {
     else if(instr_fetch(cpu.eip, 1) == 0x8e){
         cpu.segreg[op_dest->reg].val = REG(op_src->reg);
         load_segcache(op_dest->reg);             //load segcache
-        print_asm("movw %%%s, %%%s  %%%s:0x%x",REG_NAME(op_src->reg), REG_NAMES(op_dest->reg), REG_NAMES(op_dest->reg), cpu.segcache[op_dest->reg].base);
+        print_asm("movw %%%s, %%%s  %s:0x%x",REG_NAME(op_src->reg), REG_NAMES(op_dest->reg), REG_NAMES(op_dest->reg), cpu.segcache[op_dest->reg].base);
         return;
     }
 
