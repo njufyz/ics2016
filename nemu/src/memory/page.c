@@ -20,6 +20,7 @@ union Hwaddr{
     PDE pde;
     pde.val = pagedir;
 
+    puts("1111");
     //assert present
     Assert(pde.present == 1, "PDE present invalid! addr: 0x%x dir: 0x%x", addr, h.dir);
 
