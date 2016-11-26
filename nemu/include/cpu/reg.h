@@ -54,7 +54,7 @@ typedef struct {
     }eflags;
    
     CR0 cr0;
-
+    CR3 cr3;
     struct GDTR{
         uint32_t base;
         uint16_t limit;

@@ -62,4 +62,5 @@ void init_eflags(){
 
 void init_cr0(){
     cpu.cr0.protect_enable = 0;
+    cpu.cr0.paging = 0;
 }
