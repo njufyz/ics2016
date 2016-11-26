@@ -16,7 +16,7 @@ union Hwaddr{
     h.addr = addr;
     
     uint32_t base = cpu.cr3.page_directory_base;
-    uint32_t pagedir = hwaddr_read(base + h.dir * 4, 4);
+    uint32_t pagedir = hwaddr_read((base << 12) + h.dir * 4, 4);
     PDE pde;
     pde.val = pagedir;
 
@@ -24,7 +24,7 @@ union Hwaddr{
     assert(pde.present == 1);
 
     base = pde.page_frame;
-    uint32_t pagetab = hwaddr_read(base + h.page * 4, 4);
+    uint32_t pagetab = hwaddr_read((base << 12) + h.page * 4, 4);
     PTE pte;
     pte.val = pagetab;
 
