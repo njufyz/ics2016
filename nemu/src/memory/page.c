@@ -31,5 +31,5 @@ union Hwaddr{
     //assert present
     Assert(pte.present == 1, "PTE present invalid! addr: 0x%x frame: 0x%x", addr, pde.page_frame);
 
-    return pte.page_frame + h.offset;
+    return (pte.page_frame << 12) + h.offset;
 }
