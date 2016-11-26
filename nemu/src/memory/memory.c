@@ -4,7 +4,9 @@ uint32_t dram_read(hwaddr_t, size_t);
 void dram_write(hwaddr_t, size_t, uint32_t);
 uint32_t cache_read(hwaddr_t, size_t);
 void cache_write(hwaddr_t, size_t, uint32_t);
-lnaddr_t seg_translate(swaddr_t addr, size_t, uint8_t);
+lnaddr_t seg_translate(swaddr_t, size_t, uint8_t);
+hwaddr_t page_translate(lnaddr_t);
+
 /* Memory accessing interfaces */
 
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
@@ -18,7 +20,9 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 }
 
 uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
-	return hwaddr_read(addr, len);
+//return hwaddr_read(addr, len);
+    hwaddr_t hwaddr = page_translate(addr);
+    return hwaddr_read(hwaddr, len);
 }
 
 void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
