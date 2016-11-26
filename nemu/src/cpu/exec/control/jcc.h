@@ -25,4 +25,5 @@ make_helper(js_i_v);
 make_helper(jns_i_v);
 make_helper(jb_i_v);
 make_helper(jae_i_v);
+make_helper(jg_i_v);
 #endif
