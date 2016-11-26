@@ -21,7 +21,7 @@ union Hwaddr{
     pde.val = pagedir;
 
     //assert present
-    assert(pde.present == 1);
+    Assert(pde.present == 1, "PDE present invalid! addr: 0x%x dir: 0x%x", addr, h.dir);
 
     base = pde.page_frame;
     uint32_t pagetab = hwaddr_read((base << 12) + h.page * 4, 4);
@@ -29,7 +29,7 @@ union Hwaddr{
     pte.val = pagetab;
 
     //assert present
-    assert(pte.present == 1);
+    Assert(pte.present == 1, "PTE present invalid! addr: 0x%x frame: 0x%x", addr, pde.page_frame);
 
     return pte.page_frame + h.offset;
 }
