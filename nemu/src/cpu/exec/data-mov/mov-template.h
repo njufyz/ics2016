@@ -5,17 +5,27 @@ void load_segcache(uint8_t sreg);
 static void do_execute() {
     //CR0 mov
     if(instr_fetch(cpu.eip,2) == 0x200f){
-    OPERAND_W(op_dest, cpu.cr0.val);
-    print_asm("movl %%cr0,%%%s",REG_NAME((op_dest->reg)));
-
+        if(instr_fetch(cpu.eip + 2, 1) == 0xc0){
+            OPERAND_W(op_dest, cpu.cr0.val);
+            print_asm("movl %%cr0,%%%s",REG_NAME((op_dest->reg)));
+        }
+        else {
+            OPERAND_W(op_dest, cpu.cr3.val);
+            print_asm("movl %%cr3,%%%s",REG_NAME((op_dest->reg)));
+        }   
     return;
     }
     else if(instr_fetch(cpu.eip,2) == 0x220f){
         int k = op_dest->reg;
         int m = REG(k);
+        if(instr_fetch(cpu.eip + 2, 1) == 0xc0){
         cpu.cr0.val = m;
-//        cpu.cr0.val = 0;
         print_asm("movl %%%s,%%cr0",REG_NAME(k));
+        }
+        else {
+        cpu.cr3.val = m;
+        print_asm("movl %%%s,%%cr3",REG_NAME(k));
+        }
         return;
     }
 
