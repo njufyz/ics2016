@@ -24,4 +24,8 @@ make_helper(lea) {
 	return 1 + len;
 }
 
-
+make_helper(std){
+    cpu.eflags.df = 1;
+    print_asm("std");
+    return 1;
+}
