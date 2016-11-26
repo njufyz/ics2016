@@ -31,5 +31,5 @@ union Hwaddr{
     //assert present
     assert(pte.present == 1);
 
-    return (uint32_t)pte.page_frame + h.offset;
+    return pte.page_frame + h.offset;
 }
