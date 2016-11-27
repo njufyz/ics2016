@@ -18,11 +18,15 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 }
 
 uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
+    if((addr &0xfff) + len > 0x1000)
+        assert(0);
     hwaddr_t hwaddr = page_translate(addr);
     return hwaddr_read(hwaddr, len);
 }
 
 void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
+    if((addr &0xfff) + len > 0x1000)
+        assert(0);
     hwaddr_t hwaddr = page_translate(addr);
 	hwaddr_write(hwaddr, len, data);
 }
