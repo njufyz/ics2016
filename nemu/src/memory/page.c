@@ -4,6 +4,7 @@ uint32_t hwaddr_read(uint32_t,size_t);
 
 hwaddr_t page_translate(lnaddr_t addr){
     if(cpu.cr0.paging == 0 || cpu.cr0.protect_enable == 0) return addr;
+
 union Hwaddr{
         uint32_t addr;
         struct{

@@ -10,17 +10,14 @@ hwaddr_t page_translate(lnaddr_t);
 /* Memory accessing interfaces */
 
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
-//	return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
 	return cache_read(addr, len) & (~0u >> ((4 - len) << 3));
 }
 
 void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
-//	dram_write(addr, len, data);
 	cache_write(addr, len, data);
 }
 
 uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
-//return hwaddr_read(addr, len);
     hwaddr_t hwaddr = page_translate(addr);
     return hwaddr_read(hwaddr, len);
 }
