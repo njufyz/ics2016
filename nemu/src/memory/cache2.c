@@ -49,7 +49,7 @@ void init_cache2(){
 }
 
 uint32_t cache2_read(hwaddr_t addr, size_t len){
-//  Assert(addr < HW_MEM_SIZE, "physical address %x is outside of the physical memory!   ", addr);
+  Assert(addr < HW_MEM_SIZE, "physical address %x is outside of the physical memory!   ", addr);
     cache2_addr temp;
     temp.addr = addr;
     uint32_t block_addr = temp.block_addr;
