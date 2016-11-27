@@ -17,7 +17,7 @@ static void do_execute() {
     }
     else if(instr_fetch(cpu.eip,2) == 0x220f){
         int k = op_dest->reg;
-        int m = REG(k);
+        uint32_t m = REG(k);
         if(instr_fetch(cpu.eip + 2, 1) == 0xc0){
         cpu.cr0.val = m;
         print_asm("movl %%%s,%%cr0",REG_NAME(k));
