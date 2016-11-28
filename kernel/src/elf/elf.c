@@ -37,7 +37,7 @@ uint32_t loader() {
      ph = (Elf32_Phdr *)(buf + elf->e_phoff);
     /* Load each program segment */
     int i;
-	for(i=0;i<elf->e_phnum;i++,ph++ ) {
+	for(i=0;i<elf->e_phnum;i++ ) {
 		/* Scan the program header table, load each segment into memory */
 		if(ph->p_type == PT_LOAD) {
 
@@ -49,7 +49,7 @@ uint32_t loader() {
 			/*  zero the memory region 
 			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
 			 */
-                memset((void*)(hwaddr + ph->p_filesz) , 0 , ph->p_memsz - ph->p_filesz);  
+                memset((void*)hwaddr + ph->p_filesz , 0 , ph->p_memsz - ph->p_filesz);  
 
 
 #ifdef IA32_PAGE
@@ -59,6 +59,7 @@ uint32_t loader() {
 			if(cur_brk < new_brk) { max_brk = cur_brk = new_brk; }
 #endif
 		}
+        ph++;
 	}
 
 	volatile uint32_t entry = elf->e_entry;
