@@ -36,8 +36,8 @@ uint32_t loader() {
 	nemu_assert(*p_magic == elf_magic);
      ph = (Elf32_Phdr *)(buf + elf->e_phoff);
     /* Load each program segment */
-    int i;
-	for(i=0;i<elf->e_phnum;i++ ) {
+    uint16_t i;
+	for(i=0;i < elf->e_phnum; i++, ph++ ) {
 		/* Scan the program header table, load each segment into memory */
 		if(ph->p_type == PT_LOAD) {
 
@@ -59,7 +59,6 @@ uint32_t loader() {
 			if(cur_brk < new_brk) { max_brk = cur_brk = new_brk; }
 #endif
 		}
-        ph++;
 	}
 
 	volatile uint32_t entry = elf->e_entry;
