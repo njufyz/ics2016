@@ -69,8 +69,8 @@ uint32_t loader() {
 	create_video_mapping();
 #endif
 
+    assert(0);
 	write_cr3(get_ucr3());
 #endif
-    assert(0);
 	return entry;
 }
