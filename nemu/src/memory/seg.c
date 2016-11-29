@@ -1,5 +1,4 @@
-#include "common.h"
-#include "cpu/reg.h"
+#include "nemu.h"
 uint32_t lnaddr_read(swaddr_t addr, size_t len);
 
 void load_segcache(uint8_t sreg){
