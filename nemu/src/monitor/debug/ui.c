@@ -145,6 +145,8 @@ static int cmd_info(char *args){
             printf("OF\t0x%x\t\t%2u\n",cpu.eflags.of,cpu.eflags.of);
             printf("SF\t0x%x\t\t%2u\n",cpu.eflags.sf,cpu.eflags.sf);
             printf("ZF\t0x%x\t\t%2u\n",cpu.eflags.zf,cpu.eflags.zf);
+            printf("CR0\t0x%x\t\t%2u\n",cpu.cr0.val,cpu.cr0.val);
+            printf("CR3\t0x%x\t\t%2u\n",cpu.cr3.val,cpu.cr3.val);
 
     }
     else if(strcmp(arg,"w")==0)
