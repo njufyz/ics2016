@@ -1,5 +1,4 @@
-#include "common.h"
-#include "cpu/reg.h"
+#include "nemu.h"
 uint32_t hwaddr_read(uint32_t,size_t);
 
 static union Hwaddr{
