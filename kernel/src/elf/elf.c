@@ -60,7 +60,6 @@ uint32_t loader() {
 #endif
 		}
 	}
-assert(0);
 	volatile uint32_t entry = elf->e_entry;
 
 #ifdef IA32_PAGE
@@ -72,6 +71,6 @@ assert(0);
 
 	write_cr3(get_ucr3());
 #endif
-
+    assert(0);
 	return entry;
 }
