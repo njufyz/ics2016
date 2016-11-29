@@ -69,7 +69,7 @@ uint32_t loader() {
 	create_video_mapping();
 #endif
 
-//	write_cr3(get_ucr3());
+	write_cr3(get_ucr3());
 #endif
 	return entry;
 }
