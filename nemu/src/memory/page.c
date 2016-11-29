@@ -2,10 +2,7 @@
 #include "cpu/reg.h"
 uint32_t hwaddr_read(uint32_t,size_t);
 
-hwaddr_t page_translate(lnaddr_t addr){
-    if(cpu.cr0.paging == 0 || cpu.cr0.protect_enable == 0) return addr;
-
-union Hwaddr{
+static union Hwaddr{
         uint32_t addr;
         struct{
             uint32_t offset : 12;
@@ -13,6 +10,10 @@ union Hwaddr{
             uint32_t dir:     10;
         };
 }h;
+
+hwaddr_t page_translate(lnaddr_t addr){
+    if(cpu.cr0.paging == 0 || cpu.cr0.protect_enable == 0) return addr;
+
     h.addr = addr;
     
     uint32_t base = cpu.cr3.page_directory_base;
