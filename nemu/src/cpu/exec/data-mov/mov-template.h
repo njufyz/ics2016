@@ -3,34 +3,8 @@
 #define instr mov
 void load_segcache(uint8_t sreg);
 static void do_execute() {
-    //CR0 mov
-    if(instr_fetch(cpu.eip,2) == 0x200f){
-        if(instr_fetch(cpu.eip + 2, 1) == 0xc0){
-            OPERAND_W(op_dest, cpu.cr0.val);
-            print_asm("movl %%cr0,%%%s",REG_NAME((op_dest->reg)));
-        }
-        else {
-            OPERAND_W(op_dest, cpu.cr3.val);
-            print_asm("movl %%cr3,%%%s",REG_NAME((op_dest->reg)));
-        }   
-    return;
-    }
-    else if(instr_fetch(cpu.eip,2) == 0x220f){
-        int k = op_dest->reg;
-        uint32_t m = REG(k);
-        if(instr_fetch(cpu.eip + 2, 1) == 0xc0){
-        cpu.cr0.val = m;
-        print_asm("movl %%%s,%%cr0",REG_NAME(k));
-        }
-        else {
-        cpu.cr3.val = m;
-        print_asm("movl %%%s,%%cr3",REG_NAME(k));
-        }
-        return;
-    }
-
     //seg mov
-    else if(instr_fetch(cpu.eip, 1) == 0x8c){
+     if(instr_fetch(cpu.eip, 1) == 0x8c){
         OPERAND_W(op_dest, cpu.segreg[op_src->reg].val);
         print_asm("movw %%%s, %%%s",REG_NAMES(op_src->reg), REG_NAME(op_dest->reg));
         return;
@@ -67,5 +41,37 @@ make_helper(concat(mov_moffs2a_, SUFFIX)) {
 	print_asm("mov" str(SUFFIX) " 0x%x,%%%s", addr, REG_NAME(R_EAX));
 	return 5;
 }
+
+#define GetReg (instr_fetch(cpu.eip + 2, 1))
+make_helper(concat(mov_r2cr_,SUFFIX)){
+    uint32_t reg = GetReg ;
+    if(reg == 0xc0) {
+        cpu.cr0.val = cpu.eax;
+        print_asm("movl %%eax, %%cr0");
+    }
+    else{
+        cpu.cr3.val = cpu.eax;
+        print_asm("movl %%eax, %%cr3");
+    }
+    return 2;
+}
+
+make_helper(concat(mov_cr2r_,SUFFIX)){
+    uint32_t reg = GetReg;
+    if(reg == 0xc0) {
+        cpu.eax = cpu.cr0.val;
+        print_asm("movl %%cr0, %%eax");
+    }
+    else{
+        cpu.eax = cpu.cr3.val;
+        print_asm("movl %%cr3, %%eax");
+    }
+    return 2;
+}
+
+
+
+
+
 
 #include "cpu/exec/template-end.h"
