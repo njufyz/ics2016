@@ -55,6 +55,7 @@ static int cmd_bt();
 
 static int cmd_cache(char *args);
 
+static int cmd_page(char *args);
 static struct {
 	char *name;
 	char *description;
@@ -70,7 +71,8 @@ static struct {
     { "w","When the value of EXPR change, the program will be suspended",cmd_w},
     { "d","Delete the No.N watchpoint",cmd_d},
     { "bt","Print backtrace of all stack frames",cmd_bt},
-    { "cache","Print cache block at certain address",cmd_cache}
+    { "cache","Print cache block at certain address",cmd_cache},
+    { "page","Print the physical address",cmd_page}
     /* TODO: Add more commands */
 
 };
@@ -316,4 +318,17 @@ void ui_mainloop() {
 
 		if(i == NR_CMD) { printf("Unknown command '%s'\n", cmd); }
 	}
+}
+
+void page_monitor(lnaddr_t);
+static int cmd_page(char* args){
+   if(args==NULL) return 0;
+    bool success = 1;
+    uint32_t addr = expr(args,&success);
+    if(success==0) {
+        puts("Bad Agreement!");
+        return 0;
+    }
+    page_monitor(addr);
+    return 0;
 }

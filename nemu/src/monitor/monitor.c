@@ -15,6 +15,7 @@ void init_cache();
 void init_cache2();
 void init_cr0();
 void init_seg();
+void init_tlb();
 
 FILE *log_fp = NULL;
 
@@ -97,7 +98,9 @@ void restart() {
 
     /* Initialize CS. */
     init_seg();
-   
+
+    init_tlb();
+
     /* Initialize eflags. */
     init_eflags();
 	
