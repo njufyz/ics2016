@@ -1,4 +1,7 @@
 #include "nemu.h"
+
+uint32_t mem_cr3 = 0;
+
 uint32_t hwaddr_read(uint32_t,size_t);
 
 static union Hwaddr{
@@ -10,9 +13,10 @@ static union Hwaddr{
         };
 }h;
 
-hwaddr_t page_translate(lnaddr_t addr){
-    if(cpu.cr0.paging == 0 || cpu.cr0.protect_enable == 0) return addr;
+hwaddr_t tlb_read(lnaddr_t addr);
+void init_tlb();
 
+PTE pte_fetch(lnaddr_t addr){
     h.addr = addr;
     
     uint32_t base = cpu.cr3.page_directory_base;
@@ -31,5 +35,18 @@ hwaddr_t page_translate(lnaddr_t addr){
     //assert present
     Assert(pte.present == 1, "PTE present invalid! addr: 0x%x frame: 0x%x", addr, pde.page_frame);
 
-    return (pte.page_frame << 12) + h.offset;
+    return pte;
 }
+
+hwaddr_t page_translate(lnaddr_t addr){
+    if(cpu.cr0.protect_enable == 0 || cpu.cr0.paging == 0) 
+        return addr;
+    if(mem_cr3 != cpu.cr3.val)
+    {
+        init_tlb();
+        mem_cr3 = cpu.cr3.val;
+    }
+    return tlb_read(addr);
+}
+
+

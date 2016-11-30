@@ -37,7 +37,7 @@ typedef struct{
     bool dirty;
 } CB2;
 
-CB2 cache2[NR_GROUP][NR_WAY];
+static CB2 cache2[NR_GROUP][NR_WAY];
 
 void init_cache2(){
     int i, j;

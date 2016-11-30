@@ -36,7 +36,7 @@ typedef struct{
     bool valid;
 } CB;
 
-CB cache[NR_GROUP][NR_WAY];
+static CB cache[NR_GROUP][NR_WAY];
 
 void init_cache(){
     int i, j;
