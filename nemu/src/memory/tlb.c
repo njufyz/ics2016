@@ -33,7 +33,7 @@ void init_tlb(){
 PTE pte_fetch(lnaddr_t addr);
 
 hwaddr_t tlb_read(lnaddr_t addr){
-   Assert(addr < HW_MEM_SIZE, "physical address %x is outside of the physical memory! ", addr);
+   Assert(addr < (1<<27), "physical address %x is outside of the physical memory! ", addr);
     tlb_addr temp;
     temp.addr = addr;
     uint32_t offset = temp.offset;
