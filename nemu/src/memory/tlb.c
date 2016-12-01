@@ -1,7 +1,9 @@
-#include "nemu.h"
 #include <time.h>
 #include <stdlib.h>
 #define ADDR_SIZE 32
+#include "nemu.h"
+#include "cpu.h"
+#include "mmu.h"
 
 #define BLOCK_WIDTH 6
 #define NR_BLOCK 64

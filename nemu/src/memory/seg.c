@@ -1,4 +1,6 @@
 #include "nemu.h"
+#include "cpu.h"
+#include "mmu.h"
 uint32_t lnaddr_read(swaddr_t addr, size_t len);
 
 void load_segcache(uint8_t sreg){

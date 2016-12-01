@@ -1,4 +1,6 @@
 #include "nemu.h"
+#include "cpu.h"
+#include "mmu.h"
 
 uint32_t mem_cr3 = 0;
 
