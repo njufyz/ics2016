@@ -2,7 +2,7 @@
 #include "cpu.h"
 #include "mmu.h"
 
-uint32_t mem_cr3 = 0;
+static uint32_t mem_cr3 = 0;
 
 uint32_t hwaddr_read(uint32_t,size_t);
 
