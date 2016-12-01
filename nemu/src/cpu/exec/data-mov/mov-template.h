@@ -45,33 +45,28 @@ make_helper(concat(mov_moffs2a_, SUFFIX)) {
 #define GetReg (instr_fetch(cpu.eip + 2, 1))
 make_helper(concat(mov_r2cr_,SUFFIX)){
     uint32_t reg = GetReg ;
-    if(reg == 0xc0) {
-        cpu.cr0.val = cpu.eax;
-        print_asm("movl %%eax, %%cr0");
+    if(((reg >> 3) & 0x7) == 0) {                     //cr0
+        cpu.cr0.val = REG( reg & 0x7 );
+        print_asm("movl %%%s, %%cr0", REG_NAME( reg & 0x7));
     }
-    else{
-        cpu.cr3.val = cpu.eax;
-        print_asm("movl %%eax, %%cr3");
+    else{                                          //cr3
+        cpu.cr3.val = REG( reg & 0x7 );
+        print_asm("movl %%%s, %%cr3", REG_NAME( reg & 0x7));
     }
     return 2;
 }
 
 make_helper(concat(mov_cr2r_,SUFFIX)){
     uint32_t reg = GetReg;
-    if(reg == 0xc0) {
-        cpu.eax = cpu.cr0.val;
-        print_asm("movl %%cr0, %%eax");
+    if(((reg >> 3) & 0x7) == 0) {                     //cr0
+        REG( reg & 0x7 ) = cpu.cr0.val;
+        print_asm("movl  %%cr0, %%%s", REG_NAME( reg & 0x7));
     }
-    else{
-        cpu.eax = cpu.cr3.val;
-        print_asm("movl %%cr3, %%eax");
+    else{                                          //cr3
+        REG( reg & 0x7 ) =  cpu.cr3.val;
+        print_asm("movl  %%cr3, %%%s", REG_NAME( reg & 0x7));
     }
     return 2;
 }
-
-
-
-
-
 
 #include "cpu/exec/template-end.h"

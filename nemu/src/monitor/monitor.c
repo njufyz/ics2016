@@ -96,12 +96,12 @@ void restart() {
     /* Initialize CRO. */
     init_cr0();
 
-    /* Initialize CS. */
+    /* Initialize Seg and TLB. */
     init_seg();
 
     init_tlb();
 
-    /* Initialize eflags. */
+    /* Initialize EFLAGS. */
     init_eflags();
 	
     /* Initialize DRAM. */
