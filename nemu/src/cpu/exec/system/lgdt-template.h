@@ -5,8 +5,7 @@
 static void do_execute(){
     Log("%x",op_src->addr);
     cpu.gdtr.limit = hwaddr_read(op_src->addr, 2);
-    //cpu.gdtr.base = hwaddr_read(op_src->addr + 2, 4);
-    cpu.gdtr.base = 0x100048;
+    cpu.gdtr.base = hwaddr_read(op_src->addr + 2, 4);
     print_asm("base: 0x%x limit: %x",cpu.gdtr.base,cpu.gdtr.limit);
 }
 
