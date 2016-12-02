@@ -4,7 +4,6 @@ void raise_intr(uint8_t);
 make_helper(int_imm8){
     uint8_t no = instr_fetch(cpu.eip + 1, 1);
    
-    Log("111");
     cpu.esp -= 4;
     swaddr_write(cpu.esp, 4, cpu.eflags.val, R_SS);  //push eflags
     
@@ -16,6 +15,7 @@ make_helper(int_imm8){
 
     raise_intr(no);
 
+    Log("111");
     print_asm("int %x", no);
     return 2;
 }
