@@ -2,6 +2,7 @@
 #include "cpu/helper.h"
 #include "monitor/watchpoint.h"
 #include <setjmp.h>
+#include "mmu.h"
 
 /* The assembly code of instructions executed is only output to the screen
  * when the number of instructions executed is less than this value.
@@ -88,13 +89,15 @@ void cpu_exec(volatile uint32_t n) {
 /*  Used for interrupt or expection */
 void load_segcache(uint8_t);
 void  raise_intr(uint8_t no){
-    Log("%x",no);
-    uint32_t gate = lnaddr_read(cpu.idtr.base + no * 4, 4);
-    uint16_t selector = gate >> 16;
-    uint16_t offset = gate & 0xffff;
-    cpu.segreg[R_CS].val = selector;
+    uint8_t tmp[8];
+    int i= 0;
+    for(;i < 8;i++)
+        tmp[i] = lnaddr_read(cpu.idtr.base + no * 8 + i, 8);
+    GateDesc* gate = (GateDesc*) tmp;
+
+    cpu.segreg[R_CS].val = gate->segment;
     load_segcache(R_CS);
-    cpu.eip = cpu.segcache[R_CS].base + offset;
+    cpu.eip = (gate->offset_31_16 << 16) + gate->offset_15_0;
 
     longjmp(jbuf, 1);
 }
