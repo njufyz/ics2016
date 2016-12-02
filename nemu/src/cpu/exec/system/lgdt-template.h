@@ -7,7 +7,22 @@ static void do_execute(){
     uint32_t addr = op_src->addr;
     cpu.gdtr.limit = lnaddr_read(addr, 2);
     cpu.gdtr.base = lnaddr_read(addr + 2 , 4);
-    print_asm("base: 0x%x limit: %x",cpu.gdtr.base,cpu.gdtr.limit);
+    print_asm("gdtr base: 0x%x limit: %x",cpu.gdtr.base,cpu.gdtr.limit);
+}
+
+make_instr_helper(rm);
+
+#undef instr
+
+/*-----------------------*/
+
+#define instr lidt
+
+static void do_execute(){
+    uint32_t addr = op_src->addr;
+    cpu.idtr.limit = lnaddr_read(addr, 2);
+    cpu.idtr.base = lnaddr_read(addr + 2 , 4);
+    print_asm("idtr base: 0x%x limit: %x",cpu.gdtr.base,cpu.gdtr.limit);
 }
 
 make_instr_helper(rm);

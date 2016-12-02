@@ -60,6 +60,10 @@ typedef struct {
         uint16_t limit;
     }gdtr;
 
+    struct IDTR{
+        uint32_t base;
+        uint16_t limit;
+    }idtr;
 
  union Selector{
     struct{
