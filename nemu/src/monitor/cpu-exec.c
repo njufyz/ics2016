@@ -88,13 +88,13 @@ void cpu_exec(volatile uint32_t n) {
 /*  Used for interrupt or expection */
 void load_segcache(uint8_t);
 void  raise_intr(uint8_t no){
+    Log("%x",no);
     uint32_t gate = lnaddr_read(cpu.idtr.base + no * 4, 4);
     uint16_t selector = gate >> 16;
     uint16_t offset = gate & 0xffff;
     cpu.segreg[R_CS].val = selector;
     load_segcache(R_CS);
     cpu.eip = cpu.segcache[R_CS].base + offset;
-    Log("111");
 
     longjmp(jbuf, 1);
 }
