@@ -84,3 +84,17 @@ void cpu_exec(volatile uint32_t n) {
 
 	if(nemu_state == RUNNING) { nemu_state = STOP; }
 }
+
+/*  Used for interrupt or expection */
+void load_segcache(uint8_t);
+void  raise_intr(uint8_t no){
+    uint32_t gate = lnaddr_read(cpu.idtr.base + no * 4, 4);
+    uint16_t selector = gate >> 16;
+    uint16_t offset = gate & 0xffff;
+    cpu.segreg[R_CS].val = selector;
+    load_segcache(R_CS);
+    cpu.eip = cpu.segcache[R_CS].base + offset;
+
+    longjmp(jbuf, 1);
+}
+
