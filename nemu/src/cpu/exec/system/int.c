@@ -13,9 +13,9 @@ make_helper(int_imm8){
     cpu.esp -= 4;
     swaddr_write(cpu.esp, 4, cpu.eip, R_SS);  //push eip
 
+    Log("111");
     raise_intr(no);
 
-    Log("111");
     print_asm("int %x", no);
     return 2;
 }
