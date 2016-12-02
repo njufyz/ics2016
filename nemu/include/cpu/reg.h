@@ -33,8 +33,9 @@ typedef struct {
 
 	swaddr_t eip;
 
-    struct Eflags
+    union Eflags
     {
+        struct{
         unsigned nouse1:8;
         unsigned nouse2:8;
         unsigned nouse3:4;
@@ -50,6 +51,8 @@ typedef struct {
         unsigned pf:1;
         unsigned no3:1;
         unsigned cf:1;
+        };
+        uint32_t val;
     }eflags;
    
     CR0 cr0;
