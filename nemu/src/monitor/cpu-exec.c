@@ -93,8 +93,8 @@ void  raise_intr(uint8_t no){
     uint16_t offset = gate & 0xffff;
     cpu.segreg[R_CS].val = selector;
     load_segcache(R_CS);
-    Log("111");
     cpu.eip = cpu.segcache[R_CS].base + offset;
+    Log("111");
 
     longjmp(jbuf, 1);
 }
