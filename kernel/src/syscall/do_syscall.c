@@ -15,7 +15,6 @@ static void sys_ioctl(TrapFrame *tf) {
 }
 
 void do_syscall(TrapFrame *tf) {
-    set_bp();
     switch(tf->eax) {
 		/* The `add_irq_handle' system call is artificial. We use it to
 		 * let user program register its interrupt handlers. But this is
@@ -32,7 +31,7 @@ void do_syscall(TrapFrame *tf) {
 		case SYS_ioctl: sys_ioctl(tf); break;
 
 		/* TODO: Add more system calls. */
-		default: panic("Unhandled system call: id = %d, eip = 0x%08x", tf->eax, tf->eip);
+		default:set_bp(); panic("Unhandled system call: id = %d, eip = 0x%08x", tf->eax, tf->eip);
 	}
 }
 
