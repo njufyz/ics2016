@@ -42,8 +42,7 @@ static void do_i8259() {
 		/* TODO: Uncomment the following line after the `INTR' member
 		 * is added to the CPU_state structure.
 		 */
-		// cpu.INTR = false;
-		panic("uncomment the line above");
+		cpu.intr = false;
 		return;
 	}
 	else if(master_irq == 2) {
@@ -55,8 +54,7 @@ static void do_i8259() {
 	/* TODO: Uncomment the following line after the `INTR' member
 	 * is added to the CPU_state structure.
 	 */
-	// cpu.INTR = true;
-	panic("uncomment the line above");
+	 cpu.intr = true;
 }
 
 /* device interface */

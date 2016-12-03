@@ -52,5 +52,6 @@
 
 #include "system/lgdt.h"
 #include "system/int.h"
+#include "system/hlt.h"
 
 #include "io/inout.h"
