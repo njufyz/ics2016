@@ -87,7 +87,6 @@ void cpu_exec(volatile uint32_t n) {
         if(cpu.intr & cpu.eflags.If) {
             uint32_t intr_no = i8259_query_intr();
             i8259_ack_intr();
-           cpu.eip--;
             raise_intr(intr_no);
         }
 #endif
@@ -107,7 +106,7 @@ void  raise_intr(uint8_t no){
     swaddr_write(cpu.esp, 4, cpu.segreg[R_CS].val, R_SS);  //push CS
     
     cpu.esp -= 4;
-    swaddr_write(cpu.esp, 4, cpu.eip + 2, R_SS);  //push eip
+    swaddr_write(cpu.esp, 4, cpu.eip , R_SS);  //push eip
 
     uint8_t tmp[8];
     int i= 0;
