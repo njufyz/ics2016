@@ -21,6 +21,7 @@ make_helper(concat(in_,SUFFIX)){
 
 
 make_helper(concat(out_, SUFFIX)){
+    Log("11");
     ioaddr_t addr = cpu.edx & 0xffff;
     uint32_t data = MEM_R(cpu.esi, R_DS);
     pio_write(addr, DATA_BYTE, data);
