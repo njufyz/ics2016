@@ -16,7 +16,7 @@ make_helper(iret){
     cpu.eip -= 1;
 
     cpu.segreg[R_CS].val = swaddr_read(cpu.esp, 4, R_SS);
-    load_segcache(R_CS);
+   // load_segcache(R_CS);
     cpu.esp += 4;
 
     cpu.eflags.val = swaddr_read(cpu.esp, 4, R_SS);
