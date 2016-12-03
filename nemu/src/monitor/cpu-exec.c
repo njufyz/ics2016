@@ -99,6 +99,15 @@ void cpu_exec(volatile uint32_t n) {
 /*  Used for interrupt or expection */
 void load_segcache(uint8_t);
 void  raise_intr(uint8_t no){
+    cpu.esp -= 4;
+    swaddr_write(cpu.esp, 4, cpu.eflags.val, R_SS);  //push eflags
+    
+    cpu.esp -= 4;
+    swaddr_write(cpu.esp, 4, cpu.segreg[R_CS].val, R_SS);  //push CS
+    
+    cpu.esp -= 4;
+    swaddr_write(cpu.esp, 4, cpu.eip + 2, R_SS);  //push eip
+
     uint8_t tmp[8];
     int i= 0;
     for(;i < 8;i++)
