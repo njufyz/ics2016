@@ -35,3 +35,15 @@ make_helper(cld){
     print_asm("cld");
     return 1;
 }
+
+make_helper(sti){
+    cpu.eflags.If = 1;
+    print_asm("sti");
+    return 1;
+}
+
+make_helper(cli){
+    cpu.eflags.If = 0;
+    print_asm("cli");
+    return 1;
+}
