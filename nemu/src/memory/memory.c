@@ -45,7 +45,6 @@ void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
         uint32_t mask1 = (1l << offset1 * 8) - 1;
         hwaddr_write( page_translate(addr), data & mask1, offset1 );
         int offset2 = len - offset1;
-        //uint32_t mask2 = (1 << offset2) -1;
          hwaddr_write( page_translate(addr + offset1),data >> (offset2 * 8), offset2);
         return;
     } 
