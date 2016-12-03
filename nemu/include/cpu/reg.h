@@ -84,6 +84,8 @@ typedef struct {
         uint32_t base;
     }segcache[4];
 
+bool intr;
+
 } CPU_state;
 
 extern CPU_state cpu;
