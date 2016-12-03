@@ -53,6 +53,7 @@ void init_monitor(int argc, char *argv[]) {
 #ifdef HAS_DEVICE
     init_device();
     init_sdl();
+    set_bp();
 #endif
 	
     /* Display welcome message. */
