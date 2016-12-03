@@ -13,7 +13,7 @@ make_helper(ret)
 make_helper(iret){
     cpu.eip = swaddr_read(cpu.esp, 4, R_SS);
     cpu.esp += 4;
-   // cpu.eip -= 1;
+    cpu.eip -= 1;
 
     cpu.segreg[R_CS].val = swaddr_read(cpu.esp, 4, R_SS);
     load_segcache(R_CS);
