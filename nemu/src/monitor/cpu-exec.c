@@ -11,6 +11,12 @@
  */
 #define MAX_INSTR_TO_PRINT 10
 
+
+uint32_t i8259_query_intr();
+void i8259_ack_intr();
+void raise_intr(uint8_t);
+
+
 int nemu_state = STOP;
 int exec(swaddr_t);
 
@@ -73,13 +79,17 @@ void cpu_exec(volatile uint32_t n) {
 		}
 #endif
 
-		/* TODO: check watchpoints here. */
         check_watchpoint();
+
 #ifdef HAS_DEVICE
 		extern void device_update();
 		device_update();
+        if(cpu.intr & cpu.eflags.If) {
+            uint32_t intr_no = i8259_query_intr();
+            i8259_ack_intr();
+            raise_intr(intr_no);
+        }
 #endif
-
 		if(nemu_state != RUNNING) { return; }
 	}
 

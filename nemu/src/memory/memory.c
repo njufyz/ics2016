@@ -6,15 +6,25 @@ uint32_t cache_read(hwaddr_t, size_t);
 void cache_write(hwaddr_t, size_t, uint32_t);
 lnaddr_t seg_translate(swaddr_t, size_t, uint8_t);
 hwaddr_t page_translate(lnaddr_t);
+int is_mmio(hwaddr_t);
+uint32_t mmio_read(hwaddr_t, size_t, int);
+void mmio_write(hwaddr_t, size_t, uint32_t, int);
 
 /* Memory accessing interfaces */
 
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
-	return cache_read(addr, len) & (~0u >> ((4 - len) << 3));
+    int no = is_mmio(addr);
+    if(no == -1)
+        return cache_read(addr, len) & (~0u >> ((4 - len) << 3));
+    else 
+        return mmio_read(addr, len, no);
 }
 
 void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
-	cache_write(addr, len, data);
+    int no = is_mmio(addr);
+    if(no == -1)
+        cache_write(addr, len, data);
+    else mmio_write(addr, len, data, no);
 }
 
 uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
