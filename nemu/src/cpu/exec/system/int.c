@@ -11,7 +11,7 @@ make_helper(int_imm8){
     swaddr_write(cpu.esp, 4, cpu.segreg[R_CS].val, R_SS);  //push CS
     
     cpu.esp -= 4;
-    swaddr_write(cpu.esp, 4, cpu.eip, R_SS);  //push eip
+    swaddr_write(cpu.esp, 4, cpu.eip + 1, R_SS);  //push eip
 
     raise_intr(no);
 
