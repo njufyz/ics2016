@@ -5,6 +5,7 @@
 void add_irq_handle(int, void (*)(void));
 uint32_t mm_brk(uint32_t);
 int fs_ioctl(int, uint32_t, void *);
+void serial_printc(char);
 
 static void sys_brk(TrapFrame *tf) {
 	tf->eax = mm_brk(tf->ebx);
@@ -16,8 +17,16 @@ static void sys_ioctl(TrapFrame *tf) {
 
 static void sys_write(TrapFrame *tf){
     if(tf->ebx == 1 || tf->ebx == 2){
+#ifndef HAS_DEVICE
         asm volatile (".byte 0xd6": :"a"(2), "c"(tf->ecx), "d"(tf->edx));
         tf->eax = tf->edx;
+#else
+        int i = 0;
+        for(;i < tf->edx; i++)
+        serial_printc( *(char*)(tf->ecx + i));
+        tf->eax = tf->edx;
+#endif
+
     }
 }
 void do_syscall(TrapFrame *tf) {
