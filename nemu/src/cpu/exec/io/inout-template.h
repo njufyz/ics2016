@@ -25,7 +25,7 @@ make_helper(concat(out_, SUFFIX)){
     DATA_TYPE data = cpu.eax;
     pio_write(addr, DATA_BYTE, data);
 
-    print_asm("in");
+    print_asm("out");
     return 1;
 }
 
