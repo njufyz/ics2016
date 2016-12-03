@@ -24,10 +24,6 @@ make_helper(concat(out_, SUFFIX)){
     ioaddr_t addr = cpu.edx & 0xffff;
     uint32_t data = MEM_R(cpu.esi, R_DS);
     pio_write(addr, DATA_BYTE, data);
-    if(cpu.eflags.df == 0)
-        cpu.esi += DATA_BYTE;
-    else 
-        cpu.esi -= DATA_BYTE;
 
     print_asm("in");
     return 1;
