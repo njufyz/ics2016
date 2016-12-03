@@ -29,7 +29,7 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 
 uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
     if((addr &0xfff) + len > 0x1000){
-        int offset1  = 0x1000 - (addr & 0xffff) ;
+        int offset1  = 0x1000 - (addr & 0xfff) ;
         uint32_t low = hwaddr_read( page_translate(addr), offset1);
         int offset2 = len - offset1;
         uint32_t high = hwaddr_read( page_translate(addr + offset1), offset2);
