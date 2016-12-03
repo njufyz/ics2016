@@ -16,8 +16,11 @@ void init_cache2();
 void init_cr0();
 void init_seg();
 void init_tlb();
+
+#ifdef HAS_DEVICE
 void init_device();
 void init_sdl();
+#endif
 
 FILE *log_fp = NULL;
 
@@ -47,8 +50,10 @@ void init_monitor(int argc, char *argv[]) {
 	init_wp_pool();
 
 	/* Initialize the device. */
-//	init_device();
-  //  init_sdl();
+#ifdef HAS_DEVICE
+    init_device();
+    init_sdl();
+#endif
 	
     /* Display welcome message. */
 	welcome();
