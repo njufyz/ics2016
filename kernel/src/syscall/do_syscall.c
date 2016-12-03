@@ -19,7 +19,7 @@ static void sys_write(TrapFrame *tf){
         asm volatile (".byte 0xd6": :"a"(2), "c"(tf->ecx), "d"(tf->edx));
         tf->eax = tf->edx;
     }
-
+}
 void do_syscall(TrapFrame *tf) {
     switch(tf->eax) {
 		/* The `add_irq_handle' system call is artificial. We use it to
