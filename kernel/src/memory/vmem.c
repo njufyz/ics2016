@@ -5,6 +5,7 @@
 #define VMEM_ADDR 0xa0000
 #define SCR_SIZE (320 * 200)
 
+static PTE uptable[NR_PTE];
 /* Use the function to get the start address of user page directory. */
 PDE* get_updir();
 
@@ -14,7 +15,9 @@ void create_video_mapping() {
 	 * [0xa0000, 0xa0000 + SCR_SIZE) for user program. You may define
 	 * some page tables to create this mapping.
 	 */
-	panic("please implement me");
+    video_mapping_clear();
+	PDE *updir = get_updir();
+    
 }
 
 void video_mapping_write_test() {
