@@ -9,7 +9,7 @@ char buf[128];
 int main()
 {
         sprintf(buf,"%d",-1);
-            nemu_assert(strcmp(buf,"-1")==0);
-                return 0;
+        nemu_assert(strcmp(buf,"-1")==0);
+        return 0;
 }
 
