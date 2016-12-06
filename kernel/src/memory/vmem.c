@@ -22,6 +22,7 @@ void create_video_mapping() {
     for(;index < 16; index ++ , utable++){
         utable -> val = make_pde(VMEM_ADDR + PAGE_SIZE * index);
     }
+    set_bp();
 }
 
 void video_mapping_write_test() {
