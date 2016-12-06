@@ -33,6 +33,7 @@ uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
         uint32_t low = hwaddr_read( page_translate(addr), offset1);
         int offset2 = len - offset1;
         uint32_t high = hwaddr_read( page_translate(addr + offset1), offset2);
+        Log("addr :%x",addr);
         return (high << (offset1 * 8)) + low;
     }
     hwaddr_t hwaddr = page_translate(addr);
@@ -46,7 +47,8 @@ void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
         hwaddr_write( page_translate(addr), data & mask1, offset1 );
         int offset2 = len - offset1;
          hwaddr_write( page_translate(addr + offset1),data >> (offset2 * 8), offset2);
-        return;
+        Log("addr :%x",addr);
+         return;
     } 
     hwaddr_t hwaddr = page_translate(addr);
 	hwaddr_write(hwaddr, len, data);
