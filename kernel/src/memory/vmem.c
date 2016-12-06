@@ -7,7 +7,7 @@
 
 /* Use the function to get the start address of user page directory. */
 PDE* get_updir();
-static PTE uptable[SCR_SIZE / PAGE_SIZE];
+static PTE uptable[16];
 
 void create_video_mapping() {
 	/* TODO: create an identical mapping from virtual memory area 
@@ -19,8 +19,7 @@ void create_video_mapping() {
     updir->val = make_pde (va_to_pa(uptable));
     PTE*  utable = uptable;
     int index = 0;
-    set_bp();
-    for(;index < SCR_SIZE / PAGE_SIZE; index ++ , utable++){
+    for(;index < 16; index ++ , utable++){
         utable -> val = make_pde(VMEM_ADDR + PAGE_SIZE * index);
     }
 }
