@@ -19,7 +19,7 @@ void create_video_mapping() {
     updir->val = make_pde (va_to_pa(uptable));
     PTE*  utable = uptable;
     int index = 0;
-
+    set_bp();
     for(;index < SCR_SIZE / PAGE_SIZE; index ++ , utable++){
         utable -> val = make_pde(VMEM_ADDR + PAGE_SIZE * index);
     }
