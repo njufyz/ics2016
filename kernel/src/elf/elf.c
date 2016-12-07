@@ -75,7 +75,7 @@ uint32_t loader() {
 
 #ifdef HAS_DEVICE
 	create_video_mapping();
-    video_mapping_write_test();
+  //  video_mapping_write_test();
     video_mapping_read_test();
     video_mapping_clear();
 #endif
