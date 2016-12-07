@@ -24,7 +24,7 @@ uint32_t loader() {
 	Elf32_Phdr *ph = NULL;
 
 	uint8_t buf[4096];
-
+    uint8_t buf_t [4096];
 #ifdef HAS_DEVICE
 	ide_read(buf, ELF_OFFSET_IN_DISK, 4096);
 #else
@@ -52,7 +52,9 @@ uint32_t loader() {
 #ifndef HAS_DEVICE 
           //      ramdisk_read((uint8_t *)hwaddr, ph->p_offset, ph->p_filesz); 
 #else 
-                ide_read((uint8_t *)hwaddr, ph->p_offset, ph->p_filesz);
+               // ide_read((uint8_t *)hwaddr, ph->p_offset, ph->p_filesz);
+                ide_read(buf_t, ph->p_offset, ph->p_filesz);
+                memcpy((void *)hwaddr, (void*)buf_t, ph->p_filesz);
 #endif
                 /*  zero the memory region 
 			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
