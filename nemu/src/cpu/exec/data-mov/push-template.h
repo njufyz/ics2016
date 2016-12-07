@@ -4,7 +4,7 @@
 
 static void do_execute()
 {
-  /* if(ops_decoded.is_operand_size_16 && instr_fetch(cpu.eip+1,1)==0x6a)
+   if(ops_decoded.is_operand_size_16 && instr_fetch(cpu.eip+1,1)==0x6a)
     {
         int8_t t = op_src->val;
         op_src->val = t;
@@ -14,7 +14,7 @@ static void do_execute()
        int8_t t = op_src->val;
        op_src->val = t;
    }
-*/
+
     if(DATA_BYTE==2)
     {   
         cpu.esp-=DATA_BYTE;
