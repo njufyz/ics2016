@@ -50,7 +50,7 @@ uint32_t loader() {
                 uint32_t hwaddr = mm_malloc(ph->p_vaddr, ph->p_memsz);
 			 	
 #ifndef HAS_DEVICE 
-                ramdisk_read((uint8_t *)hwaddr, ph->p_offset, ph->p_filesz); 
+          //      ramdisk_read((uint8_t *)hwaddr, ph->p_offset, ph->p_filesz); 
 #else 
                 ide_read((uint8_t *)hwaddr, ph->p_offset, ph->p_filesz);
 #endif
