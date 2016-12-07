@@ -8,7 +8,10 @@ char buf[128];
 
 int main()
 {
-        printf(buf,"%d",-1);
+        buf[0] = '1';
+        buf[1] = '2';
+        buf[3] = 0;
+        printf("%s",buf);
         //nemu_assert(strcmp(buf,"-1")==0);
         return 0;
 }
