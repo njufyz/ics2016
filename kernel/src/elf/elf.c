@@ -47,15 +47,11 @@ uint32_t loader() {
 			/*  read the content of the segment from the ELF file 
 			 * to the memory region [VirtAddr, VirtAddr + FileSiz)
 			 */
-                uint32_t hwaddr = mm_malloc(ph->p_vaddr, ph->p_memsz);
 			 	
-#ifndef HAS_DEVICE 
-          //      ramdisk_read((uint8_t *)hwaddr, ph->p_offset, ph->p_filesz); 
-#else 
                // ide_read((uint8_t *)hwaddr, ph->p_offset, ph->p_filesz);
                 ide_read(buf_t, ph->p_offset, ph->p_filesz);
+                uint32_t hwaddr = mm_malloc(ph->p_vaddr, ph->p_memsz);
                 memcpy((void *)hwaddr, (void*)buf_t, ph->p_filesz);
-#endif
                 /*  zero the memory region 
 			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
 			 */
