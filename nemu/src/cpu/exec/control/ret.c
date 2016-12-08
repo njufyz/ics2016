@@ -22,6 +22,6 @@ make_helper(iret){
     cpu.eflags.val = swaddr_read(cpu.esp, 4, R_SS);
     cpu.esp += 4;
 
-   print_asm("iret  addr:0x%x", cpu.eip);
+   print_asm("iret  addr:0x%x", cpu.eip + 1);
    return 1;
 }
