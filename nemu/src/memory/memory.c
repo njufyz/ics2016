@@ -17,7 +17,7 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
     if(no == -1)
         return cache_read(addr, len) & (~0u >> ((4 - len) << 3));
     else 
-        return mmio_read(addr, len, no);
+        return mmio_read(addr, len, no) & (~0u >> ((4 - len) << 3));
 }
 
 void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
