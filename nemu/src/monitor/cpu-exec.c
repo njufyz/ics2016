@@ -111,7 +111,7 @@ void  raise_intr(uint8_t no){
     uint8_t tmp[8];
     int i= 0;
     for(;i < 8;i++)
-        tmp[i] = lnaddr_read(cpu.idtr.base + no * 8 + i, 8);
+        tmp[i] = lnaddr_read(cpu.idtr.base + no * 8 + i, 1);
     GateDesc* gate = (GateDesc*) tmp;
 
     cpu.segreg[R_CS].val = gate->segment;
