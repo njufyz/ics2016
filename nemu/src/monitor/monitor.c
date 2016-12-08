@@ -49,7 +49,8 @@ void init_monitor(int argc, char *argv[]) {
 	/* Initialize the device. */
     init_device();
     init_sdl();
-	
+
+    cpu.intr = 0;
     /* Display welcome message. */
 	welcome();
 }
