@@ -81,16 +81,17 @@ void cpu_exec(volatile uint32_t n) {
 
         check_watchpoint();
 
+		if(nemu_state != RUNNING) { return; }
 #ifdef HAS_DEVICE
 		extern void device_update();
 		device_update();
         if(cpu.intr & cpu.eflags.If) {
             uint32_t intr_no = i8259_query_intr();
+            Log("%x", intr_no);
             i8259_ack_intr();
             raise_intr(intr_no);
         }
 #endif
-		if(nemu_state != RUNNING) { return; }
 	}
 
 	if(nemu_state == RUNNING) { nemu_state = STOP; }
