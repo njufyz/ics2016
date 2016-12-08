@@ -89,7 +89,6 @@ void cpu_exec(volatile uint32_t n) {
             uint32_t intr_no = i8259_query_intr();
             Log("%x", intr_no);
             i8259_ack_intr();
-            cpu.eip--;
             raise_intr(intr_no);
         }
 #endif
