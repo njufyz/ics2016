@@ -24,6 +24,7 @@ uint32_t loader() {
 	Elf32_Phdr *ph = NULL;
 
 	uint8_t buf[4096];
+    uint8_t buf_t[ (1<<20) ];
 #ifdef HAS_DEVICE
 	ide_read(buf, ELF_OFFSET_IN_DISK, 4096);
 #else
@@ -47,12 +48,15 @@ uint32_t loader() {
 			 * to the memory region [VirtAddr, VirtAddr + FileSiz)
 			 */
 			 	
-                uint32_t hwaddr = mm_malloc(ph->p_vaddr, ph->p_memsz);
-                ide_read((uint8_t *)hwaddr, ph->p_offset, ph->p_filesz);
+               // uint32_t hwaddr = mm_malloc(ph->p_vaddr, ph->p_memsz);
+              //  ide_read((uint8_t *)hwaddr, ph->p_offset, ph->p_filesz);
                 /*  zero the memory region 
 			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
 			 */
-                memset((void*)hwaddr + ph->p_filesz , 0 , ph->p_memsz - ph->p_filesz);  
+            ide_read(buf_, ELF_OFFSET_IN_DISK + ph->p_offset, ph->p_filesz);
+            uint32_t hwaddr = mm_malloc(ph->p_vaddr, ph->p_memsz);
+             memcpy((void *)hwaddr, (void *)(buf_), ph->p_filesz);
+             memset((void*)hwaddr + ph->p_filesz , 0 , ph->p_memsz - ph->p_filesz);  
 
 
 #ifdef IA32_PAGE
