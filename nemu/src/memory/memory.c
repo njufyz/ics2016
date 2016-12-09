@@ -52,6 +52,7 @@ void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
          return;
     }
     */
+    //why shouldn't ???
     hwaddr_t hwaddr = page_translate(addr);
 	hwaddr_write(hwaddr, len, data);
 }
