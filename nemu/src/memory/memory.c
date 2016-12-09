@@ -45,14 +45,15 @@ uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
 }
 
 void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
-    if((addr &0xfff) + len > 0x1000){
+  /*  if((addr &0xfff) + len > 0x1000){
         int offset1  = 0x1000 - (addr & 0xfff) ;
         uint32_t mask1 = (1l << offset1 * 8) - 1;
         hwaddr_write( page_translate(addr), data & mask1, offset1 );
         int offset2 = len - offset1;
          hwaddr_write( page_translate(addr + offset1),data >> (offset1 * 8), offset2);
          return;
-    } 
+    }
+    */
     hwaddr_t hwaddr = page_translate(addr);
 	hwaddr_write(hwaddr, len, data);
 }
