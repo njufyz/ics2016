@@ -54,7 +54,7 @@ uint32_t loader() {
 			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
 			 */
             ide_read(buf_t, ELF_OFFSET_IN_DISK + ph->p_offset, ph->p_filesz);
-            if(ph->p_vaddr == 0x8048000) Log("%x", *(buf_t+ 0x620));
+            if(ph->p_vaddr == 0x8048000) Log("%x", *(buf_t+ 0x621));
             uint32_t hwaddr = mm_malloc(ph->p_vaddr, ph->p_memsz);
              memcpy((void *)hwaddr, (void *)(buf_t), ph->p_filesz);
              memset((void*)hwaddr + ph->p_filesz , 0 , ph->p_memsz - ph->p_filesz);  
