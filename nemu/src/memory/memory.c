@@ -1,4 +1,5 @@
 #include "common.h"
+#include "cpu/reg.h"
 
 uint32_t dram_read(hwaddr_t, size_t);
 void dram_write(hwaddr_t, size_t, uint32_t);
@@ -28,8 +29,9 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
     else mmio_write(addr, len, data, no);
 }
 
+#define limit 0x1000
 uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
-    if((addr &0xfff) + len > 0x1000){
+    /*if((addr &0xfff) + len > 0x1000){
         int offset1  = 0x1000 - (addr & 0xfff) ;
         uint32_t low = hwaddr_read( page_translate(addr), offset1);
         int offset2 = len - offset1;
@@ -38,10 +40,27 @@ uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
     }
     hwaddr_t hwaddr = page_translate(addr);
     return hwaddr_read(hwaddr, len);
+*/
+
+	hwaddr_t hwaddr;
+	if(cpu.cr0.paging == 1) {
+		if((addr & 0xfff) + len <= limit) hwaddr = page_translate(addr);
+		else {
+			uint32_t off = addr & 0xfff;
+			hwaddr_t hwaddr2;
+			hwaddr = page_translate(addr);
+			hwaddr2 = page_translate(addr + limit - off);
+			return hwaddr_read(hwaddr, limit - off) + 
+				(hwaddr_read(hwaddr2, len - limit + off) << ((limit - off) * 8));
+		}
+	}
+		else hwaddr = addr;	
+	return hwaddr_read(hwaddr, len);
 }
 
 void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
     if((addr &0xfff) + len > 0x1000){
+        assert(0);
         int offset1  = 0x1000 - (addr & 0xfff) ;
         uint32_t mask1 = (1l << offset1 * 8) - 1;
         hwaddr_write( page_translate(addr), data & mask1, offset1 );
