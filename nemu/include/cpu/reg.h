@@ -33,9 +33,9 @@ typedef struct {
 
 	swaddr_t eip;
 
-    union Eflags
+   /* union Eflags
     {
-        struct{
+     struct{
         unsigned nouse1:8;
         unsigned nouse2:8;
         unsigned nouse3:4;
@@ -54,7 +54,25 @@ typedef struct {
         };
         uint32_t val;
     }eflags;
-   
+   */
+
+    union Eflags{
+        struct{
+            uint32_t cf : 1;
+            uint32_t    : 1;
+            uint32_t pf : 1;
+            uint32_t    : 3;
+            uint32_t zf : 1;
+            uint32_t sf : 1;
+            uint32_t    : 1;
+            uint32_t If : 1;
+            uint32_t df : 1;
+            uint32_t of : 1;
+            uint32_t    :20;
+        };
+        uint32_t val;
+    }eflags;
+
     CR0 cr0;
     CR3 cr3;
 

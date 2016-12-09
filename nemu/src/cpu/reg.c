@@ -43,7 +43,7 @@ void reg_test() {
 }
 
 void init_eflags(){
-    cpu.eflags.nouse1=0;
+/*    cpu.eflags.nouse1=0;
     cpu.eflags.nouse2=0;
     cpu.eflags.nouse3=0;
     cpu.eflags.of=0;
@@ -58,7 +58,9 @@ void init_eflags(){
     cpu.eflags.pf=0;
     cpu.eflags.no3=1;
     cpu.eflags.cf=0;
-}
+*/
+    cpu.eflags.val = 2;
+    }
 
 void init_cr0(){
     cpu.cr0.protect_enable = 0;
