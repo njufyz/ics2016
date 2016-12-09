@@ -29,7 +29,6 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
     else mmio_write(addr, len, data, no);
 }
 
-#define limit 0x1000
 uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
     if((addr &0xfff) + len > 0x1000){
         int offset1  = 0x1000 - (addr & 0xfff) ;
