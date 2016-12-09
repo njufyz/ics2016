@@ -27,7 +27,7 @@ PTE pte_fetch(lnaddr_t addr){
     pde.val = pagedir;
 
     //assert present
-    Assert(pde.present == 1, "PDE present invalid! addr: 0x%x dir: 0x%x", addr, h.dir);
+    Assert(pde.present == 1, "PDE present invalid! addr: 0x%x dir: 0x%x val: 0x%x", addr, h.dir, pde.val);
 
     base = pde.page_frame;
     uint32_t pagetab = hwaddr_read((base << 12) + h.page * 4, 4);
