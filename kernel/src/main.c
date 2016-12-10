@@ -86,7 +86,6 @@ void init_cond() {
 	 * the test data is written sucessfully.
 	 */
 	video_mapping_read_test();
-    Log("video test");
 	/* Clear the test data we just written in the video memory. */
 	video_mapping_clear();
 #endif
