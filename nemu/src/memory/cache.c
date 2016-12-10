@@ -125,6 +125,7 @@ void cache_write(hwaddr_t addr ,size_t len, uint32_t data){
             if(block_addr + len <= NR_BLOCK)
             {
                 memcpy(&cache[group][i].block[block_addr],&data,len);
+                return;
             }
             else
             {
@@ -137,6 +138,7 @@ void cache_write(hwaddr_t addr ,size_t len, uint32_t data){
               } 
          
                cache_write(addr + l, len - l, data >> ( 8 * j) );
+               return;
             }
 
         }
