@@ -20,7 +20,7 @@ void load_segcache(uint8_t sreg){
         /* load seg */
         cpu.segcache[sreg].limit = temp2->limit_15_0 + (temp2->limit_19_16 <<16);
         cpu.segcache[sreg].base = temp2->base_15_0 + (temp2->base_23_16 << 16) +( temp2->base_31_24 <<24);
-        cpu.segcache[sreg].rpl = temp2->privilege_level;
+//        cpu.segcache[sreg].rpl = temp2->privilege_level;
     }
 }
         
@@ -41,7 +41,7 @@ void init_seg(){
     for(;i<4;i++)
         cpu.segcache[i].valid = 0;
     cpu.segcache[R_CS].base = 0;
-    cpu.segreg[R_CS].val = 8;
+ //   cpu.segreg[R_CS].val = 8;
     cpu.segcache[R_CS].limit = 0xffffffff;
 }
 
