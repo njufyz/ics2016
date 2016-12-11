@@ -41,7 +41,7 @@ void init_seg(){
     for(;i<4;i++)
         cpu.segcache[i].valid = 0;
     cpu.segcache[R_CS].base = 0;
- //   cpu.segreg[R_CS].val = 8;
+    cpu.segreg[R_CS].val = 8;
     cpu.segcache[R_CS].limit = 0xffffffff;
 }
 
