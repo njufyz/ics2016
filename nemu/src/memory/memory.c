@@ -14,9 +14,10 @@ void mmio_write(hwaddr_t, size_t, uint32_t, int);
 
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
     int no = is_mmio(addr);
+    Log("%x",no);
     if(no == -1)
         return cache_read(addr, len) & (~0u >> ((4 - len) << 3));
-    else{ 
+    else{
         return mmio_read(addr, len, no) & (~0u >> ((4 - len) << 3));
     }
 }
