@@ -35,7 +35,7 @@ PTE pte_fetch(lnaddr_t addr){
     pte.val = pagetab;
 
     //assert present
-//    Assert(pte.present == 1, "PTE present invalid! addr: 0x%x frame: 0x%x val: %x", addr, pde.page_frame, pte.val);
+    Assert(pte.present == 1, "PTE present invalid! addr: 0x%x frame: 0x%x val: %x", addr, pde.page_frame, pte.val);
 
     return pte;
 }
