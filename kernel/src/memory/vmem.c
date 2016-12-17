@@ -16,7 +16,7 @@ void create_video_mapping() {
 	 * some page tables to create this mapping.
     */
     PDE * userdir = get_updir();
-    PTE*  usertable = uptable ;
+    PTE*  usertable = uptable + (VMEM_ADDR >> 12);
     userdir[0].val = make_pde(va_to_pa(usertable));
     
     uint32_t pfram_addr;
