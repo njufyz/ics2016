@@ -87,6 +87,7 @@ void cpu_exec(volatile uint32_t n) {
 		device_update();
         if(cpu.intr & cpu.eflags.If) {
             uint32_t intr_no = i8259_query_intr();
+            cpu.eip--;
             i8259_ack_intr();
             raise_intr(intr_no);
         }
