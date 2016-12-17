@@ -88,7 +88,6 @@ void cpu_exec(volatile uint32_t n) {
         if(cpu.intr & cpu.eflags.If) {
             uint32_t intr_no = i8259_query_intr();
             i8259_ack_intr();
-            Log("%x",intr_no);
             raise_intr(intr_no);
         }
 #endif
@@ -118,7 +117,6 @@ void  raise_intr(uint8_t no){
     cpu.segreg[R_CS].val = gate->segment;
     load_segcache(R_CS);
     cpu.eip = (gate->offset_31_16 << 16) + gate->offset_15_0;
-
     longjmp(jbuf, 1);
 }
 
