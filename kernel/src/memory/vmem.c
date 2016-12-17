@@ -20,7 +20,7 @@ void create_video_mapping() {
     
     PTE*  usertable = uptable + (VMEM_ADDR >> 12);
     uint32_t pfram_addr;
-    for(pfram_addr = VMEM_ADDR; pfram_addr <= SCR_SIZE + VMEM_ADDR; pfram_addr += PAGE_SIZE, usertable ++){
+    for(pfram_addr = VMEM_ADDR; pfram_addr < SCR_SIZE + VMEM_ADDR + PAGE_SIZE; pfram_addr += PAGE_SIZE, usertable ++){
         usertable -> val = make_pte(pfram_addr);
     }
 }
