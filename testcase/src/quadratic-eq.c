@@ -11,6 +11,7 @@ int main() {
 	FLOAT c = f2F(-0.5);
     
     printf("%f\n",FLOAT_ARG (F_mul_F(int2F(1), c)));
+    nemu_assert(f2F(-0.5) == F_mul_F(int2F(1), c));
     set_bp();
 	FLOAT dt = F_mul_F(b, b) - F_mul_F(F_mul_int(a, 4), c);
 	FLOAT sqrt_dt = sqrt(dt);
