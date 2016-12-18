@@ -10,7 +10,7 @@ int main() {
 	FLOAT b = f2F(0.5);
 	FLOAT c = f2F(-0.5);
     
-    printf("%f\n",FLOAT_ARG (c));
+    printf("%f\n",FLOAT_ARG (F_mul_F(F_mul_int(a, 4), c)));
 	FLOAT dt = F_mul_F(b, b) - F_mul_F(F_mul_int(a, 4), c);
 	FLOAT sqrt_dt = sqrt(dt);
 
