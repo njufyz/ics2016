@@ -67,9 +67,10 @@ update_letter_pos(void) {
 /* 更新按键 */
 bool
 update_keypress(void) {
-	fly_t it, target = NULL;
-	FLOAT min = -int2F(100);
+	
     Log("here");
+    fly_t it, target = NULL;
+	FLOAT min = -int2F(100);
 	cli();
 	/* 寻找相应键已被按下、最底部且未被击中的字符 */
 	for (it = head; it != NULL; it = it->_next) {
