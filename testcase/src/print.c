@@ -9,5 +9,6 @@ int main() {
 
     int x = f2F(7.9);
     printf("%d",x);
+    printf("%d", 1);
     return 0;
 }
