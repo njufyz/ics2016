@@ -2,7 +2,9 @@
 
 FLOAT F_mul_F(FLOAT a, FLOAT b) {
     long long  result =(long long ) a *(long long) b;
-	return result>>16;
+	if((a > 0 && b < 0) || (a < 0) && ( b > 0) )  
+        return -(result>>16);
+    else return result >> 16;
 }
 
 FLOAT F_div_F(FLOAT a, FLOAT b) {
