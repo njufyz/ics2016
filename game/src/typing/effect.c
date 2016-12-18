@@ -11,8 +11,7 @@
 LINKLIST_IMPL(fly, 1000)
 
 static fly_t head = NULL;
-//static int hit = 0, miss = 0;
- int hit = 0, miss = 0;
+static int hit = 0, miss = 0;
 
 int
 get_hit(void) {
