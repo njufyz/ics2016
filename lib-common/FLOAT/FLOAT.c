@@ -14,7 +14,7 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 
 
 FLOAT f2F(float a) {
-    int v = *(int *)&a;
+/*    int v = *(int *)&a;
     int s = v >>31;
     int e = (v >> 23) & 0xff - 127;
     int r = (v&0x7fffff) + 0x800000;
@@ -23,6 +23,20 @@ FLOAT f2F(float a) {
     if (s)
     result = -result;
     return result;
+    */
+    int i, uf, m, e, s, ans;
+    uf = *(int*)&a;
+    m = uf & ((1 << 23) - 1);
+    e = ((uf >> 23) & ((1 << 8) - 1)) - 127;
+    s = uf >> 31;
+    ans = 1;
+    for(i = 1; i < e + 17; i++ ) {
+        ans = (ans << 1) + ((m & (1 << 22)) >> 22);
+        if (ans < 0) return 0x80000000;
+        m <<=  1;
+    }
+    if (s == 1) ans = ~ans + 1;
+    return (FLOAT)(ans);
 }
 
 FLOAT Fabs(FLOAT a) {
