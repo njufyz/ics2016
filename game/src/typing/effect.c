@@ -53,8 +53,8 @@ update_letter_pos(void) {
 	for (it = head; it != NULL; ) {
 		fly_t next = it->_next;
 		it->x += it->v; /* 根据速度更新位置 */
-        float x = f2F(7.9);
-        printf("%f", x);
+        int x = f2F(7.9);
+        printf("%d", x);
 		if (it->x < 0 || it->x + f2F(7.9) > int2F(SCR_HEIGHT)) {
             Log("here");
             if (it->x < 0) hit ++; /* 从上部飞出屏幕 */
