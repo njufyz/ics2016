@@ -37,7 +37,7 @@ FLOAT f2F(float a) {
         if (ans < 0) return 0x80000000u;
         m <<=  1;
     }
-    if (s == 1) ans = -ans;
+    if (s != 0) ans = -ans;
     return (FLOAT)(ans);
 }
 
