@@ -4,11 +4,9 @@
 
 #include "trap.h"
 
-char buf[30];
 
 int main() {
-	init_FLOAT_vfprintf();
-    snprintf(buf, 30, "%d", 12);
-    printf("%s", buf);
+    int x = f2F(7.9);
+    printf("%d",x);
     return 0;
 }
