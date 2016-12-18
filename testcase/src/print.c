@@ -7,6 +7,7 @@
 
 int main() {
     int x = f2F(7.9);
+    printf("%d",1);
     printf("%d",x);
     return 0;
 }
