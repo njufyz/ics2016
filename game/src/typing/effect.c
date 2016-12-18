@@ -67,8 +67,6 @@ update_letter_pos(void) {
 /* 更新按键 */
 bool
 update_keypress(void) {
-	
-    Log("here");
     fly_t it, target = NULL;
 	FLOAT min = -int2F(100);
 	cli();
