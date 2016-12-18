@@ -55,7 +55,10 @@ update_letter_pos(void) {
 		it->x += it->v; /* 根据速度更新位置 */
 		if (it->x < 0 || it->x + f2F(7.9) > int2F(SCR_HEIGHT)) {
             if (it->x < 0) hit ++; /* 从上部飞出屏幕 */
-			else miss ++; /* 从下部飞出屏幕 */
+			else {
+                miss ++; /* 从下部飞出屏幕 */
+                Log("here");
+            }
 			fly_remove(it);
 			fly_free(it);
 			if (it == head) head = next; /* 更新链表 */
