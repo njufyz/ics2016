@@ -60,6 +60,7 @@ update_letter_pos(void) {
 			fly_free(it);
 			if (it == head) head = next; /* 更新链表 */
 		}
+        Log("here");
 		it = next;
 	}
 }
