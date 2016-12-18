@@ -7,7 +7,7 @@ FLOAT F_mul_F(FLOAT a, FLOAT b) {
     if (b < 0) b = -b;
     
     long long  result =(long long ) a *(long long) b;
-     return neg ? result >> 16: -(FLOAT)(result >> 16);
+     return neg==0 ? result >> 16: -(FLOAT)(result >> 16);
 }
 
 FLOAT F_div_F(FLOAT a, FLOAT b) {
