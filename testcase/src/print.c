@@ -9,6 +9,7 @@ int main() {
     printf("%d\n", 1);
 
     int x = f2F(7.9);
-    printf("%d\n",x);
+    int y = int2F(200);
+    printf("%d\n",y - x); 
     return 0;
 }
