@@ -60,7 +60,6 @@ update_letter_pos(void) {
 			fly_free(it);
 			if (it == head) head = next; /* 更新链表 */
 		}
-        Log("here");
 		it = next;
 	}
 }
@@ -70,7 +69,7 @@ bool
 update_keypress(void) {
 	fly_t it, target = NULL;
 	FLOAT min = -int2F(100);
-
+    Log("here");
 	cli();
 	/* 寻找相应键已被按下、最底部且未被击中的字符 */
 	for (it = head; it != NULL; it = it->_next) {
