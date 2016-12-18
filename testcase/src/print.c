@@ -5,8 +5,8 @@
 
 
 int main() {
-    printf("%d", 1);
 	printf("%d + %d = %d\n", 1, 1, 2);
+    printf("%d", 1);
 
    // int x = f2F(7.9);
    // printf("%d",x);
