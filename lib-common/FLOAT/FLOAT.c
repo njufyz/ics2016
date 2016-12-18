@@ -32,7 +32,7 @@ FLOAT f2F(float a) {
     ans = 1;
     for(i = 1; i < e + 17; i++ ) {
         ans = (ans << 1) + ((m & (1 << 22)) >> 22);
-        if (ans < 0) return 0x80000000;
+        if (ans < 0) return 0x80000000u;
         m <<=  1;
     }
     if (s == 1) ans = ~ans + 1;
