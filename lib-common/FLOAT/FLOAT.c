@@ -12,9 +12,12 @@ FLOAT F_mul_F(FLOAT a, FLOAT b) {
 
 FLOAT F_div_F(FLOAT a, FLOAT b) {
      int r,i,f,r2;
-     asm volatile ("idivl %2" : "=a"(i), "=d"(r) : "r"((b)), "a"((a)), "d"(a>>31));
+  /*   asm volatile ("idivl %2" : "=a"(i), "=d"(r) : "r"((b)), "a"((a)), "d"(a>>31));
      asm volatile ("idivl %2" : "=a"(f), "=d"(r2) : "r"((b)), "a"(r<<16), "d"((r<<16)>>31));
      return (i<<16 + f);
+    */
+     asm volatile("idivl %2" : "=a"(i), "=d"(r) : "r"((b)), "a"((a<<16)), "d"(a>>15));
+    return i;
 }
 
 
