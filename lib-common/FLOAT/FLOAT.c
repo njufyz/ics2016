@@ -16,7 +16,10 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
      asm volatile ("idivl %2" : "=a"(f), "=d"(r2) : "r"((b)), "a"(r<<16), "d"((r<<16)>>31));
      return (i<<16 + f);
     */
-     asm volatile("idivl %2" : "=a"(i), "=d"(r) : "r"((b)), "a"((a<<16)), "d"(a>>15));
+     long long t = a << 16;
+     int l = t & 0xffffffff;
+     int h = t >>32;
+     asm volatile("idivl %2" : "=a"(i), "=d"(r) : "r"((b)), "a"((l)), "d"(h));
     return i;
 }
 
