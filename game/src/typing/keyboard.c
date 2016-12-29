@@ -1,5 +1,6 @@
 #include "common.h"
 #include "x86.h"
+#include "stdio.h"
 
 /* a-z对应的键盘扫描码 */
 static int letter_code[] = {
@@ -42,6 +43,7 @@ int last_key_code(void) {
 void
 keyboard_event() {
 	key_code = in_byte(0x60);
-	press_key(key_code);
+    printf("%x\n",key_code);
+    press_key(key_code);
 }
 
