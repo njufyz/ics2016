@@ -17,7 +17,10 @@ static int key_state[NR_KEYS];
 void
 keyboard_event(void) {
 	/* TODO: Fetch the scancode and update the key states. */
-	assert(0);
+   int key_code = in_byte(0x60);
+   int i = 0;
+   for(; i< NR_KEYS; i++)
+    assert(0);
 }
 
 static inline int
