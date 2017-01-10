@@ -11,8 +11,8 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect,
 		SDL_Surface *dst, SDL_Rect *dstrect) {
 	assert(dst && src);
 
-//	int sx = (srcrect == NULL ? 0 : srcrect->x);
-//	int sy = (srcrect == NULL ? 0 : srcrect->y);
+	int sx = (srcrect == NULL ? 0 : srcrect->x);
+	int sy = (srcrect == NULL ? 0 : srcrect->y);
 	int dx = (dstrect == NULL ? 0 : dstrect->x);
 	int dy = (dstrect == NULL ? 0 : dstrect->y);
 	int w = (srcrect == NULL ? src->w : srcrect->w);
@@ -28,9 +28,11 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect,
 	 * `w' X `h' of `src' surface to position (`dx', `dy') of
 	 * `dst' surface.
 	 */
-    int i = 0;
-    for(;i < h; i++, src->pixels += src->w, dst->pixels += dst->w)
-        memcpy(dst->pixels, src->pixels, w);
+    uint8_t *s, *d;
+    s = (srcrect == NULL ? src->pixels : src->pixels + sy * w + sx);
+    d = (dstrect == NULL ? dst->pixels : dst->pixels + dy * w + dx);
+
+    memcpy(d, s, w * h );
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
@@ -42,8 +44,11 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 	 * NULL, fill the whole surface.
 	 */
     if(dstrect != NULL){
-        int i = 0;
-        for(;i< dstrect->h; i++, d)
+        uint8_t * d = dst->pixels + dstrect->y * dst ->w + dstrect->x;
+        memset(d, color, dstrect->w * dstrect->h);
+    }
+    else memset(dst->pixels, color, dst->w * dst->h);
+
 }
 
 void SDL_SetPalette(SDL_Surface *s, int flags, SDL_Color *colors, 
