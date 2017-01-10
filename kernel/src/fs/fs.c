@@ -54,7 +54,6 @@ typedef struct {
 Fstate FS[NR_FILES + 3];
 
 int fs_open(const char* pathname, int flags){
-   Log("%s", pathname);
     int i = getindex(pathname);
     assert( i != -1 );
     FS[i + 3].opened = 1;
