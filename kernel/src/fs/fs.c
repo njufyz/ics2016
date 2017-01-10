@@ -39,6 +39,7 @@ void ide_write(uint8_t *, uint32_t, uint32_t);
 
 /* TODO: implement a simplified file system here. */
 int getindex(const char* name){
+    Log("%s\n", name);
     int i = 0;
     for(;i< NR_FILES;i++)
         if(strcmp(file_table[i].name, name) == 0)
