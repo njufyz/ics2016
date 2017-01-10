@@ -113,7 +113,6 @@ void  raise_intr(uint8_t no){
     for(;i < 8;i++)
     {
         tmp[i] = lnaddr_read(cpu.idtr.base + no * 8 + i, 1);
-        printf("0x%02x%02x\n", tmp[3],tmp[2]);
     }
     GateDesc* gate = (GateDesc*) tmp;
 
