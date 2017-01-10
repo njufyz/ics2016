@@ -80,7 +80,6 @@ void cpu_exec(volatile uint32_t n) {
 #endif
 
         check_watchpoint();
-        Log("%x",cpu.gdtr.base);
 		if(nemu_state != RUNNING) { return; }
 #ifdef HAS_DEVICE
 		extern void device_update();
