@@ -21,7 +21,7 @@ keyboard_event(void) {
     int i = 0;
     for(; i< NR_KEYS; i++)
     {
-        if(key_code & 0x7f == keycode_array[i])
+        if((key_code & 0x7f) == keycode_array[i])
         {
             if(key_code < 0x80) key_state[i] = KEY_STATE_PRESS;
             else key_state[i] = KEY_STATE_RELEASE;
@@ -79,6 +79,7 @@ process_keys(void (*key_press_callback)(int), void (*key_release_callback)(int))
             sti();
             return true;
         }
+    }
     sti();
     return false;
 }

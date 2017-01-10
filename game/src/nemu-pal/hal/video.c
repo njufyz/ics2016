@@ -28,8 +28,9 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect,
 	 * `w' X `h' of `src' surface to position (`dx', `dy') of
 	 * `dst' surface.
 	 */
-
-	assert(0);
+    int i = 0;
+    for(;i < h; i++, src->pixels += src->w, dst->pixels += dst->w)
+        memcpy(dst->pixels, src_p, w);
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
