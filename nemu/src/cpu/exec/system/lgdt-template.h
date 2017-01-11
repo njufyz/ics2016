@@ -22,7 +22,7 @@ static void do_execute(){
     uint32_t addr = op_src->addr;
     cpu.idtr.limit = lnaddr_read(addr, 2);
     cpu.idtr.base = lnaddr_read(addr + 2 , 4);
-    print_asm("idtr base: 0x%x limit: %x",cpu.gdtr.base,cpu.gdtr.limit);
+    print_asm("idtr base: 0x%x limit: %x",cpu.idtr.base,cpu.idtr.limit);
 }
 
 make_instr_helper(rm);
