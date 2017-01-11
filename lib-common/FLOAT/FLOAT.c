@@ -11,16 +11,37 @@ FLOAT F_mul_F(FLOAT a, FLOAT b) {
 }
 
 FLOAT F_div_F(FLOAT a, FLOAT b) {
-     int r,i,f,r2;
+//     int r,i,f,r2;
   /*   asm volatile ("idivl %2" : "=a"(i), "=d"(r) : "r"((b)), "a"((a)), "d"(a>>31));
      asm volatile ("idivl %2" : "=a"(f), "=d"(r2) : "r"((b)), "a"(r<<16), "d"((r<<16)>>31));
      return (i<<16 + f);
     */
-     long long t = a << 16;
+  /*   long long t = a << 16;
      int l = t & 0xffffffff;
      int h = t >>32;
      asm volatile("idivl %2" : "=a"(i), "=d"(r) : "r"((b)), "a"((l)), "d"(h));
      return i;
+     */
+
+    unsigned int a00 = a << 16;
+    unsigned int a01 = a >> 16;
+    unsigned int a10 = a >> 31;
+    unsigned int a11 = a >> 31;
+    int ans = 0, i;
+    for(i = 0; i < 64; ++i)
+    {
+        a11 = (a11 << 1) + (a10 >> 31);
+        a10 = (a10 << 1) + (a01 >> 31);
+        a01 = (a01 << 1) + (a00 >> 31);
+        a00 = a00 << 1;
+        ans = ans << 1;
+        if(a11 > 0 || a10 >= b) {
+            if(a10 < b) a11 --;
+            a10 -= b;
+            ans++;
+        }
+    }
+    return ans;
 }
 
 
