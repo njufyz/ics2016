@@ -9,7 +9,7 @@ int get_fps();
 
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, 
 		SDL_Surface *dst, SDL_Rect *dstrect) {
-    set_bp();
+    assert(0);
     assert(dst && src);
 
 	int sx = (srcrect == NULL ? 0 : srcrect->x);
