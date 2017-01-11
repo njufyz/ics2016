@@ -9,7 +9,6 @@ int get_fps();
 
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, 
 		SDL_Surface *dst, SDL_Rect *dstrect) {
-    assert(0);
     assert(dst && src);
 
 	int sx = (srcrect == NULL ? 0 : srcrect->x);
@@ -43,7 +42,8 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect,
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
-	assert(dst);
+	assert(0);
+    assert(dst);
 	assert(color <= 0xff);
 	/* TODO: Fill the rectangle area described by `dstrect'
 	 * in surface `dst' with color `color'. If dstrect is
