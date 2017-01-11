@@ -1,5 +1,5 @@
 #include "FLOAT.h"
-
+#include <stdio.h>
 FLOAT F_mul_F(FLOAT a, FLOAT b) {
     int neg = 0;
     if(  (a > 0 && b < 0) || ((a < 0) && ( b > 0)) ) neg = 1;
@@ -20,7 +20,8 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
      int l = t & 0xffffffff;
      int h = t >>32;
      asm volatile("idivl %2" : "=a"(i), "=d"(r) : "r"((b)), "a"((l)), "d"(h));
-    return i;
+     printf("%x\n", i);
+     return i;
 }
 
 
