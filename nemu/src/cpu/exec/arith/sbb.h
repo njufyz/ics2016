@@ -5,4 +5,5 @@ make_helper(sbb_rm2r_b);
 make_helper(sbb_rm2r_v);
 make_helper(sbb_r2rm_b);
 make_helper(sbb_r2rm_v);
+make_helper(sbb_si2rm_v);
 #endif

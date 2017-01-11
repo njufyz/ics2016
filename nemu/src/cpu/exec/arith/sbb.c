@@ -15,7 +15,7 @@
 
 make_helper_v(sbb_rm2r)
 make_helper_v(sbb_r2rm)
-
+make_helper_v(sbb_si2rm)
 
 
 
