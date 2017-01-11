@@ -24,8 +24,7 @@ make_helper(concat(in_,SUFFIX)){
 make_helper(concat(out_, SUFFIX)){
     ioaddr_t addr = cpu.edx & 0xffff;
     DATA_TYPE data = cpu.eax;
-//    pio_write(addr, DATA_BYTE, data);
-    pio_write(addr, 1, data);
+    pio_write(addr, DATA_BYTE, data);
 
     print_asm("out");
     return 1;
