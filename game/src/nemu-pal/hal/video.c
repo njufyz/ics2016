@@ -44,7 +44,6 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect,
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 	assert(dst);
 	assert(color <= 0xff);
-    set_bp();
 	/* TODO: Fill the rectangle area described by `dstrect'
 	 * in surface `dst' with color `color'. If dstrect is
 	 * NULL, fill the whole surface.
@@ -120,6 +119,7 @@ void SDL_SoftStretch(SDL_Surface *src, SDL_Rect *srcrect,
 	int h = (srcrect == NULL ? src->h : srcrect->h);
 
 	assert(dstrect);
+    Log("%x, %x", dstrect->w, dstrect->y);
 	if(w == dstrect->w && h == dstrect->h) {
 		/* The source rectangle and the destination rectangle
 		 * are of the same size. If that is the case, there
