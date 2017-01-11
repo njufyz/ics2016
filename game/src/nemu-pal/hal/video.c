@@ -9,6 +9,7 @@ int get_fps();
 
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, 
 		SDL_Surface *dst, SDL_Rect *dstrect) {
+    assert(0);
     assert(dst && src);
 
 	int sx = (srcrect == NULL ? 0 : srcrect->x);
@@ -64,6 +65,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 
 void SDL_SetPalette(SDL_Surface *s, int flags, SDL_Color *colors, 
 		int firstcolor, int ncolors) {
+    assert(0);
 	assert(s);
 	assert(s->format);
 	assert(s->format->palette);
