@@ -65,7 +65,6 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 
 void SDL_SetPalette(SDL_Surface *s, int flags, SDL_Color *colors, 
 		int firstcolor, int ncolors) {
-    assert(0);
 	assert(s);
 	assert(s->format);
 	assert(s->format->palette);
