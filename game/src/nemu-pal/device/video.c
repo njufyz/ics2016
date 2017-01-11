@@ -435,7 +435,6 @@ VIDEO_UpdateScreen(
       dstrect.w = (WORD)((DWORD)(lpRect->w) * gpScreenReal->w / gpScreen->w);
       dstrect.h = (WORD)((DWORD)(lpRect->h) * screenRealHeight / gpScreen->h);
 
-      set_bp();
       SDL_SoftStretch(gpScreen, (SDL_Rect *)lpRect, gpScreenReal, &dstrect);
 
       if (SDL_MUSTLOCK(gpScreenReal))
