@@ -20,7 +20,6 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
      int l = t & 0xffffffff;
      int h = t >>32;
      asm volatile("idivl %2" : "=a"(i), "=d"(r) : "r"((b)), "a"((l)), "d"(h));
-     printf("%x\n", i);
      return i;
 }
 
