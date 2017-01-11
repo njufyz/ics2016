@@ -120,7 +120,7 @@ void SDL_SoftStretch(SDL_Surface *src, SDL_Rect *srcrect,
 	int h = (srcrect == NULL ? src->h : srcrect->h);
 
 	assert(dstrect);
-    Log("%x, %x", dstrect->w, w);
+    Log("%d, %d", dstrect->w, w);
 	if(w == dstrect->w && h == dstrect->h) {
 		/* The source rectangle and the destination rectangle
 		 * are of the same size. If that is the case, there
