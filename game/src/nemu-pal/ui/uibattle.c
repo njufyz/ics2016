@@ -20,7 +20,7 @@
 //
 
 #include "main.h"
-//#include "FLOAT.h"
+#include "FLOAT.h"
 
 extern WORD g_rgPlayerPos[3][3][2];
 

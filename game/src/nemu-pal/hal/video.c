@@ -113,7 +113,6 @@ void SDL_UpdateRect(SDL_Surface *screen, int x, int y, int w, int h) {
 
 void SDL_SoftStretch(SDL_Surface *src, SDL_Rect *srcrect, 
 		SDL_Surface *dst, SDL_Rect *dstrect) {
-	set_bp();
     assert(src && dst);
 	int x = (srcrect == NULL ? 0 : srcrect->x);
 	int y = (srcrect == NULL ? 0 : srcrect->y);
